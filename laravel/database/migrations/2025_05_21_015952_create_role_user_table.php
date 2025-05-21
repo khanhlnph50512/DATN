@@ -10,8 +10,8 @@ class CreateRoleUserTable extends Migration
     {
         Schema::create('role_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');  // user_id tham chiếu users(id)
-            $table->foreignId('role_id')->constrained()->onDelete('cascade');  // role_id tham chiếu roles(id)
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('role_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

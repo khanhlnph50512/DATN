@@ -13,14 +13,11 @@ class CreateProductsTable extends Migration
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->foreignId('brand_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->string('slug')->unique();
             $table->text('description')->nullable();
-            $table->decimal('price', 12, 2);
-            $table->decimal('price_sale', 12, 2)->nullable();
+            $table->decimal('price', 10, 2);
+            $table->decimal('price_sale', 10, 2)->nullable();
             $table->boolean('status')->default(true);
-            $table->integer('quantity')->default(0);
-            $table->string('sizes')->nullable(); // lưu chuỗi size: "S,M,L" hoặc json
-            $table->string('colors')->nullable(); // lưu chuỗi màu: "Đỏ,Xanh,Trắng"
+            $table->integer('quantity');
             $table->softDeletes();
             $table->timestamps();
         });
