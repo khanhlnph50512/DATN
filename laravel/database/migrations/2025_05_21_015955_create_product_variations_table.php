@@ -11,13 +11,9 @@ class CreateProductVariationsTable extends Migration
         Schema::create('product_variations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->foreignId('color_id')->constrained()->onDelete('cascade');
-            $table->foreignId('size_id')->constrained()->onDelete('cascade');
-            $table->integer('quantity')->default(0);
-            $table->decimal('price', 12, 2);
-            $table->decimal('price_sale', 12, 2)->nullable();
-            $table->boolean('status')->default(true);
-            $table->softDeletes();
+            $table->foreignId('size_id')->constrained('sizes');
+            $table->foreignId('color_id')->constrained('colors');
+            $table->integer('quantity');
             $table->timestamps();
         });
     }
