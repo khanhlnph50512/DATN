@@ -43,7 +43,7 @@ class CategoryController extends Controller
             'image' => $imagePath,
         ]);
 
-        return redirect()->route('admin.categories.index')->with('success', 'Danh mục đã được tạo!');
+        return redirect()->back()->with('success', 'Danh mục đã được tạo!');
     }
     public function edit(Category $category)
     {
@@ -70,11 +70,11 @@ class CategoryController extends Controller
 
         $category->update($data);
 
-        return redirect()->route('admin.categories.index')->with('success', 'Cập nhật thành công!');
+        return redirect()->back()->with('success', 'Danh mục đã được cập nhật!');
     }
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->route('admin.categories.index')->with('success', 'Category deleted.');
+        return redirect()->route('admin.categories.index')->with('success', 'Danh mục đã được xóa!');
     }
 }

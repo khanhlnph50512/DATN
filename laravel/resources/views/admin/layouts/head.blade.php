@@ -30,6 +30,10 @@
             f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-5J3LMKC');
     </script>
+    <!-- SweetAlert2 CSS + JS -->
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- End Google Tag Manager -->
 
     <!-- Favicon -->

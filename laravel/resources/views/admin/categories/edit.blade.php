@@ -1,6 +1,22 @@
 @extends('admin.layouts.master')
 
 @section('content')
+    @if (session('success'))
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công!',
+                text: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 2500,
+                timerProgressBar: true,
+                didClose: () => {
+                    window.location.href = "{{ route('admin.categories.index') }}";
+                }
+            });
+        </script>
+    @endif
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3">
         <div class="d-flex flex-column justify-content-center">
             <h4 class="mb-1 mt-3">Edit Category</h4>
@@ -13,7 +29,8 @@
                 <div class="card-header">
                     <h5 class="card-tile mb-0">Category information</h5>
                 </div>
-                <form id="category-form" action="{{ route('admin.categories.update', $category->id) }}" method="post" enctype="multipart/form-data">
+                <form id="category-form" action="{{ route('admin.categories.update', $category->id) }}" method="post"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="card-body">

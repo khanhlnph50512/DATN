@@ -1,5 +1,21 @@
 @extends('admin.layouts.master')
 @section('content')
+    @if (session('success'))
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công!',
+                text: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 2500,
+                timerProgressBar: true,
+                customClass: {
+                    popup: 'swal2-red-bg'
+                }
+            });
+        </script>
+    @endif
     <!-- Content wrapper -->
     <div class="content-wrapper">
 

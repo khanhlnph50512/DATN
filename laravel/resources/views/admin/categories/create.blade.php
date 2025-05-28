@@ -1,6 +1,21 @@
 @extends('admin.layouts.master')
-
 @section('content')
+    @if (session('success'))
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công!',
+                text: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 2500,
+                timerProgressBar: true,
+                didClose: () => {
+                    window.location.href = "{{ route('admin.categories.index') }}";
+                }
+            });
+        </script>
+    @endif
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3">
 
         <div class="d-flex flex-column justify-content-center">
@@ -18,7 +33,8 @@
                 <div class="card-header">
                     <h5 class="card-tile mb-0">Category information</h5>
                 </div>
-                <form id="category-form" action="{{ route('admin.categories.store') }}" enctype="multipart/form-data" method="post">
+                <form id="category-form" action="{{ route('admin.categories.store') }}" enctype="multipart/form-data"
+                    method="post">
                     @csrf
                     <div class="card-body">
                         <div class="mb-3">
@@ -29,7 +45,7 @@
                         <div class="row mb-3">
                             <div class="col"><label class="form-label" for="ecommerce-category-sku">SKU</label>
                                 <input type="number" class="form-control" id="ecommerce-category-sku" placeholder="SKU"
-                                 aria-label="category SKU">
+                                    aria-label="category SKU">
                             </div>
                             <div class="col"><label class="form-label" for="ecommerce-category-barcode">Image</label>
                                 <input type="file" class="form-control" id="ecommerce-category-barcode"
