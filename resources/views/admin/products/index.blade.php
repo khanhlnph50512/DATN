@@ -10,7 +10,6 @@
     <a href="{{ route('admin.products.trash') }}" class="btn btn-warning mb-3">
         Thùng rác
     </a>
-    <!-- Form tìm kiếm -->
     <form action="{{ route('admin.products.index') }}" method="GET" style="margin-bottom: 20px;">
         <input type="text" name="keyword" placeholder="Tìm theo tên sản phẩm..." value="{{ request('keyword') }}"
             style="padding: 6px; width: 250px;">
