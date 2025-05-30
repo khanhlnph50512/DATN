@@ -8,6 +8,9 @@ use App\Http\Controllers\Admin\ProductController;
 
 // Route client (trang chủ)
 // Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', function () {
+    return view('coming-soon');
+});
 
 // Route admin với prefix 'admin' và name 'admin.'
 Route::prefix('admin')->name('admin.')->group(function () {
