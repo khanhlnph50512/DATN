@@ -11,6 +11,7 @@ class CreateSizesTable extends Migration
         Schema::create('sizes', function (Blueprint $table) {
             $table->id();
             $table->string('name'); // ví dụ: 38, 39, L, XL
+            $table->softDeletes();
             $table->timestamps();
         });
     }

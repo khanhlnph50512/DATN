@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('layoutsAnatats.admin')
 @section('content')
     @if (session('success'))
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

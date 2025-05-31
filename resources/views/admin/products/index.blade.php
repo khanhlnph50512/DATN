@@ -1,5 +1,21 @@
-@extends('admin.layouts.master')
+@extends('layoutsAnatats.admin')
 @section('content')
+    @if (session('success'))
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công!',
+                text: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 2500,
+                timerProgressBar: true,
+                didClose: () => {
+                    window.location.href = "{{ route('admin.categories.index') }}";
+                }
+            });
+        </script>
+    @endif
     @if (session('success'))
         <div style="color: green; margin-bottom: 15px;">
             {{ session('success') }}
@@ -22,7 +38,7 @@
         </a>
     </div>
     <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse;">
-        <thead style="background-color: #f0f0f0;">
+        <thead style="background-color: #5a5757;">
             <tr>
                 <th style="width: 50px;">ID</th>
                 <th style="width: 100px;">Ảnh</th>
@@ -40,12 +56,15 @@
                     <td style="text-align: center;">{{ $p->id }}</td>
                     <td>
                         @if ($p->primaryImage)
-                            <img src="{{ asset('storage/' . $p->primaryImage->image_url) }}" alt="{{ $p->name }}"
+                            <img src="{{ asset('img/products/' . $p->primaryImage->image_url) }}" alt="{{ $p->name }}"
                                 width="80">
+                            <br>
+                            {{ $p->primaryImage->image_url }}
                         @else
                             <span>Chưa có ảnh</span>
                         @endif
                     </td>
+
                     <td>{{ $p->name }}</td>
                     <td>{{ $p->brand->name ?? 'Chưa cập nhật' }}</td>
                     <td style="text-align: right;">{{ number_format($p->price, 0, ',', '.') }} đ</td>
@@ -63,17 +82,28 @@
                             <span style="color: red;">Ẩn</span>
                         @endif
                     </td>
-                    <td style="text-align: center;">
-                        <a href="{{ route('admin.products.show', $p->id) }}" style="margin-right: 8px;">Xem</a>
-                        <a href="{{ route('admin.products.edit', $p->id) }}" style="margin-right: 8px;">Sửa</a>
+                    <td class="text-nowrap">
+                        <!-- nút Xem -->
+                        <a href="{{ route('admin.products.show', $p->id) }}" class="btn btn-sm btn-info" title="Xem">
+                            <i class="bx bx-show"></i> <!-- icon xem của Boxicons -->
+                        </a>
+
+                        <!-- nút Sửa -->
+                        <a href="{{ route('admin.products.edit', $p->id) }}" class="btn btn-sm btn-warning" title="Sửa">
+                            <i class="bx bx-edit"></i>
+                        </a>
+
+                        <!-- nút Xóa -->
                         <form action="{{ route('admin.products.destroy', $p->id) }}" method="POST"
-                            style="display:inline;">
+                            style="display: inline-block;" onsubmit="return confirm('Bạn có chắc muốn xóa?')">
                             @csrf
                             @method('DELETE')
-                            <button onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?');"
-                                style="background: none; border: none; color: red; cursor: pointer;">Xóa</button>
+                            <button type="submit" class="btn btn-sm btn-danger" title="Xóa">
+                                <i class="bx bx-trash"></i>
+                            </button>
                         </form>
                     </td>
+
                 </tr>
             @empty
                 <tr>
