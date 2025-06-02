@@ -12,6 +12,7 @@ class CreateColorsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('code'); // ví dụ: #ffffff
+            $table->softDeletes();
             $table->timestamps();
         });
     }
