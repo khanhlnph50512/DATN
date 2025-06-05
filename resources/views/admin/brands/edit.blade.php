@@ -1,4 +1,5 @@
-@extends('LayoutsAnatats.admin')
+@extends('layouts.adminAnatats')
+
 
 @section('content')
     @if (session('success'))
