@@ -13,8 +13,9 @@ class CustomerController extends Controller
     // Danh sách khách hàng (hoạt động)
     public function index()
     {
-        $customers = Customer::latest()->paginate(10);
-        return view('admin.customers.index', compact('customers'));
+        // dd($customers);
+        // $customers = Customer::latest()->paginate(10);
+        // return view('admin.customers.index', compact('customers'));
     }
 
     // Form thêm mới
