@@ -76,7 +76,8 @@
                 <p><strong>Thương hiệu:</strong> {{ $product->brand->name ?? 'Chưa có' }}</p>
                 <p><strong>Danh mục:</strong> {{ $product->category->name ?? 'Chưa có' }}</p>
                 <p><strong>Giá:</strong> {{ number_format($product->price) }} đ</p>
-                <p><strong>Giá sale:</strong> {{ $product->price_sale ? number_format($product->price_sale) . ' đ' : 'Không' }}</p>
+                <p><strong>Giá sale:</strong>
+                    {{ $product->price_sale ? number_format($product->price_sale) . ' đ' : 'Không' }}</p>
                 <p><strong>Số lượng:</strong> {{ $product->quantity }}</p>
                 <p><strong>Mô tả:</strong> {{ $product->description }}</p>
                 <p><strong>Trạng thái:</strong>
@@ -89,16 +90,17 @@
             {{-- Ảnh sản phẩm --}}
             <div class="product-images">
                 @foreach ($product->images as $image)
-                    <div style="margin-bottom: 10px;">
-                        <img src="{{ asset('storage/' . $image->image_url) }}"
-                            class="{{ $image->is_primary ? 'primary-image' : '' }}"
-                            alt="Ảnh sản phẩm">
+                    <div style="margin-bottom: 10px; display: inline-block; text-align: center;">
+                        <img src="{{ asset('asset/img/' . $image->image_url) }}"
+                            style="width: 100px; height: 100px; object-fit: cover; border: {{ $image->is_primary ? '3px solid green' : '1px solid #ccc' }};"
+                            class="{{ $image->is_primary ? 'primary-image' : '' }}" alt="Ảnh sản phẩm">
                         @if ($image->is_primary)
-                            <p style="text-align:center; margin-top:5px; color:green;">Ảnh chính</p>
+                            <p style="margin-top: 5px; color: green;">Ảnh chính</p>
                         @endif
                     </div>
                 @endforeach
             </div>
+
         </div>
 
         {{-- Biến thể sản phẩm --}}

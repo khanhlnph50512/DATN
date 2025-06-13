@@ -46,10 +46,16 @@
                     <td>{{ $size->id }}</td>
                     <td>{{ $size->name }}</td>
                     <td>
-                        <a href="{{ route('admin.sizes.edit', $size->id) }}" class="btn btn-warning">Sửa</a>
-                        <form action="{{ route('admin.sizes.destroy', $size->id) }}" method="POST" style="display:inline;">
-                            @csrf @method('DELETE')
-                            <button type="submit" onclick="return confirm('Xoá?')" class="btn btn-danger">Xoá</button>
+                        <a href="{{ route('admin.sizes.edit', $size->id) }}" class="btn btn-sm btn-warning" title="Sửa">
+                            <i class="bx bx-edit"></i>
+                        </a>
+                        <form action="{{ route('admin.sizes.destroy', $size->id) }}" method="POST" style="display:inline;"
+                            onsubmit="return confirm('Xoá?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger" title="Xoá">
+                                <i class="bx bx-trash"></i>
+                            </button>
                         </form>
                     </td>
                 </tr>
