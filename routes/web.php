@@ -8,8 +8,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\BrandController;
-use App\Http\Controllers\PostController;
-
+use App\Http\Controllers\Admin\PostController;
 
 Route::get('/', function () {
     return view('coming-soon');
@@ -29,13 +28,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('products', ProductController::class);
 
-    // ✅ Thêm CRUD màu và size
+    // CRUD cho Color, Size, Brand
     Route::resource('colors', ColorController::class);
     Route::resource('sizes', SizeController::class);
     Route::resource('brands', BrandController::class);
-    Route::get('/', [PostController::class, 'index'])->name('home');
 
+    // ✅ Nếu muốn thêm route cho bài viết admin, dùng URL rõ ràng hơn:
+    Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 });
+
 Route::prefix('blog')->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('blog.index');
     Route::get('/create', [PostController::class, 'create'])->name('blog.create');
