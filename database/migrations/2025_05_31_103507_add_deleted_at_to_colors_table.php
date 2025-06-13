@@ -12,7 +12,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('colors', function (Illuminate\Database\Schema\Blueprint $table) {
-            $table->softDeletes(); // thêm cột deleted_at
+            // $table->softDeletes(); // thêm cột deleted_at
         });
     }
 

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\PostController;
 
 
 Route::get('/', function () {
@@ -32,4 +33,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('colors', ColorController::class);
     Route::resource('sizes', SizeController::class);
     Route::resource('brands', BrandController::class);
+    Route::get('/', [PostController::class, 'index'])->name('home');
+
+});
+Route::prefix('blog')->group(function () {
+    Route::get('/', [PostController::class, 'index'])->name('blog.index');
+    Route::get('/create', [PostController::class, 'create'])->name('blog.create');
+    Route::post('/', [PostController::class, 'store'])->name('blog.store');
+    Route::get('/{slug}', [PostController::class, 'show'])->name('post.show');
+    Route::get('/post/the-loai/{category}', [PostController::class, 'category'])->name('post.theloai');
 });

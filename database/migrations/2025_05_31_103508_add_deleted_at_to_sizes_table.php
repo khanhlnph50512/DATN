@@ -12,7 +12,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('sizes', function (Illuminate\Database\Schema\Blueprint $table) {
-            $table->softDeletes();
+            // $table->softDeletes();
         });
     }
 
