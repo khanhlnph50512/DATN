@@ -53,21 +53,26 @@
                         <div style="width: 30px; height: 30px; background-color: {{ $color->code }}"></div>
                     </td>
                     <td>
-                        <a href="{{ route('admin.colors.edit', $color->id) }}" class="btn btn-sm btn-warning">Sửa</a>
+                        <!-- Nút Sửa -->
+                        <a href="{{ route('admin.colors.edit', $color->id) }}" class="btn btn-sm btn-warning"
+                            title="Sửa">
+                            <i class="bx bx-edit"></i>
+                        </a>
+
+                        <!-- Nút Xoá -->
                         <form action="{{ route('admin.colors.destroy', $color->id) }}" method="POST"
-                            style="display:inline-block">
-                            @csrf @method('DELETE')
-                            <button onclick="return confirm('Bạn muốn xóa màu này?')"
-                                class="btn btn-sm btn-danger">Xoá</button>
+                            style="display:inline-block;">
+                            @csrf
+                            @method('DELETE')
+                            <button onclick="return confirm('Bạn muốn xóa màu này?')" class="btn btn-sm btn-danger"
+                                title="Xóa">
+                                <i class="bx bx-trash"></i>
+                            </button>
                         </form>
                     </td>
+
                 </tr>
             @endforeach
         </tbody>
     </table>
-
-    <!-- Phân trang -->
-    {{-- <div style="margin-top: 20px;">
-        {{ $products->appends(request()->all())->links() }}
-    </div> --}}
 @endsection

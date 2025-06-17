@@ -50,11 +50,16 @@
                         <td>{{ $brand->name }}</td>
                         <td>{{ $brand->slug }}</td>
                         <td>
-                            <a href="{{ route('admin.brands.edit', $brand) }}" class="btn btn-warning btn-sm">Sửa</a>
+                            <a href="{{ route('admin.brands.edit', $brand) }}" class="btn btn-warning btn-sm"
+                                title="Sửa">
+                                <i class="bx bx-edit"></i>
+                            </a>
                             <form action="{{ route('admin.brands.destroy', $brand) }}" method="POST" class="d-inline"
                                 onsubmit="return confirm('Xóa thương hiệu này?')">
                                 @csrf @method('DELETE')
-                                <button class="btn btn-danger btn-sm">Xóa</button>
+                                <button class="btn btn-danger btn-sm" title="Xóa">
+                                    <i class="bx bx-trash"></i>
+                                </button>
                             </form>
                         </td>
                     </tr>

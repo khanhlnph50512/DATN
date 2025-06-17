@@ -71,7 +71,10 @@ class ProductController extends Controller
             $primaryIndex = $request->primary_image_index;
 
             foreach ($images as $index => $imageFile) {
-                $path = $imageFile->store('products', 'public');
+                $filename = uniqid() . '.' . $imageFile->getClientOriginalExtension();
+                $imageFile->move(public_path('asset/img/products'), $filename);
+
+                $path = 'products/' . $filename;
 
                 ProductImage::create([
                     'product_id' => $product->id,
@@ -172,7 +175,10 @@ class ProductController extends Controller
                 $primaryIndex = $request->primary_image_index ?? 0;
 
                 foreach ($images as $index => $imageFile) {
-                    $path = $imageFile->store('products', 'public');
+                    $filename = uniqid() . '.' . $imageFile->getClientOriginalExtension();
+                    $imageFile->move(public_path('asset/img/products'), $filename);
+
+                    $path = 'products/' . $filename;
 
                     ProductImage::create([
                         'product_id' => $product->id,
