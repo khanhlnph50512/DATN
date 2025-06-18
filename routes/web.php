@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\BrandController;
-use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CustomerController;
@@ -41,15 +41,19 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('sizes', SizeController::class);
     Route::resource('brands', BrandController::class);
 
-    // Route cho bài viết admin
-    Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-});
+    // Admin - Quản lý blog
+    Route::prefix('blogs')->name('blogs.')->group(function () {
+        Route::get('/', [BlogController::class, 'index'])->name('index');
+        Route::get('/create', [BlogController::class, 'create'])->name('create');
+        Route::post('/', [BlogController::class, 'store'])->name('store');
+        Route::get('/{id}', [BlogController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [BlogController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [BlogController::class, 'update'])->name('update');
+        Route::delete('/{id}', [BlogController::class, 'destroy'])->name('destroy');
 
-// Route cho blog (giao diện người dùng)
-Route::prefix('blog')->group(function () {
-    Route::get('/', [PostController::class, 'index'])->name('blog.index');
-    Route::get('/create', [PostController::class, 'create'])->name('blog.create');
-    Route::post('/', [PostController::class, 'store'])->name('blog.store');
-    Route::get('/{slug}', [PostController::class, 'show'])->name('post.show');
-    Route::get('/post/the-loai/{category}', [PostController::class, 'category'])->name('post.theloai');
+        // ✅ Route cho chức năng thùng rác
+        Route::get('trash', [BlogController::class, 'trash'])->name('trash');
+        Route::post('{id}/restore', [BlogController::class, 'restore'])->name('restore');
+        Route::delete('{id}/force-delete', [BlogController::class, 'forceDelete'])->name('forceDelete');
+    });
 });
