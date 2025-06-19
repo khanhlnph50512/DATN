@@ -1,6 +1,22 @@
 @extends('layouts.adminAnatats')
 
 @section('content')
+    @if (session('success'))
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công!',
+                text: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 2500,
+                timerProgressBar: true,
+                didClose: () => {
+                    window.location.href = "{{ route('admin.blogs.index') }}";
+                }
+            });
+        </script>
+    @endif
     <div class="container py-4">
         <h2 class="fw-bold mb-4"><i class="fas fa-trash-alt text-danger me-2"></i>Thùng rác - Bài viết</h2>
 

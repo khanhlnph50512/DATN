@@ -116,7 +116,7 @@ class BlogController extends Controller
         $blog = Blog::onlyTrashed()->findOrFail($id);
         $blog->restore();
 
-        return redirect()->route('admin.blogs.trash')->with('success', 'Khôi phục thành công');
+        return redirect()->route('admin.blogs.trash')->with('success', 'Khôi phục bài viết thành công');
     }
     public function forceDelete($id)
     {
