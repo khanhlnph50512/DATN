@@ -10,9 +10,10 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return view('coming-soon');
+    return view('home');
 });
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -43,17 +44,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     // Admin - Quản lý blog
     Route::prefix('blogs')->name('blogs.')->group(function () {
-        Route::get('/', [BlogController::class, 'index'])->name('index');
-        Route::get('/create', [BlogController::class, 'create'])->name('create');
-        Route::post('/', [BlogController::class, 'store'])->name('store');
-        Route::get('/{id}', [BlogController::class, 'show'])->name('show');
-        Route::get('/{id}/edit', [BlogController::class, 'edit'])->name('edit');
-        Route::put('/{id}', [BlogController::class, 'update'])->name('update');
-        Route::delete('/{id}', [BlogController::class, 'destroy'])->name('destroy');
-
-        // ✅ Route cho chức năng thùng rác
         Route::get('trash', [BlogController::class, 'trash'])->name('trash');
         Route::post('{id}/restore', [BlogController::class, 'restore'])->name('restore');
         Route::delete('{id}/force-delete', [BlogController::class, 'forceDelete'])->name('forceDelete');
     });
+
+    Route::resource('blogs', BlogController::class);
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
