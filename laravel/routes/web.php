@@ -42,7 +42,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
     Route::resource('products', ProductController::class);
 
-    // Customers
+
     Route::resource('customers', CustomerController::class)->except(['show']);
     Route::get('customers/{id}/show', [CustomerController::class, 'show'])->name('customers.show');
     Route::get('customers/trash', [CustomerController::class, 'trash'])->name('customers.trash');
