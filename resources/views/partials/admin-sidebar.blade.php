@@ -101,8 +101,8 @@
       <span>Người dùng & khách hàng</span>
     </h6>
     <ul class="nav flex-column mb-3">
-      <li class="nav-item"><a class="nav-link text-white" href="#"><i class="fas fa-user me-2"></i> Người dùng</a></li>
-      <li class="nav-item"><a class="nav-link text-white" href="#"><i class="fas fa-users me-2"></i> Khách hàng</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.users.index') }}"><i class="fas fa-user me-2"></i> Người dùng</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.customers.index') }}"><i class="fas fa-users me-2"></i> Khách hàng</a></li>
     </ul>
 
     <!-- Nhóm: Quản lý giao dịch -->
