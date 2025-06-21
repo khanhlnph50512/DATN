@@ -13,16 +13,11 @@ class CustomerFactory extends Factory
     public function definition(): array
     {
         return [
-            'seri_customer' => 'CUS' . strtoupper(Str::random(6)),
+            'seri_customer' => 'su25_anatats#' . mt_rand(0, 999999),
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
-            'password' => bcrypt('password'),
-            'avatar' => $this->faker->imageUrl(100, 100, 'people'),
             'phone' => $this->faker->phoneNumber(),
             'address' => $this->faker->address(),
-            'gender' => $this->faker->randomElement(['male', 'female', 'other']),
-            'birthday' => $this->faker->date('Y-m-d'),
-            'remember_token' => Str::random(10),
         ];
     }
 }
