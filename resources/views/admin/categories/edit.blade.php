@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('layouts.adminAnatats')
 
 @section('content')
     @if (session('success'))
@@ -61,6 +61,7 @@
                     <button type="submit" form="category-form" class="btn btn-primary">
                         <i class="bx bx-save me-1"></i> Update Category
                     </button>
+                    <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Quay lại</a>
                 </div>
             </div>
         </div>
