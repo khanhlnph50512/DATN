@@ -11,7 +11,7 @@
                 timer: 2500,
                 timerProgressBar: true,
                 didClose: () => {
-                    window.location.href = "{{ route('admin.categories.index') }}";
+                    window.location.href = "{{ route('admin.products.index') }}";
                 }
             });
         </script>
@@ -56,10 +56,8 @@
                     <td style="text-align: center;">{{ $p->id }}</td>
                     <td>
                         @if ($p->primaryImage)
-                            <img src="{{ asset('img/products/' . $p->primaryImage->image_url) }}" alt="{{ $p->name }}"
-                                width="80">
+                            <img src="{{ asset('asset/img/' . $p->primaryImage->image_url) }}" width="100">
                             <br>
-                            {{ $p->primaryImage->image_url }}
                         @else
                             <span>Chưa có ảnh</span>
                         @endif

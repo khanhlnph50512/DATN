@@ -93,7 +93,7 @@
       <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.sizes.index') }}"><i class="fas fa-ruler-combined me-2"></i> Size</a></li>
       <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.brands.index') }}"><i class="fas fa-industry me-2"></i> Thương hiệu</a></li>
       <li class="nav-item"><a class="nav-link text-white" href="#"><i class="fas fa-tags me-2"></i> Mã giảm giá</a></li>
-      <li class="nav-item"><a class="nav-link text-white" href="#"><i class="fas fa-newspaper me-2"></i> Bài viết</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.blogs.index') }}"><i class="fas fa-newspaper me-2"></i> Bài viết</a></li>
     </ul>
 
     <!-- Nhóm: Quản lý người dùng -->
