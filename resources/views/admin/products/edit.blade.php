@@ -128,7 +128,7 @@
         <div id="current-images" style="margin-bottom:10px;">
             @foreach ($productImages as $image)
                 <div style="display:inline-block; position: relative; margin-right:10px; width:120px; text-align:center;">
-                    <img src="{{ asset('storage/' . $image->image_url) }}" alt="Ảnh sản phẩm"
+                    <img src="{{ asset('asset/img/' . $image->image_url) }}" alt="Ảnh sản phẩm"
                         style="width:100px; height:100px; object-fit:cover; border: {{ $image->is_primary ? '3px solid green' : '1px solid #ccc' }};">
 
                     {{-- Chọn ảnh chính --}}

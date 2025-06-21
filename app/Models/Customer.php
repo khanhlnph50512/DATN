@@ -14,15 +14,7 @@ class Customer extends Model
         'seri_customer',
         'name',
         'email',
-        'password',
-        'avatar',
         'phone',
         'address',
-        'remember_token',
-    ];
-
-    protected $hidden = [
-        'password',
-        'remember_token',
     ];
 }
