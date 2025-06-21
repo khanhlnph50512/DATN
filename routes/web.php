@@ -19,7 +19,7 @@ use App\Http\Controllers\Client\HomeController;
 
 // Trang chủ
 Route::get('/', function () {
-    return view('home');
+    return view('coming-soon');
 });
 
 // Auth
