@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\CouponController;
 
 // Client Controllers
 use App\Http\Controllers\Client\HomeController;
@@ -68,4 +69,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('{id}/force-delete', [BlogController::class, 'forceDelete'])->name('forceDelete');
     });
     Route::resource('blogs', BlogController::class);
+
+    // Coupon
+    Route::prefix('coupons')->name('coupons.')->group(function () {
+        Route::get('trash', [CouponController::class, 'trash'])->name('trash');
+        Route::post('{id}/restore', [CouponController::class, 'restore'])->name('restore');
+        Route::delete('{id}/force-delete', [CouponController::class, 'forceDelete'])->name('forceDelete');
+    });
+    Route::resource('coupons', CouponController::class);
 });
