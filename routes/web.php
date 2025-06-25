@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Clients\OrderController;
+use App\Http\Controllers\Clients\ProductControllerr;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,6 +19,7 @@ use App\Http\Controllers\Admin\CouponController;
 
 // Client Controllers
 use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\Clients\HomeController as ClientsHomeController;
 
 // Trang chủ
 Route::get('/', function () {
@@ -26,6 +29,12 @@ Route::get('/', function () {
 // Auth
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// ========================= CLIENT =========================
+Route::resource('client/home', ClientsHomeController::class);
+Route::resource('client/product', ProductControllerr::class);
+Route::get('client/order-tracking', [OrderController::class, 'orderTracking'])->name('client.order-tracking');
+
 
 // ========================= ADMIN =========================
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -78,3 +87,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
     Route::resource('coupons', CouponController::class);
 });
+
+
