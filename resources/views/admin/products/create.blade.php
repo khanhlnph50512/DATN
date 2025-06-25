@@ -1,4 +1,4 @@
-@extends('layouts.adminAnatats')
+@extends('admin.layouts.adminAnatats')
 
 @section('content')
     @if (session('success'))
@@ -12,7 +12,7 @@
                 timer: 2500,
                 timerProgressBar: true,
                 didClose: () => {
-                    window.location.href = "{{ route('admin.categories.index') }}";
+                    window.location.href = "{{ route('admin.products.index') }}";
                 }
             });
         </script>

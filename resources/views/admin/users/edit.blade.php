@@ -1,4 +1,4 @@
-@extends('layouts.adminAnatats')
+@extends('admin.layouts.adminAnatats')
 
 @section('title', 'Cập nhật người dùng')
 
