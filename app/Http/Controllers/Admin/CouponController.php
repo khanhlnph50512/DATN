@@ -50,7 +50,6 @@ class CouponController extends Controller
 
         $coupon = Coupon::create($data);
         $coupon->users()->sync($request->user_ids);
-        $coupon->products()->sync($request->product_ids);
 
         return redirect()->route('admin.coupons.index')->with('success', 'Tạo mã giảm giá thành công');
     }

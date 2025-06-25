@@ -1,4 +1,4 @@
-@extends('layouts.adminAnatats')
+@extends('admin.layouts.adminAnatats')
 
 
 
