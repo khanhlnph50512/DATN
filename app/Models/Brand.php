@@ -1,16 +1,20 @@
 <?php
 
-namespace App\Models\Admin;
+namespace App\Models;
 
-use App\Models\Admin\Product;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 class Brand extends Model
 {
+    use HasFactory;
     protected $table = 'brands';
 
     protected $fillable = [
-        'name', 'slug'
+        'name',
+        'slug'
     ];
 
     public function products()

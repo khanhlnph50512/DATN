@@ -5,29 +5,28 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Number;
+use App\Models\User; // ✅ Đảm bảo đúng namespace model User
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
- */
 class UserFactory extends Factory
 {
-    protected static ?string $password;
+    protected $model = User::class; // ✅ Khai báo model gốc (nếu model không đúng mặc định)
+
+    protected static ?string $password = null;
 
     public function definition(): array
     {
         return [
-            'seri_user' => 'su25_anatats#' . mt_rand(0, 999999), // Mã người dùng riêng
+            'seri_user' => 'su25_anatats#' . str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT), // đẹp hơn
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'), // mật khẩu mặc định
+            'password' => static::$password ??= Hash::make('password'),
             'avatar' => $this->faker->imageUrl(100, 100, 'people'),
             'phone' => $this->faker->phoneNumber(),
             'address' => $this->faker->address(),
             'gender' => $this->faker->randomElement(['male', 'female', 'other']),
             'birthday' => $this->faker->date('Y-m-d'),
-            'role' => $this->faker->randomElement(['admin', 'customers']), // role
+            'role' => $this->faker->randomElement(['admin', 'customers']),
             'remember_token' => Str::random(10),
         ];
     }

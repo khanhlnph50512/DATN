@@ -112,7 +112,7 @@
     </table>
 
     <!-- Phân trang -->
-    <div style="margin-top: 20px;">
-        {{ $products->appends(request()->all())->links() }}
+    <div style="margin-top: 20px; text-align: left !important;">
+        {{ $products->appends(request()->all())->links('pagination::bootstrap-5') }}
     </div>
 @endsection

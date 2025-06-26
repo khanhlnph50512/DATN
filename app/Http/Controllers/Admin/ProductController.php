@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Brand;
-use App\Models\Admin\Category;
-use App\Models\Admin\Color;
-use App\Models\Admin\Product;
-use App\Models\Admin\ProductImage;
-use App\Models\Admin\ProductVariation;
-use App\Models\Admin\Size;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Color;
+use App\Models\Product;
+use App\Models\ProductImage;
+use App\Models\ProductVariation;
+use App\Models\Size;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -45,7 +45,7 @@ class ProductController extends Controller
             'quantity' => 'required|integer',
             'description' => 'nullable|string',
             'status' => 'required|in:0,1',
-            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
             'primary_image_index' => 'required|integer',
             'variations' => 'array',
             'variations.*.size_id' => 'required|exists:sizes,id',
