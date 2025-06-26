@@ -30,7 +30,7 @@
     </form>
     <div class="px-4 pb-3 d-flex justify-content-end">
         <a href="{{ route('admin.brands.create') }}" class="btn btn-primary">
-            <i class="bx bx-plus me-1"></i>+ Add Brand
+            <i class="bx bx-plus me-1"></i> Add Brand
         </a>
     </div>
     <div class="container mt-4">
