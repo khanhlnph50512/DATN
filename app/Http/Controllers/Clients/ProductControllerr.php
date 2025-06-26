@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Clients;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductControllerr extends Controller
@@ -12,7 +13,11 @@ class ProductControllerr extends Controller
      */
     public function index()
     {
-        return view('client.products.listProducts');
+        $products = Product::with('primaryImage')  // eager load ảnh đại diện
+                        ->where('status', 1)
+                        ->orderByDesc('id')
+                        ->paginate(12);
+        return view('client.products.listProducts',compact('products'));
         // return view('client.products.detailProducts');
     }
 

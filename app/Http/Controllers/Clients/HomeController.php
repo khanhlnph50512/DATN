@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Clients;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -12,6 +13,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+
         return view('client.home.index');
         // return view('client.order.orderTracking');
     }

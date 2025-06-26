@@ -35,7 +35,6 @@ Route::resource('client/home', ClientsHomeController::class);
 Route::resource('client/product', ProductControllerr::class);
 Route::get('client/order-tracking', [OrderController::class, 'orderTracking'])->name('client.order-tracking');
 
-
 // ========================= ADMIN =========================
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');

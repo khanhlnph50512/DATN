@@ -304,9 +304,9 @@
                 </li>
                 <!--                <li><a href="--><!--"><img-->
                 <!--                                src="--><!--/icon_login.png"> Đăng nhập</a></li>-->
-                <li><a href="coming-soon/index.html"><img
+                <li><a href="/login"><img
                             src="wp-content/themes/ananas/fe-assets/images/svg/icon_dang_nhap.svg"> Đăng nhập</a></li>
-                <li><a href="your-cart/index.html"><img
+                <li><a href=""><img
                             src="wp-content/themes/ananas/fe-assets/images/svg/icon-cart-8.svg">
                         Giỏ hàng (<span class="countProduct">0</span>)</a></li>
             </ul>
