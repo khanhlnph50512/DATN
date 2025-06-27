@@ -214,12 +214,12 @@
     <meta property="og:type" content="website">
     <meta property="og:description"
         content="Với nhiều người, 2 thập kỷ sản xuất giày đã là một kỷ lục. Với Ananas, điều đó chỉ mới bắt đầu. ">
-    <meta property="og:image" content="https://ananas.vn/wp-content/uploads/kv_basas_mobileBanner_4_2019.jpg">
+    <meta property="og:image" content="{{asset('assetsClients/wp-content/uploads/kv_basas_mobileBanner_4_2019.jpg')}}">
     <meta property="og:url" content="https://ananas.vn">
     <meta property="description" content=Với nhiều người, 2 thập kỷ sản xuất giày đã là một kỷ lục. Với Ananas, điều đó
         chỉ mới bắt đầu.>
     <meta property="keywords" content=>
-    <meta property="image" content=https://ananas.vn/wp-content/uploads/kv_basas_mobileBanner_4_2019.jpg>
+    <meta property="image" content="{{asset('assetsClients/wp-content/uploads/kv_basas_mobileBanner_4_2019.jpg')}}">
     <style type="text/css">
         .recentcomments a {
             display: inline !important;
@@ -251,7 +251,7 @@
             oneSignal_options['welcomeNotification']['message'] = "";
             oneSignal_options['welcomeNotification']['url'] = "index.html";
             oneSignal_options['path'] =
-                "wp-content/plugins/onesignal-free-web-push-notifications/sdk_files/index.html";
+                "{{asset('assetsClients/wp-content/plugins/onesignal-free-web-push-notifications/sdk_files/index.html')}}";
             oneSignal_options['promptOptions'] = {};
             OneSignal.init(window._oneSignalInitOptions);
         });
@@ -297,17 +297,17 @@
                             src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_tra_cuu_don_hang.svg') }}">
                         Tra cứu đơn hàng</a></li>
                 <li><a href="stores/index.html"><img
-                            src="wp-content/themes/ananas/fe-assets/images/svg/icon_tim_cua_hang.svg"> Tìm cửa hàng</a>
+                            src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_tim_cua_hang.svg')}}"> Tìm cửa hàng</a>
                 </li>
                 <li><a href="your-wishlist/index.html"><img
-                            src="wp-content/themes/ananas/fe-assets/images/svg/icon_heart_header.svg"> Yêu thích</a>
+                            src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_heart_header.svg')}}"> Yêu thích</a>
                 </li>
                 <!--                <li><a href="--><!--"><img-->
                 <!--                                src="--><!--/icon_login.png"> Đăng nhập</a></li>-->
                 <li><a href="/login"><img
-                            src="wp-content/themes/ananas/fe-assets/images/svg/icon_dang_nhap.svg"> Đăng nhập</a></li>
+                            src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_dang_nhap.svg')}}"> Đăng nhập</a></li>
                 <li><a href=""><img
-                            src="wp-content/themes/ananas/fe-assets/images/svg/icon-cart-8.svg">
+                            src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon-cart-8.svg')}}">
                         Giỏ hàng (<span class="countProduct">0</span>)</a></li>
             </ul>
         </div>
@@ -329,19 +329,19 @@
                                     class="caret"></span></a>
                             <ul class="dropdown-menu style1">
                                 <li><a href="product-list/index07a0.html?gender=men"><img
-                                            src="wp-content/uploads/Dropmenu_nam.jpg"></a><a class="style1-title"
+                                            src="{{asset('assetsClients/wp-content/uploads/Dropmenu_nam.jpg')}}"></a><a class="style1-title"
                                         href="product-list/index07a0.html?gender=men">CHO NAM</a></li>
                                 <li><a href="product-list/indexd5c6.html?gender=women"><img
-                                            src="wp-content/uploads/Desktop_Dropdown_Women_1-2.jpg"></a><a
+                                            src="{{asset('assetsClients/wp-content/uploads/Desktop_Dropdown_Women_1-2.jpg')}}"></a><a
                                         class="style1-title" href="product-list/indexd5c6.html?gender=women">CHO
                                         NỮ</a></li>
                                 <li><a href="promotion/clearance-sale/index.html"><img
-                                            src="wp-content/uploads/Dropmenu-Promotion.jpg"></a><a
+                                            src="{{asset('assetsClients/wp-content/uploads/Dropmenu-Promotion.jpg')}}"></a><a
                                         class="style1-title" href="promotion/clearance-sale/index.html">OUTLET
                                         SALE</a></li>
                                 <li><a
                                         href="product-list/indexd8a8.html?gender=men,women&amp;category=top,bottom,accessories&amp;attribute="><img
-                                            src="wp-content/uploads/Dropmenu-ThoitrangPhukien.jpg"></a><a
+                                            src="{{asset('assetsClients/wp-content/uploads/Dropmenu-ThoitrangPhukien.jpg')}}"></a><a
                                         class="style1-title"
                                         href="product-list/indexd8a8.html?gender=men,women&amp;category=top,bottom,accessories&amp;attribute=">THỜI
                                         TRANG & PHỤ KIỆN</a></li>
@@ -577,12 +577,12 @@
                         <li><a href="promotion/clearance-sale/index.html">SALE OFF</a></li>
                         <li class="line"></li>
                         <li><a href="discoveryou/index.html"><img
-                                    src="wp-content/themes/ananas/fe-assets/images/svg/DiscoverYOU.svg"></a></li>
+                                    src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/DiscoverYOU.svg')}}"></a></li>
                     </ul>
                     <form action="https://ananas.vn/search-results/?" class="navbar-form navbar-right">
                         <div class="form-group">
                             <img class="icon-search"
-                                src="wp-content/themes/ananas/fe-assets/images/svg/icon_tim_kiem.svg">
+                                src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_tim_kiem.svg')}}">
                             <input type="text" name="key" class="form-control" value=""
                                 placeholder="Tìm kiếm">
                         </div>
@@ -600,15 +600,15 @@
 
                 <div class="navbar-header">
                     <div class="col-xs-4 col-sm-4 navbar-brand"><a href="index.html"><img
-                                src="wp-content/themes/ananas/fe-assets/images/svg/ananas_logo.svg"></a>
+                                src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/ananas_logo.svg')}}"></a>
                     </div>
                     <div class="col-xs-5 col-sm-6 navbar-menu">
                         <a data-toggle="collapse" data-target=".group-search"><img
-                                src="wp-content/themes/ananas/fe-assets/images/mobile/mb_search.png"></a>
+                                src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/mobile/mb_search.png')}}"></a>
                         <a href="stores/index.html"><img
-                                src="wp-content/themes/ananas/fe-assets/images/mobile/mb_location.png"></a>
+                                src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/mobile/mb_location.png')}}"></a>
                         <a href="your-cart/index.html"><img
-                                src="wp-content/themes/ananas/fe-assets/images/mobile/icon-cart-mobile-8.svg"><span
+                                src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/mobile/icon-cart-mobile-8.svg')}}"><span
                                 class="navbar-menu-count">(<span class="countProduct">0</span>)</span></a>
                     </div>
                     <div class="col-xs-3 col-sm-2"></div>
@@ -621,7 +621,7 @@
                             placeholder="Tìm kiếm">
                         <span class="input-group-btn">
                             <button class="btn btn-search btn-search-all" type="button"><img
-                                    src="wp-content/themes/ananas/fe-assets/images/mobile/arrow_right.png"></button>
+                                    src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/mobile/arrow_right.png')}}"></button>
                         </span>
                     </div>
                 </form>
@@ -1104,16 +1104,16 @@
                     </li>
 
                     <li class="settingmenu"><a href="coming-soon/index.html"><img
-                                src="wp-content/themes/ananas/fe-assets/images/svg/icon_dang_nhap.svg"> Đăng nhập</a>
+                                src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_dang_nhap.svg')}}"> Đăng nhập</a>
                     </li>
                     <li class="settingmenu">
                         <a href="your-wishlist/index.html"><img
-                                src="wp-content/themes/ananas/fe-assets/images/svg/icon_heart_header.svg"> Yêu
+                                src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_heart_header.svg')}}"> Yêu
                             thích</a>
                     </li>
                     <li class="settingmenu">
                         <a href="stores/index.html"><img
-                                src="wp-content/themes/ananas/fe-assets/images/svg/icon_tim_cua_hang.svg"> Tìm cửa
+                                src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_tim_cua_hang.svg')}}"> Tìm cửa
                             hàng</a>
                     </li>
                     <li class="settingmenu">

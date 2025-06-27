@@ -64,7 +64,7 @@
         <!-- PC banner2 -->
     <div class="home-banner1 container-fluid hidden-xs hidden-sm">
         <a href="product-list/index3342.html?gender=men,women&amp;category=top,accessories&amp;attribute=">
-			                <img src="wp-content/uploads/Desktop_Homepage_Banner01.jpg">
+			                <img src="{{asset('assetsClients/wp-content/uploads/Desktop_Homepage_Banner01.jpg')}}">
 			        </a>
     </div>
     <!-- End PC banner2 -->
@@ -72,7 +72,7 @@
     <!-- Mobile banner2 -->
     <div class="home-banner1-mobile container-fluid visible-xs visible-sm">
         <a href="product-list/index3342.html?gender=men,women&amp;category=top,accessories&amp;attribute=">
-			                <img src="wp-content/uploads/Mobile_Homepage_Banner.jpg">
+			                <img src="{{asset('assetsClients/wp-content/uploads/Mobile_Homepage_Banner.jpg')}}">
 			        </a>
     </div>
     <!-- End Mobile banner2 -->
@@ -209,7 +209,7 @@
     <div class="row">
         <div class="col-md-3 sec-search">
             <div class="row center">
-                <img class="shop" src="wp-content/themes/ananas/fe-assets/images/svg/shop.svg">
+                <img class="shop" src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/shop.svg')}}">
             </div>
             <div class="row">
                 <a class="btn btn-search-shop" href="stores/index.html">TÌM CỬA HÀNG</a>
@@ -257,25 +257,25 @@
             <div class="row">
                 <div class="col-md-3">
                     <h4>ANANAS SOCIAL</h4>
-                    <a href="https://www.facebook.com/Ananas.vietnam/"><img src="wp-content/themes/ananas/fe-assets/images/svg/icon_facebook.svg"></a>&nbsp;
-                    <a href="https://www.instagram.com/ananasvn/"><img src="wp-content/themes/ananas/fe-assets/images/svg/icon_instagram.svg"></a>&nbsp;
-                    <a href="https://www.youtube.com/discoveryou"><img src="wp-content/themes/ananas/fe-assets/images/svg/icon_youtube.svg"></a>
+                    <a href="https://www.facebook.com/Ananas.vietnam/"><img src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_facebook.svg')}}"></a>&nbsp;
+                    <a href="https://www.instagram.com/ananasvn/"><img src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_instagram.svg')}}"></a>&nbsp;
+                    <a href="https://www.youtube.com/discoveryou"><img src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_youtube.svg')}}"></a>
                 </div>
                 <div class="col-md-3">
                     <h4>ĐĂNG KÝ NHẬN MAIL</h4>
                     <div class="form-group subscribe-group">
                         <input type="email" class="form-control inputReceiveMail" id="inputRecieveMail">
-                        <a href="javascript:void(0)" class="subscribe"><img src="wp-content/themes/ananas/fe-assets/images/arrow_right.jpg"></a>
+                        <a href="javascript:void(0)" class="subscribe"><img src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/arrow_right.jpg')}}"></a>
                     </div>
                 </div>
                 <div class="col-md-6 logo-footer">
-                    <a href="index.html"><img src="wp-content/themes/ananas/fe-assets/images/svg/Logo_Ananas_Footer.svg"></a>
+                    <a href="index.html"><img src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/Logo_Ananas_Footer.svg')}}"></a>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-3 icon-bct">
-                    <a href="http://online.gov.vn/Home/WebDetails/61921"><img src="wp-content/themes/ananas/fe-assets/images/icon_bocongthuong.png"></a>
+                    <a href="http://online.gov.vn/Home/WebDetails/61921"><img src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/icon_bocongthuong.png')}}"></a>
                     <a href="http://www.dmca.com/Protection/Status.aspx?ID=1dbe8603-d3c7-473f-8c50-0ba33478ed39" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="../images.dmca.com/Badges/dmca_protected_sml_120n1af2.png?ID=1dbe8603-d3c7-473f-8c50-0ba33478ed39"  alt="DMCA.com Protection Status" /></a>  <script src="../images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
                 </div>
                 <div class="col-md-9 copyright">
@@ -347,9 +347,9 @@
     </div>
     <div class="row footer-social">
         <label>ANANAS SOCIAL</label>
-        <a href="https://www.facebook.com/Ananas.vietnam/"><img src="wp-content/themes/ananas/fe-assets/images/mobile/icon_social1.png"></a>
-        <a href="https://www.instagram.com/ananasvn/"><img src="wp-content/themes/ananas/fe-assets/images/mobile/icon_social2.png"></a>
-        <a href="https://www.youtube.com/discoveryou"><img src="wp-content/themes/ananas/fe-assets/images/mobile/icon_social3.png"></a>
+        <a href="https://www.facebook.com/Ananas.vietnam/"><img src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/mobile/icon_social1.png')}}"></a>
+        <a href="https://www.instagram.com/ananasvn/"><img src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/mobile/icon_social2.png')}}"></a>
+        <a href="https://www.youtube.com/discoveryou"><img src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/mobile/icon_social3.png')}}"></a>
     </div>
     <div class="row footer-email">
         <label>ĐĂNG KÝ NHẬN EMAIL</label>
@@ -357,7 +357,7 @@
             <input type="text" class="form-control inputReceiveMail" id="inputReceiveMail">
             <span class="input-group-btn">
               <button class="btn btn-email subscribe" type="button"><img
-                          src="wp-content/themes/ananas/fe-assets/images/mobile/arrow_right.png"></button>
+                          src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/mobile/arrow_right.png')}}"></button>
             </span>
         </div>
     </div>
@@ -365,7 +365,7 @@
         <button onclick="location.href = 'stores/index.html'" class="btn btn-searchshop" type="button">TÌM CỬA HÀNG</button>
     </div>
     <div class="row footer-btn-gotop">
-        <a href="#"><img src="wp-content/themes/ananas/fe-assets/images/mobile/icon_top.png"></a>Back to top
+        <a href="#"><img src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/mobile/icon_top.png')}}"></a>Back to top
     </div>
     <div class="row footer-copyright">
 <!--        HAZZA JSC | Mã Số Thuế: 0315225920 <br>-->
@@ -374,7 +374,7 @@
     </div>
 
     <div class="row footer-bct">
-        <a href="http://online.gov.vn/Home/WebDetails/61921"><img src="wp-content/themes/ananas/fe-assets/images/icon_bocongthuong.png"></a>
+        <a href="http://online.gov.vn/Home/WebDetails/61921"><img src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/icon_bocongthuong.png')}}"></a>
         <a href="http://www.dmca.com/Protection/Status.aspx?ID=1dbe8603-d3c7-473f-8c50-0ba33478ed39" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="../images.dmca.com/Badges/dmca_protected_sml_120n1af2.png?ID=1dbe8603-d3c7-473f-8c50-0ba33478ed39"  alt="DMCA.com Protection Status" /></a>  <script src="../images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
     </div>
 </div>
@@ -404,7 +404,7 @@
 <div class="cartfixed hidden-xs hidden-sm" data-target="#shop_cart" data-toggle="collapse">
     <span class="countProduct">0</span><br>
     <img class="cart-7"
-            src="wp-content/themes/ananas/fe-assets/images/svg/icon-cart-8.svg">
+            src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon-cart-8.svg')}}">
 
     <div id="shop_cart" class="cart collapse">
         <span class="caret"></span>
@@ -426,12 +426,12 @@
 </div>
 
 <div class="social hidden-xs hidden-sm">
-    <a href="https://www.facebook.com/Ananas.vietnam/"><img src="wp-content/themes/ananas/fe-assets/images/svg/icon_facebook_2.svg"></a>
-    <a href="https://www.instagram.com/ananasvn/"><img src="wp-content/themes/ananas/fe-assets/images/svg/icon_instagram_2.svg"></a>
-    <a href="https://www.youtube.com/discoveryou"><img src="wp-content/themes/ananas/fe-assets/images/svg/icon_youtube_2.svg"></a>
+    <a href="https://www.facebook.com/Ananas.vietnam/"><img src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_facebook_2.svg')}}"></a>
+    <a href="https://www.instagram.com/ananasvn/"><img src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_instagram_2.svg')}}"></a>
+    <a href="https://www.youtube.com/discoveryou"><img src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_youtube_2.svg')}}"></a>
 </div>
 <!-- END SOCIAL GROUP -->
-    
+
 
 </body>
 

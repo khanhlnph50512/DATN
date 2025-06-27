@@ -1,5 +1,6 @@
-@extends('.client.layouts.main')
+@extends('client.layouts.main')
 @section('content')
+
     <!-- END HEADER MOBILE--> <!-- CONTENT -->
     <div class="home-banner container-fluid">
         <!-- PC banner1 -->
@@ -28,7 +29,7 @@
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 left">
                 <div class="slide-collection">
                     <div class="container py-4">
-    
+
 
 
 
@@ -101,5 +102,6 @@
                 </div>
             </div>
         </div>
+
     </div>
 @endsection
