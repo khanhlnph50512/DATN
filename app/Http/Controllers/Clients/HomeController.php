@@ -13,8 +13,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-
         return view('client.home.index');
         // return view('client.order.orderTracking');
     }

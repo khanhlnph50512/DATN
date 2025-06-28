@@ -426,6 +426,7 @@
 </div>
 
 <div class="social hidden-xs hidden-sm">
+
     <a href="https://www.facebook.com/Ananas.vietnam/"><img src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_facebook_2.svg')}}"></a>
     <a href="https://www.instagram.com/ananasvn/"><img src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_instagram_2.svg')}}"></a>
     <a href="https://www.youtube.com/discoveryou"><img src="{{asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_youtube_2.svg')}}"></a>

@@ -1,3 +1,4 @@
+
 @extends('client.layouts.auth')
 
 @section('content')

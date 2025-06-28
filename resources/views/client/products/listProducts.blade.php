@@ -1703,47 +1703,588 @@
                     </div>
                 </div> <!-- END FILTER ON MOBILE VERSION -->
                 <div class="row prd1-right-items">
-                  
-@foreach ($products as $product)
-    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 item">
-        <div class="thumbnail">
-            <div class="cont-item">
-                <a href="">
-                    <img class="inormal" src="{{ asset(path: 'asset/img/'.$product->primaryImage->image_url ?? 'images/no-image.jpg') }}" alt="{{ $product->name }}">
-                    <img class="ihover" src="{{ asset('asset/img/'.$product->primaryImage->image_url ?? 'images/no-image.jpg') }}" alt="{{ $product->name }}">
-                </a>
-            </div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 item">
+                        <div class="thumbnail">
+                            <div class="cont-item">
+                                <a href="../product-detail/xcs001/index.html">
+                                    {{-- <img class="inormal" src="{{ asset('assetsClients/wp-content/uploads/hinh-anh-gai-xinh-tiktok-dep-01.jpg') }}"> --}}
+                                    {{-- <img class="ihover" src="{{ asset('assetsClients/wp-content/uploads/hinh-anh-gai-xinh-tiktok-dep-01.jpg') }}"> --}}
+                                </a>
+                            </div>
+                            <div class="button">
+                                <a class="btn btn-prd1-buynow hidden-xs hidden-sm"
+                                    href="../product-detail/xcs001/index.html">MUA
+                                    NGAY</a>
+                                <a class="btn btn-prd1-heart addToWishList" href="javascript:void(0)"
+                                    data-liked="false" data-action="transferCartToWishList"
+                                    data-idProduct="962153"></a>
+                            </div>
+                            <div class="caption">
+                                <h3 class="type">New Arrival</h3>
+                                <h3 class="divider"></h3>
+                                <h3 class="name"><a href="../product-detail/xcs001/index.html">AXGC Basic Complete -
+                                        Latex Glue</a>
+                                </h3>
+                                <h3 class="color">Material Color</h3>
+                                <h3 class="price">
+                                    1.400.000 VND </h3>
+                            </div>
+                        </div>
+                    </div>
 
-            <div class="button">
-                <a class="btn btn-prd1-buynow hidden-xs hidden-sm"
-                   href="">
-                    MUA NGAY
-                </a>
-                <a class="btn btn-prd1-heart addToWishList" href="javascript:void(0)"
-                   data-liked="false" data-action="transferCartToWishList"
-                   data-idProduct="{{ $product->id }}"></a>
-            </div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 item">
+                        <div class="thumbnail">
+                            <div class="cont-item">
+                                <a href="../product-detail/xcs002/index.html">
+                                    {{-- <img class="inormal"
+                                        src="{{ asset('assetsClients/wp-content/uploads/hinh-anh-gai-xinh-tiktok-dep-01.jpg') }}"> --}}
+                                    {{-- <img class="ihover"
+                                        src="{{ asset('assetsClients/wp-content/uploads/hinh-anh-gai-xinh-tiktok-dep-01.jpg') }}"> --}}
+                                </a>
+                            </div>
+                            <div class="button">
+                                <a class="btn btn-prd1-buynow hidden-xs hidden-sm"
+                                    href="../product-detail/xcs002/index.html">MUA
+                                    NGAY</a>
+                                <a class="btn btn-prd1-heart addToWishList" href="javascript:void(0)"
+                                    data-liked="false" data-action="transferCartToWishList"
+                                    data-idProduct="962152"></a>
+                            </div>
+                            <div class="caption">
+                                <h3 class="type">New Arrival</h3>
+                                <h3 class="divider"></h3>
+                                <h3 class="name"><a href="../product-detail/xcs002/index.html">AXGC Basic Complete -
+                                        Epoxy Glue</a>
+                                </h3>
+                                <h3 class="color">Material Color</h3>
+                                <h3 class="price">
+                                    1.600.000 VND </h3>
+                            </div>
+                        </div>
+                    </div>
 
-            <div class="caption">
-                <h3 class="type">New Arrival</h3>
-                <h3 class="divider"></h3>
-                <h3 class="name">
-                    <a href="">{{ $product->name }}</a>
-                </h3>
-                <h3 class="color">Material Color</h3>
-                <h3 class="price">
-                    @if ($product->price_sale && $product->price_sale < $product->price)
-                        <span class="text-danger">{{ number_format($product->price_sale) }} VND</span>
-                        <del class="text-muted">{{ number_format($product->price) }} VND</del>
-                    @else
-                        {{ number_format($product->price) }} VND
-                    @endif
-                </h3>
-            </div>
-        </div>
-    </div>
-@endforeach
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 item">
+                        <div class="thumbnail">
+                            <div class="cont-item">
+                                <a href="../product-detail/a6f001/index.html">
+                                    {{-- <img class="inormal"
+                                        src="{{ asset('assetsClients/wp-content/uploads/hinh-anh-gai-xinh-tiktok-dep-01.jpg') }}">
+                                    <img class="ihover"
+                                        src="{{ asset('assetsClients/wp-content/uploads/hinh-anh-gai-xinh-tiktok-dep-01.jpg') }}"> --}}
+                                </a>
+                            </div>
+                            <div class="button">
+                                <a class="btn btn-prd1-buynow hidden-xs hidden-sm"
+                                    href="../product-detail/a6f001/index.html">MUA
+                                    NGAY</a>
+                                <a class="btn btn-prd1-heart addToWishList" href="javascript:void(0)"
+                                    data-liked="false" data-action="transferCartToWishList"
+                                    data-idProduct="1120819"></a>
+                            </div>
+                            <div class="caption">
+                                <h3 class="type">New Arrival</h3>
+                                <h3 class="divider"></h3>
+                                <h3 class="name"><a href="../product-detail/a6f001/index.html">Track 6 Fold-over
+                                        Tongue - The Team - Low Top</a>
+                                </h3>
+                                <h3 class="color">Caviar Black</h3>
+                                <h3 class="price">
+                                    1.090.000 VND </h3>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="item-break"></div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 item">
+                        <div class="thumbnail">
+                            <div class="cont-item">
+                                <div class="soldout-text">HẾT HÀNG</div>
+                                <div class="black-rect"></div>
+                                <a href="../product-detail/frj0002/index.html">
+                                    <img class="inormal" src="../wp-content/uploads/Pro_FRJ0002_1-500x500.jpg">
+                                    <img class="ihover" src="../wp-content/uploads/Pro_FRJ0002_4-500x500.jpg">
+                                </a>
+                            </div>
+                            <div class="button">
+                                <a class="btn btn-prd1-heart addToWishList" href="javascript:void(0)"
+                                    data-liked="false" data-action="transferCartToWishList"
+                                    data-idProduct="1081708"></a>
+                            </div>
+                            <div class="caption">
+                                <h3 class="type">Online Only</h3>
+                                <h3 class="divider"></h3>
+                                <h3 class="name"><a href="../product-detail/frj0002/index.html">Retro Football Jersey
+                                        - Vietnam 95 - Việt Nam 2</a>
+                                </h3>
+                                <h3 class="color">Lemon</h3>
+                                <h3 class="price">
+                                    650.000 VND </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 item">
+                        <div class="thumbnail">
+                            <div class="cont-item">
+                                <a href="../product-detail/frj0001/index.html">
+                                    <img class="inormal" src="../wp-content/uploads/Pro_FRJ0001_1-500x500.jpg">
+                                    <img class="ihover" src="../wp-content/uploads/Pro_FRJ0001_4-500x500.jpg">
+                                </a>
+                            </div>
+                            <div class="button">
+                                <a class="btn btn-prd1-buynow hidden-xs hidden-sm"
+                                    href="../product-detail/frj0001/index.html">MUA
+                                    NGAY</a>
+                                <a class="btn btn-prd1-heart addToWishList" href="javascript:void(0)"
+                                    data-liked="false" data-action="transferCartToWishList"
+                                    data-idProduct="1080225"></a>
+                            </div>
+                            <div class="caption">
+                                <h3 class="type">Online Only</h3>
+                                <h3 class="divider"></h3>
+                                <h3 class="name"><a href="../product-detail/frj0001/index.html">Retro Football Jersey
+                                        - Vietnam 95 - Việt Nam 1</a>
+                                </h3>
+                                <h3 class="color">High Risk Red</h3>
+                                <h3 class="price">
+                                    650.000 VND </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 item">
+                        <div class="thumbnail">
+                            <div class="cont-item">
+                                <a href="../product-detail/adi001/index.html">
+                                    <img class="inormal" src="../wp-content/uploads/Pro_ADI001_S_2-500x500.jpg">
+                                    <img class="ihover" src="../wp-content/uploads/Pro_ADI001_S_1-500x500.jpg">
+                                </a>
+                            </div>
+                            <div class="button">
+                                <a class="btn btn-prd1-buynow hidden-xs hidden-sm"
+                                    href="../product-detail/adi001/index.html">MUA
+                                    NGAY</a>
+                                <a class="btn btn-prd1-heart addToWishList" href="javascript:void(0)"
+                                    data-liked="false" data-action="transferCartToWishList"
+                                    data-idProduct="1024090"></a>
+                            </div>
+                            <div class="caption">
+                                <h3 class="name"><a href="../product-detail/adi001/index.html">Die-cut Insoles -
+                                        Ananas Ortholite 7mm RF</a>
+                                </h3>
+                                <h3 class="color">White Asparagus</h3>
+                                <h3 class="price">
+                                    69.000 VND </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item-break"></div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 item">
+                        <div class="thumbnail">
+                            <div class="cont-item">
+                                <a href="../product-detail/av00214/index.html">
+                                    {{-- <img class="inormal"
+                                        src="{{ asset('assetsClients/wp-content/uploads/hinh-anh-gai-xinh-tiktok-dep-01.jpg') }}">
+                                    <img class="ihover"
+                                        src="{{ asset('assetsClients/wp-content/uploads/hinh-anh-gai-xinh-tiktok-dep-01.jpg') }}"> --}}
+                                </a>
+                            </div>
+                            <div class="button">
+                                <a class="btn btn-prd1-buynow hidden-xs hidden-sm"
+                                    href="../product-detail/av00214/index.html">MUA
+                                    NGAY</a>
+                                <a class="btn btn-prd1-heart addToWishList" href="javascript:void(0)"
+                                    data-liked="false" data-action="transferCartToWishList"
+                                    data-idProduct="1033500"></a>
+                            </div>
+                            <div class="caption">
+                                <h3 class="name"><a href="../product-detail/av00214/index.html">Vintas Denim - Low
+                                        Top</a>
+                                </h3>
+                                <h3 class="color">Night Sky</h3>
+                                <h3 class="price">
+                                    650.000 VND </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 item">
+                        <div class="thumbnail">
+                            <div class="cont-item">
+                                <a href="../product-detail/av00212/index.html">
+                                    {{-- <img class="inormal"
+                                        src="{{ asset('assetsClients/wp-content/uploads/hinh-anh-gai-xinh-tiktok-dep-01.jpg') }}">
+                                    <img class="ihover"
+                                        src="{{ asset('assetsClients/wp-content/uploads/hinh-anh-gai-xinh-tiktok-dep-01.jpg') }}"> --}}
+                                </a>
+                            </div>
+                            <div class="button">
+                                <a class="btn btn-prd1-buynow hidden-xs hidden-sm"
+                                    href="../product-detail/av00212/index.html">MUA
+                                    NGAY</a>
+                                <a class="btn btn-prd1-heart addToWishList" href="javascript:void(0)"
+                                    data-liked="false" data-action="transferCartToWishList"
+                                    data-idProduct="1033502"></a>
+                            </div>
+                            <div class="caption">
+                                <h3 class="name"><a href="../product-detail/av00212/index.html">Vintas Denim - Low
+                                        Top</a>
+                                </h3>
+                                <h3 class="color">Night Sky</h3>
+                                <h3 class="price">
+                                    650.000 VND </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 item">
+                        <div class="thumbnail">
+                            <div class="cont-item">
+                                <a href="../product-detail/av00213/index.html">
+                                    {{-- <img class="inormal"
+                                        src="{{ asset('assetsClients/wp-content/uploads/hinh-anh-gai-xinh-tiktok-dep-01.jpg') }}">
+                                    <img class="ihover"
+                                        src="{{ asset('assetsClients/wp-content/uploads/hinh-anh-gai-xinh-tiktok-dep-01.jpg') }}"> --}}
+                                </a>
+                            </div>
+                            <div class="button">
+                                <a class="btn btn-prd1-buynow hidden-xs hidden-sm"
+                                    href="../product-detail/av00213/index.html">MUA
+                                    NGAY</a>
+                                <a class="btn btn-prd1-heart addToWishList" href="javascript:void(0)"
+                                    data-liked="false" data-action="transferCartToWishList"
+                                    data-idProduct="1033501"></a>
+                            </div>
+                            <div class="caption">
+                                <h3 class="name"><a href="../product-detail/av00213/index.html">Vintas Denim - High
+                                        Top</a>
+                                </h3>
+                                <h3 class="color">Night Sky</h3>
+                                <h3 class="price">
+                                    690.000 VND </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item-break"></div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 item">
+                        <div class="thumbnail">
+                            <div class="cont-item">
+                                <div class="tag-blue">Limited Edition</div>
+                                <div class="soldout-text">HẾT HÀNG</div>
+                                <div class="black-rect"></div>
+                                <a href="../product-detail/alp2401/index.html">
+                                    <img class="inormal" src="../wp-content/uploads/Pro_ALP2401_1-500x500.jpg">
+                                    <img class="ihover" src="../wp-content/uploads/Pro_ALP2401_5-500x500.jpg">
+                                </a>
+                            </div>
+                            <div class="button">
+                                <a class="btn btn-prd1-heart addToWishList" href="javascript:void(0)"
+                                    data-liked="false" data-action="transferCartToWishList"
+                                    data-idProduct="1034326"></a>
+                            </div>
+                            <div class="caption">
+                                <h3 class="name"><a href="../product-detail/alp2401/index.html">Urbas Love+ 24</a>
+                                </h3>
+                                <h3 class="color">Oyster White</h3>
+                                <h3 class="price">
+                                    650.000 VND </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 item">
+                        <div class="thumbnail">
+                            <div class="cont-item">
+                                <div class="tag-blue">Limited Edition</div>
+                                <div class="soldout-text">HẾT HÀNG</div>
+                                <div class="black-rect"></div>
+                                <a href="../product-detail/alp2402/index.html">
+                                    <img class="inormal" src="../wp-content/uploads/Pro_ALP2402_1-1-500x500.jpg">
+                                    <img class="ihover" src="../wp-content/uploads/Pro_ALP2402_5-1-500x500.jpg">
+                                </a>
+                            </div>
+                            <div class="button">
+                                <a class="btn btn-prd1-heart addToWishList" href="javascript:void(0)"
+                                    data-liked="false" data-action="transferCartToWishList"
+                                    data-idProduct="1034325"></a>
+                            </div>
+                            <div class="caption">
+                                <h3 class="name"><a href="../product-detail/alp2402/index.html">Urbas Love+ 24</a>
+                                </h3>
+                                <h3 class="color">Oyster White</h3>
+                                <h3 class="price">
+                                    650.000 VND </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 item">
+                        <div class="thumbnail">
+                            <div class="cont-item">
+                                <a href="../product-detail/av00205/index.html">
+                                    <img class="inormal" src="../wp-content/uploads/Pro_AV00205_1-500x500.jpg">
+                                    <img class="ihover" src="../wp-content/uploads/Pro_AV00205_2-500x500.jpg">
+                                </a>
+                            </div>
+                            <div class="button">
+                                <a class="btn btn-prd1-buynow hidden-xs hidden-sm"
+                                    href="../product-detail/av00205/index.html">MUA
+                                    NGAY</a>
+                                <a class="btn btn-prd1-heart addToWishList" href="javascript:void(0)"
+                                    data-liked="false" data-action="transferCartToWishList"
+                                    data-idProduct="899186"></a>
+                            </div>
+                            <div class="caption">
+                                <h3 class="name"><a href="../product-detail/av00205/index.html">Vintas Vivu - Low
+                                        Top</a>
+                                </h3>
+                                <h3 class="color">Warm Sand</h3>
+                                <h3 class="price">
+                                    620.000 VND </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item-break"></div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 item">
+                        <div class="thumbnail">
+                            <div class="cont-item">
+                                <a href="../product-detail/av00206/index.html">
+                                    <img class="inormal" src="../wp-content/uploads/Pro_AV00206_1-500x500.jpg">
+                                    <img class="ihover" src="../wp-content/uploads/Pro_AV00206_2-500x500.jpg">
+                                </a>
+                            </div>
+                            <div class="button">
+                                <a class="btn btn-prd1-buynow hidden-xs hidden-sm"
+                                    href="../product-detail/av00206/index.html">MUA
+                                    NGAY</a>
+                                <a class="btn btn-prd1-heart addToWishList" href="javascript:void(0)"
+                                    data-liked="false" data-action="transferCartToWishList"
+                                    data-idProduct="899185"></a>
+                            </div>
+                            <div class="caption">
+                                <h3 class="name"><a href="../product-detail/av00206/index.html">Vintas Vivu - Low
+                                        Top</a>
+                                </h3>
+                                <h3 class="color">Plantation</h3>
+                                <h3 class="price">
+                                    620.000 VND </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 item">
+                        <div class="thumbnail">
+                            <div class="cont-item">
+                                <a href="../product-detail/av00204/index.html">
+                                    <img class="inormal" src="../wp-content/uploads/Pro_AV00204_1-500x500.jpg">
+                                    <img class="ihover" src="../wp-content/uploads/Pro_AV00204_2-500x500.jpg">
+                                </a>
+                            </div>
+                            <div class="button">
+                                <a class="btn btn-prd1-buynow hidden-xs hidden-sm"
+                                    href="../product-detail/av00204/index.html">MUA
+                                    NGAY</a>
+                                <a class="btn btn-prd1-heart addToWishList" href="javascript:void(0)"
+                                    data-liked="false" data-action="transferCartToWishList"
+                                    data-idProduct="899187"></a>
+                            </div>
+                            <div class="caption">
+                                <h3 class="name"><a href="../product-detail/av00204/index.html">Vintas Nauda EXT -
+                                        High Top</a>
+                                </h3>
+                                <h3 class="color">Monk's Robe</h3>
+                                <h3 class="price">
+                                    720.000 VND </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 item">
+                        <div class="thumbnail">
+                            <div class="cont-item">
+                                <a href="../product-detail/av00203/index.html">
+                                    <img class="inormal" src="../wp-content/uploads/Pro_AV00203_1-500x500.jpg">
+                                    <img class="ihover" src="../wp-content/uploads/Pro_AV00203_2-500x500.jpg">
+                                </a>
+                            </div>
+                            <div class="button">
+                                <a class="btn btn-prd1-buynow hidden-xs hidden-sm"
+                                    href="../product-detail/av00203/index.html">MUA
+                                    NGAY</a>
+                                <a class="btn btn-prd1-heart addToWishList" href="javascript:void(0)"
+                                    data-liked="false" data-action="transferCartToWishList"
+                                    data-idProduct="775846"></a>
+                            </div>
+                            <div class="caption">
+                                <h3 class="name"><a href="../product-detail/av00203/index.html">Vintas Nauda EXT - Low
+                                        Top</a>
+                                </h3>
+                                <h3 class="color">Monk's Robe</h3>
+                                <h3 class="price">
+                                    650.000 VND </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item-break"></div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 item">
+                        <div class="thumbnail">
+                            <div class="cont-item">
+                                <div class="tag-grey">Online Only</div>
+                                <a href="../product-detail/av00158/index.html">
+                                    <img class="inormal" src="../wp-content/uploads/pro_AV00158_1-500x500.jpg">
+                                    <img class="ihover" src="../wp-content/uploads/pro_AV00158_2-500x500.jpg">
+                                </a>
+                            </div>
+                            <div class="button">
+                                <a class="btn btn-prd1-buynow hidden-xs hidden-sm"
+                                    href="../product-detail/av00158/index.html">MUA
+                                    NGAY</a>
+                                <a class="btn btn-prd1-heart addToWishList" href="javascript:void(0)"
+                                    data-liked="false" data-action="transferCartToWishList"
+                                    data-idProduct="706001"></a>
+                            </div>
+                            <div class="caption">
+                                <h3 class="type">Sale off</h3>
+                                <h3 class="divider"></h3>
+                                <h3 class="name"><a href="../product-detail/av00158/index.html">Pattas Polka Dots -
+                                        High Top</a>
+                                </h3>
+                                <h3 class="color">Offwhite</h3>
+                                <h3 class="price">
+                                    390.000 VND <span class="price-real">750.000 VND</span>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 item">
+                        <div class="thumbnail">
+                            <div class="cont-item">
+                                <div class="tag-grey">Online Only</div>
+                                <a href="../product-detail/av00171/index.html">
+                                    <img class="inormal" src="../wp-content/uploads/pro_AV00171_1-500x500.jpg">
+                                    <img class="ihover" src="../wp-content/uploads/pro_AV00171_2-500x500.jpg">
+                                </a>
+                            </div>
+                            <div class="button">
+                                <a class="btn btn-prd1-buynow hidden-xs hidden-sm"
+                                    href="../product-detail/av00171/index.html">MUA
+                                    NGAY</a>
+                                <a class="btn btn-prd1-heart addToWishList" href="javascript:void(0)"
+                                    data-liked="false" data-action="transferCartToWishList"
+                                    data-idProduct="706000"></a>
+                            </div>
+                            <div class="caption">
+                                <h3 class="type">Online Only</h3>
+                                <h3 class="divider"></h3>
+                                <h3 class="name"><a href="../product-detail/av00171/index.html">Pattas Polka Dots -
+                                        Low Top</a>
+                                </h3>
+                                <h3 class="color">True Blue</h3>
+                                <h3 class="price">
+                                    390.000 VND <span class="price-real">720.000 VND</span>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 item">
+                        <div class="thumbnail">
+                            <div class="cont-item">
+                                <div class="tag-grey">Online Only</div>
+                                <a href="../product-detail/av00172/index.html">
+                                    <img class="inormal" src="../wp-content/uploads/pro_AV00172_1-500x500.jpg">
+                                    <img class="ihover" src="../wp-content/uploads/pro_AV00172_2-500x500.jpg">
+                                </a>
+                            </div>
+                            <div class="button">
+                                <a class="btn btn-prd1-buynow hidden-xs hidden-sm"
+                                    href="../product-detail/av00172/index.html">MUA
+                                    NGAY</a>
+                                <a class="btn btn-prd1-heart addToWishList" href="javascript:void(0)"
+                                    data-liked="false" data-action="transferCartToWishList"
+                                    data-idProduct="705999"></a>
+                            </div>
+                            <div class="caption">
+                                <h3 class="type">Sale off</h3>
+                                <h3 class="divider"></h3>
+                                <h3 class="name"><a href="../product-detail/av00172/index.html">Pattas Polka Dots -
+                                        High Top</a>
+                                </h3>
+                                <h3 class="color">Jelly Bean</h3>
+                                <h3 class="price">
+                                    390.000 VND <span class="price-real">750.000 VND</span>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item-break"></div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 item">
+                        <div class="thumbnail">
+                            <div class="cont-item">
+                                <div class="tag-grey">Online Only</div>
+                                <a href="../product-detail/av00159/index.html">
+                                    <img class="inormal" src="../wp-content/uploads/Pro_AV00159_1-500x500.jpg">
+                                    <img class="ihover" src="../wp-content/uploads/Pro_AV00159_2-1-500x500.jpg">
+                                </a>
+                            </div>
+                            <div class="button">
+                                <a class="btn btn-prd1-buynow hidden-xs hidden-sm"
+                                    href="../product-detail/av00159/index.html">MUA
+                                    NGAY</a>
+                                <a class="btn btn-prd1-heart addToWishList" href="javascript:void(0)"
+                                    data-liked="false" data-action="transferCartToWishList"
+                                    data-idProduct="710279"></a>
+                            </div>
+                            <div class="caption">
+                                <h3 class="type">Online Only</h3>
+                                <h3 class="divider"></h3>
+                                <h3 class="name"><a href="../product-detail/av00159/index.html">Pattas Polka Dots -
+                                        Low Top</a>
+                                </h3>
+                                <h3 class="color">Coral Rose</h3>
+                                <h3 class="price">
+                                    390.000 VND <span class="price-real">720.000 VND</span>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 item">
+                        <div class="thumbnail">
+                            <div class="cont-item">
+                                <div class="tag-grey">Online Only</div>
+                                <a href="../product-detail/av00157/index.html">
+                                    <img class="inormal" src="../wp-content/uploads/pro_AV00157_1-500x500.jpg">
+                                    <img class="ihover" src="../wp-content/uploads/pro_AV00157_2-500x500.jpg">
+                                </a>
+                            </div>
+                            <div class="button">
+                                <a class="btn btn-prd1-buynow hidden-xs hidden-sm"
+                                    href="../product-detail/av00157/index.html">MUA
+                                    NGAY</a>
+                                <a class="btn btn-prd1-heart addToWishList" href="javascript:void(0)"
+                                    data-liked="false" data-action="transferCartToWishList"
+                                    data-idProduct="706002"></a>
+                            </div>
+                            <div class="caption">
+                                <h3 class="type">Online Only</h3>
+                                <h3 class="divider"></h3>
+                                <h3 class="name"><a href="../product-detail/av00157/index.html">Pattas Polka Dots -
+                                        Low Top</a>
+                                </h3>
+                                <h3 class="color">Black</h3>
+                                <h3 class="price">
+                                    390.000 VND <span class="price-real">720.000 VND</span>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <div class="gotop hidden-xs hidden-sm">
