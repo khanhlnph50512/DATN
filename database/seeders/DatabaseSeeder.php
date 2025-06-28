@@ -28,12 +28,12 @@ class DatabaseSeeder extends Seeder
         // Size::factory()->count(5)->create();
 
         // 2. Sau đó mới đến Product vì cần có category, brand, color, size
-        Product::factory()->count(20)->create();
+        // Product::factory()->count(20)->create();
 
         // 3. Các bảng khác
         // Coupon::factory()->count(10)->create();
         // Blog::factory()->count(10)->create();
-        // User::factory(10)->create();
+        User::factory(10)->create();
         // Customer::factory(10)->create();
     }
 }

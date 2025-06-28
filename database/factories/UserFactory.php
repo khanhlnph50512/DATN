@@ -16,7 +16,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'seri_user' => 'su25_anatats#' . str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT), // đẹp hơn
+            'seri_user' => 'KHN' . str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT), // đẹp hơn
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
