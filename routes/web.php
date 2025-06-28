@@ -59,11 +59,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::delete('customers/force-delete/{id}', [CustomerController::class, 'forceDelete'])->name('customers.forceDelete');
 
     // Users
-    Route::resource('users', UserController::class)->except(['show']);
-    Route::get('users/{id}/show', [UserController::class, 'show'])->name('users.show');
-    Route::get('users/trash', [UserController::class, 'trash'])->name('users.trash');
-    Route::get('users/restore/{id}', [UserController::class, 'restore'])->name('users.restore');
-    Route::delete('users/force-delete/{id}', [UserController::class, 'forceDelete'])->name('users.forceDelete');
+    Route::prefix('users')->name('users.')->group(function () {
+        Route::get('trash', [UserController::class, 'trash'])->name('trash');
+        Route::get('{id}/restore', [UserController::class, 'restore'])->name('restore');
+        Route::delete('{id}/force-delete', [UserController::class, 'forceDelete'])->name('forceDelete');
+    });
+    Route::resource('users', UserController::class);
 
     // Brands, Colors, Sizes
     Route::resource('brands', BrandController::class);

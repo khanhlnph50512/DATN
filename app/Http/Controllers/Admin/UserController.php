@@ -72,7 +72,8 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::withTrashed()->findOrFail($id);
+        return view('admin.users.show', compact('user'));
     }
 
     /**
@@ -108,12 +109,12 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->address = $request->address;
 
-        if($request->filled('password')){
+        if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
 
-        if($request->hasFile('avatar')){
-            if($user->avatar && Storage::disk('public')->exists($user->avatar)){
+        if ($request->hasFile('avatar')) {
+            if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
                 Storage::disk('public')->delete($user->avatar);
             }
             $user->avatar = $request->file('avatar')->store('avatars', 'public');
@@ -127,6 +128,28 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('admin.users.index')->with('success', 'Xóa người dùng thành công và đã chuyển vào thùng rác.');
+    }
+    public function trash()
+    {
+        $users = User::onlyTrashed()->paginate(10);
+        return view('admin.users.trash', compact('users'));
+    }
+
+    public function restore($id)
+    {
+        $user = User::withTrashed()->findOrFail($id);
+        $user->restore();
+        return redirect()->route('admin.users.trash')->with('success', 'Khôi phục thành công');
+    }
+
+    public function forceDelete($id)
+    {
+        $user = User::withTrashed()->findOrFail($id);
+        $user->forceDelete();
+        return redirect()->route('admin.users.trash')->with('success', 'Xoá vĩnh viễn thành công');
     }
 }
