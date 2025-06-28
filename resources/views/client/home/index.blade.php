@@ -1,4 +1,5 @@
-@extends('.client.layouts.main')
+
+@extends('client.layouts.main')
 @section('content')
     <!-- END HEADER MOBILE--> <!-- CONTENT -->
     <div class="home-banner container-fluid">
@@ -27,25 +28,23 @@
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 left">
                 <div class="slide-collection">
-                    <div class="cont-item">
-                        <div class="adv-collection"><a
-                                href="product-list/indexdf17.html?gender=&amp;category=&amp;attribute=black">
-                                {{-- <img
-                                    src="{{ asset('assetsClients/wp-content/uploads/hinh-anh-gai-xinh-tiktok-dep-01.jpg') }}"> --}}
-                            </a>
-                        </div>
-                        <div class="content-collection">
-                            <h3 class="title"><a
-                                    href="product-list/indexdf17.html?gender=&amp;category=&amp;attribute=black">BLACK &
-                                    BLACK</a>
-                            </h3>
-                            <h3 class="description">
-                                <p>Mặc dù được ứng dụng rất nhiều, nhưng sắc đen lúc nào cũng toát lên một vẻ huyền bí không
-                                    nhàm chán</p>
-                            </h3>
-                        </div>
-                    </div>
-                </div>
+    <div class="cont-item">
+        <div class="adv-collection">
+            <a href="product-list/indexdf17.html?gender=&amp;category=&amp;attribute=black">
+                {{-- <img src="{{ asset('assetsClients/wp-content/uploads/hinh-anh-gai-xinh-tiktok-dep-01.jpg') }}"> --}}
+            </a>
+        </div>
+        <div class="content-collection">
+            <h3 class="title">
+                <a href="product-list/indexdf17.html?gender=&amp;category=&amp;attribute=black">BLACK & BLACK</a>
+            </h3>
+            <h3 class="description">
+                <p>Mặc dù được ứng dụng rất nhiều, nhưng sắc đen lúc nào cũng toát lên một vẻ huyền bí không nhàm chán</p>
+            </h3>
+        </div>
+    </div>
+</div>
+
             </div>
 
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 right">
