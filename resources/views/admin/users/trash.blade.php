@@ -51,7 +51,7 @@
                                     <td>{{ ucfirst($user->role) }}</td>
                                     <td>{{ $user->deleted_at->format('d/m/Y H:i') }}</td>
                                     <td class="text-center">
-                                        <form action="{{ route('users.restore', $user->id) }}" method="POST"
+                                        <form action="{{ route('admin.users.restore', $user->id) }}" method="POST"
                                             style="display:inline-block;">
                                             @csrf
                                             <button type="submit" class="btn btn-success btn-sm" data-bs-toggle="tooltip"
@@ -59,7 +59,7 @@
                                                 <i class="fa fa-rotate-left"></i>
                                             </button>
                                         </form>
-                                        <form action="{{ route('users.forceDelete', $user->id) }}" method="POST"
+                                        <form action="{{ route('admin.users.forceDelete', $user->id) }}" method="POST"
                                             style="display:inline-block;" onsubmit="return confirm('Xoá vĩnh viễn?')">
                                             @csrf @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"

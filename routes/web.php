@@ -61,7 +61,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Users
     Route::prefix('users')->name('users.')->group(function () {
         Route::get('trash', [UserController::class, 'trash'])->name('trash');
-        Route::get('{id}/restore', [UserController::class, 'restore'])->name('restore');
+        Route::post('{id}/restore', [UserController::class, 'restore'])->name('restore');
         Route::delete('{id}/force-delete', [UserController::class, 'forceDelete'])->name('forceDelete');
     });
     Route::resource('users', UserController::class);
