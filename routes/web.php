@@ -23,7 +23,7 @@ use App\Http\Controllers\Clients\HomeController as ClientsHomeController;
 
 // Trang chủ
 Route::get('/', function () {
-    return view('coming-soon');
+    return view('client.home.index');
 });
 
 // Auth

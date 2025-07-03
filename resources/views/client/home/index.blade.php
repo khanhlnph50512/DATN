@@ -1,4 +1,3 @@
-
 @extends('client.layouts.main')
 @section('content')
     <!-- END HEADER MOBILE--> <!-- CONTENT -->
@@ -7,7 +6,7 @@
         <div class="slide-banner hidden-xs hidden-sm">
             <a href="product-list/indexcd9e.html?gender=&amp;category=&amp;attribute=day-slide">
                 <div class="cont-item">
-                    <img src="wp-content/uploads/1920x960.jpg">
+                    <img src="{{ asset('assetsClients/wp-content/uploads/BANNER-DAYSLIDE-02.jpg') }}" alt="">
                 </div>
             </a>
         </div>
@@ -15,9 +14,10 @@
 
         <!-- Mobile banner1 -->
         <div class="slide-banner-mobile visible-xs visible-sm">
-            <a href="product-list/indexcd9e.html?gender=&amp;category=&amp;attribute=day-slide">
+            <a href="{{ route('product.index') }}">
                 <div class="cont-item">
-                    <img src="wp-content/uploads/BANNER-DAYSLIDE-02.jpg">
+                    <img src="{{ asset('assetsClients/wp-content/uploads/BANNER-DAYSLIDE-02.jpg') }}"
+                        alt="">
                 </div>
             </a>
         </div>
@@ -28,28 +28,32 @@
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 left">
                 <div class="slide-collection">
-    <div class="cont-item">
-        <div class="adv-collection">
-            <a href="product-list/indexdf17.html?gender=&amp;category=&amp;attribute=black">
-                {{-- <img src="{{ asset('assetsClients/wp-content/uploads/hinh-anh-gai-xinh-tiktok-dep-01.jpg') }}"> --}}
-            </a>
-        </div>
-        <div class="content-collection">
-            <h3 class="title">
-                <a href="product-list/indexdf17.html?gender=&amp;category=&amp;attribute=black">BLACK & BLACK</a>
-            </h3>
-            <h3 class="description">
-                <p>Mặc dù được ứng dụng rất nhiều, nhưng sắc đen lúc nào cũng toát lên một vẻ huyền bí không nhàm chán</p>
-            </h3>
-        </div>
-    </div>
-</div>
+                    <div class="cont-item">
+                        <div class="adv-collection">
+                            <a href="{{ route('product.index') }}">
+                               <img src="{{ asset('assetsClients/wp-content/uploads/banner-phụ_2m-600x320.jpg') }}"
+                        alt="">
+                            </a>
+                        </div>
+                        <div class="content-collection">
+                            <h3 class="title">
+                                <a href="product-list/indexdf17.html?gender=&amp;category=&amp;attribute=black">BLACK &
+                                    BLACK</a>
+                            </h3>
+                            <h3 class="description">
+                                <p>Mặc dù được ứng dụng rất nhiều, nhưng sắc đen lúc nào cũng toát lên một vẻ huyền bí không
+                                    nhàm chán</p>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 right">
                 <div class="adv-collection"><a href="promotion/clearance-sale/index.html">
-                        {{-- <img src="{{ asset('assetsClients/wp-content/uploads/hinh-anh-gai-xinh-tiktok-dep-01.jpg') }}"> --}}
+                        <img src="{{ asset('assetsClients/wp-content/uploads/Frontpage_img-background-Sale-off.jpg') }}"
+                            alt="">
                     </a>
                 </div>
                 <div class="content-collection">
@@ -70,7 +74,7 @@
             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 item">
                 <div class="item-bg">
                     <div class="black-bg"></div>
-                    {{-- <img src="{{ asset('assetsClients/wp-content/uploads/hinh-anh-gai-xinh-tiktok-dep-01.jpg') }}"> --}}
+                    <img src="{{ asset('assetsClients/wp-content/uploads/giày-nam-e1720844745768.jpg') }}">
                 </div>
                 <div class="item-group">
                     <a class="title" href="#">GIÀY NAM</a>
@@ -84,7 +88,7 @@
             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 item">
                 <div class="item-bg">
                     <div class="black-bg"></div>
-                    {{-- <img src="{{ asset('assetsClients/wp-content/uploads/hinh-anh-gai-xinh-tiktok-dep-01.jpg') }}"> --}}
+                    <img src="{{ asset('assetsClients/wp-content/uploads/Desktop_Dropdown_Women_1-2.jpg') }}">
                 </div>
                 <div class="item-group">
                     <a class="title" href="#">GIÀY NỮ</a>
@@ -98,7 +102,7 @@
             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 item">
                 <div class="item-bg">
                     <div class="black-bg"></div>
-                    {{-- <img src="{{ asset('assetsClients/wp-content/uploads/hinh-anh-gai-xinh-tiktok-dep-01.jpg') }}"> --}}
+                    <img src="{{ asset('assetsClients/wp-content/uploads/Frontpage_background-Dòng-Sản-Phẩm.jpg') }}">
                 </div>
                 <div class="item-group">
                     <a class="title" href="#">DÒNG SẢN PHẨM</a>

@@ -48,9 +48,25 @@
 
         /* hover dropdown Bootstrap 5 */
         /* Hover mở dropdown menu Bootstrap 5 */
-        .nav-item.dropdown:hover>.dropdown-menu {
-            display: block;
-            margin-top: 0;
+        .username-hover {
+            color: white;
+            /* hoặc màu chữ hiện tại */
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .username-hover:hover {
+            color: #ff6600;
+            /* màu cam khi hover */
+        }
+
+        .logout-link {
+            color: red;
+            text-decoration: none;
+        }
+
+        .logout-link:hover {
+            text-decoration: underline;
         }
     </style>
     <script>
@@ -317,21 +333,16 @@
                 <!--                <li><a href="--><!--"><img-->
                 <!--                                src="--><!--/icon_login.png"> Đăng nhập</a></li>-->
                 @auth
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarUserDropdown" role="button"
-                            aria-expanded="false">
-                            <img src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_dang_nhap.svg') }}"
-                                alt="user" width="20">
-                            {{ Auth::user()->name }}
+                    <li class="nav-item d-flex align-items-center gap-2">
+                        <img src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_dang_nhap.svg') }}"
+                            alt="user" width="20">
+                        <span class="username-hover">{{ Auth::user()->name }}</span>
+                        <span>|</span>
+                        <a href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                            class="logout-link">
+                            Đăng xuất
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarUserDropdown">
-                            <li>
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    Đăng xuất
-                                </a>
-                            </li>
-                        </ul>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
@@ -345,6 +356,7 @@
                         </a>
                     </li>
                 @endauth
+
                 <li><a href=""><img
                             src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon-cart-8.svg') }}">
                         Giỏ hàng (<span class="countProduct">0</span>)</a></li>
