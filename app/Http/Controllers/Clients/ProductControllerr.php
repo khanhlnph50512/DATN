@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Clients;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProductControllerr extends Controller
 {
@@ -18,54 +19,38 @@ class ProductControllerr extends Controller
                         ->orderByDesc('id')
                         ->paginate(12);
         return view('client.products.listProducts',compact('products'));
-        // return view('client.products.detailProducts');
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $slug,$id)
     {
-        return view('client.products.detailProducts');
+           $product = Product::with([
+        'primaryImage',
+        'images',
+        'variations.color',
+        'variations.size'
+    ])->findOrFail($id);
+
+    // Kiểm tra slug hợp lệ, nếu không thì redirect
+    $trueSlug = Str::slug($product->name);
+    if ($slug !== $trueSlug) {
+        return redirect()->route('client.products.detailProducts', [
+            'slug' => $trueSlug,
+            'id' => $product->id,
+        ]);
+    }
+        return view('client.products.detailProducts',compact("product"));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
