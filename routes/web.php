@@ -33,6 +33,7 @@ Auth::routes();
 // ========================= CLIENT =========================
 Route::resource('client/home', ClientsHomeController::class);
 Route::resource('client/product', ProductControllerr::class);
+Route::get('/product-detail/{slug}/{id}', [ProductControllerr::class, 'show'])->name('client.products.detailProducts');
 Route::get('client/order-tracking', [OrderController::class, 'orderTracking'])->name('client.order-tracking');
 
 // ========================= ADMIN =========================
