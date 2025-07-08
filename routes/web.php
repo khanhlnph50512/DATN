@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\CouponController;
 
 // Client Controllers
 use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\Clients\CartController;
 use App\Http\Controllers\Clients\HomeController as ClientsHomeController;
 
 // Trang chủ
@@ -35,6 +36,15 @@ Route::resource('client/home', ClientsHomeController::class);
 Route::resource('client/product', ProductControllerr::class);
 Route::get('/product-detail/{slug}/{id}', [ProductControllerr::class, 'show'])->name('client.products.detailProducts');
 Route::get('client/order-tracking', [OrderController::class, 'orderTracking'])->name('client.order-tracking');
+
+// Cart
+Route::prefix('client/carts')->name('client.carts.')->group(function () {
+    Route::get('/', [CartController::class, 'index'])->name('index');
+    Route::post('/add', [CartController::class, 'addToCart'])->name('add');
+    Route::post('/update/{id}', [CartController::class, 'update'])->name('update');
+    Route::delete('/remove/{id}', [CartController::class, 'remove'])->name('remove');
+    Route::delete('/clear', [CartController::class, 'clear'])->name('clear');
+});
 
 // ========================= ADMIN =========================
 Route::prefix('admin')->name('admin.')->group(function () {

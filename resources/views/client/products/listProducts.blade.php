@@ -19,7 +19,6 @@
 
                     </ul>
                 </div>
-                <div class="row left-divider"></div>
                 <div class="row left-type-item">
                     <!-- Tab panes -->
                     <div class="tab-content">

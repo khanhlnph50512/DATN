@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Color;
+use App\Models\Admin\Color;
 
 class ColorFactory extends Factory
 {

@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
-use App\Models\Coupon;
+use App\Models\Admin\Coupon;
 
 class CouponFactory extends Factory
 {

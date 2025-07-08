@@ -4,12 +4,12 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Product;
-use App\Models\Category;
-use App\Models\Brand;
-use App\Models\Color;
-use App\Models\Size;
-use App\Models\ProductVariation;
+use App\Models\Admin\Product;
+use App\Models\Admin\Category;
+use App\Models\Admin\Brand;
+use App\Models\Admin\Color;
+use App\Models\Admin\Size;
+use App\Models\Admin\ProductVariation;
 
 class ProductFactory extends Factory
 {

@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use App\Models\User; // ✅ Đảm bảo đúng namespace model User
+use App\Models\Admin\User; // ✅ Đảm bảo đúng namespace model User
 
 class UserFactory extends Factory
 {
