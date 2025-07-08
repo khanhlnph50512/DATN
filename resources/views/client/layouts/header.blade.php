@@ -357,7 +357,7 @@
                     </li>
                 @endauth
 
-                <li><a href=""><img
+                <li><a href="{{ route('client.carts.index') }}"><img
                             src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon-cart-8.svg') }}">
                         Giỏ hàng (<span class="countProduct">0</span>)</a></li>
             </ul>
@@ -376,8 +376,7 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
-                            <a href="{{ route('product.index') }}" class="dropdown-toggle">SẢN PHẨM <span
-                                    class="caret"></span></a>
+                            <a href="{{ route('product.index') }}" class="dropdown-toggle">SẢN PHẨM </a>
                             <ul class="dropdown-menu style1">
                                 <li><a href="product-list/index07a0.html?gender=men"><img
                                             src="{{ asset('assetsClients/wp-content/uploads/Dropmenu_nam.jpg') }}"></a><a
@@ -405,224 +404,12 @@
 
                         <li class="line"></li>
                         <li class="dropdown">
-                            <a href="product-list/index07a0.html?gender=men" class="dropdown-toggle">NAM <span
-                                    class="caret"></span></a>
-                            <ul class="dropdown-menu style2">
-                                <li>
-                                    <a href="#" class="title">NỔI BẬT</a>
-
-                                    <a class="blank">&nbsp;</a>
-                                    <a class="title1" href="#"></a>
-                                    <a
-                                        href="product-list/indexf29d.html?gender=men&amp;category=&amp;attribute=best-seller">Best
-                                        Seller</a>
-                                    <a
-                                        href="product-list/index3b57.html?gender=men&amp;category=&amp;attribute=new-arrival">New
-                                        Arrival</a>
-                                    <a
-                                        href="product-list/indexd23c.html?gender=men&amp;category=&amp;attribute=sale-off">Sale
-                                        off</a>
-                                    <a class="blank">&nbsp;</a>
-                                    <a class="title1" href="#">Bộ sản phẩm</a>
-                                    <a
-                                        href="product-list/index50e9.html?gender=&amp;category=&amp;attribute=die-cut-insoles,recycled-material">Recycled
-                                        Material</a>
-                                    <a
-                                        href="product-list/index95fd.html?gender=men&amp;category=&amp;attribute=day-slide">Day
-                                        Slide</a>
-                                    <a
-                                        href="product-list/indexc490.html?gender=&amp;category=&amp;attribute=denim">Denim</a>
-                                    <a href="product-list/index757b.html?gender=&amp;category=&amp;attribute=og">Track
-                                        6 OG</a>
-                                    <a
-                                        href="product-list/indexce3d.html?gender=&amp;category=&amp;attribute=polka-dots">Pattas
-                                        Polka Dots</a>
-                                    <a class="blank">&nbsp;</a>
-                                    <a class="title1" href="#">Collaboration</a>
-                                    <a class="blank">&nbsp;</a>
-                                </li>
-                                <li class="style2-divider"></li>
-                                <li>
-                                    <a href="#" class="title">GIÀY</a>
-
-                                    <a class="blank">&nbsp;</a>
-                                    <a class="title1" href="#">Dòng sản phẩm</a>
-                                    <a
-                                        href="product-list/indexe37d.html?gender=men&amp;category=&amp;attribute=basas">Basas</a>
-                                    <a
-                                        href="product-list/indexcfab.html?gender=men&amp;category=&amp;attribute=vintas">Vintas</a>
-                                    <a
-                                        href="product-list/indexbea3.html?gender=men&amp;category=&amp;attribute=urbas">Urbas</a>
-                                    <a
-                                        href="product-list/index1842.html?gender=men&amp;category=&amp;attribute=pattas">Pattas</a>
-                                    <a
-                                        href="product-list/index6c02.html?gender=men&amp;category=&amp;attribute=creas">Creas</a>
-                                    <a
-                                        href="product-list/index34df.html?gender=men&amp;category=&amp;attribute=track-6">Track
-                                        6</a>
-                                    <a class="blank">&nbsp;</a>
-                                    <a class="title1" href="#">Style</a>
-                                    <a
-                                        href="product-list/indexbaed.html?gender=men&amp;category=&amp;attribute=high-top">High
-                                        Top</a>
-                                    <a
-                                        href="product-list/index5a68.html?gender=men&amp;category=&amp;attribute=low-top">Low
-                                        Top</a>
-                                    <a
-                                        href="product-list/indexeed1.html?gender=men&amp;category=&amp;attribute=slip-on">Slip-on</a>
-                                    <a class="blank">&nbsp;</a>
-                                    <a class="title1"
-                                        href="product-list/index97bd.html?gender=men&amp;category=shoes&amp;attribute=">Tất
-                                        cả giày</a>
-                                    <a class="blank">&nbsp;</a>
-                                </li>
-                                <li>
-                                    <a href="product-list/index0b87.html?gender=men&amp;category=top,bottom,accessories&amp;attribute="
-                                        class="title">THỜI TRANG & PHỤ KIỆN</a>
-
-                                    <a class="blank">&nbsp;</a>
-                                    <a class="title1" href="#">Nửa trên</a>
-                                    <a
-                                        href="product-list/indexbb5e.html?gender=&amp;category=&amp;attribute=basic-tee">Basic
-                                        Tee</a>
-                                    <a
-                                        href="product-list/indexf251.html?gender=&amp;category=&amp;attribute=graphic-tee">Graphic
-                                        tee</a>
-                                    <a
-                                        href="product-list/indexeaf8.html?gender=&amp;category=&amp;attribute=sweatshirt">Sweatshirt</a>
-                                    <a
-                                        href="product-list/indexeb23.html?gender=&amp;category=&amp;attribute=hoodie">Hoodie</a>
-                                    <a class="blank">&nbsp;</a>
-                                    <a class="title1" href="#">Phụ kiện</a>
-                                    <a
-                                        href="product-list/index9a2f.html?gender=men&amp;category=&amp;attribute=hat">Nón</a>
-                                    <a
-                                        href="product-list/indexc9b1.html?gender=men&amp;category=&amp;attribute=shoelaces">Dây
-                                        giày</a>
-                                    <a
-                                        href="product-list/index4762.html?gender=men&amp;category=&amp;attribute=socks">Vớ</a>
-                                    <a
-                                        href="product-list/index8485.html?gender=men&amp;category=&amp;attribute=tote-bag">Túi
-                                        Tote</a>
-                                    <a class="blank">&nbsp;</a>
-                                    <a class="title1"
-                                        href="product-list/index0b87.html?gender=men&amp;category=top,bottom,accessories&amp;attribute=">Xem
-                                        tất cả</a>
-                                    <a class="blank">&nbsp;</a>
-                                </li>
-                                <div class="style2-des"><a href="coming-soon/index.html">MỌI NGƯỜI THƯỜNG GỌI CHÚNG
-                                        TÔI LÀ <span class="highlight">DỨA</span> !</a></div>
-                            </ul>
+                            <a href="product-list/index07a0.html?gender=men" class="dropdown-toggle">NAM </a>
                         </li>
 
                         <li class="line"></li>
                         <li class="dropdown">
-                            <a href="product-list/indexd5c6.html?gender=women" class="dropdown-toggle">NỮ <span
-                                    class="caret"></span></a>
-                            <ul class="dropdown-menu style2">
-                                <li>
-                                    <a href="#" class="title">NỔI BẬT</a>
-
-                                    <a class="blank">&nbsp;</a>
-                                    <a class="title1" href="#"></a>
-                                    <a
-                                        href="product-list/index7b5e.html?gender=women&amp;category=&amp;attribute=best-seller">Best
-                                        Seller</a>
-                                    <a
-                                        href="product-list/index78a3.html?gender=women&amp;category=&amp;attribute=new-arrival">New
-                                        Arrival</a>
-                                    <a
-                                        href="product-list/index63b7.html?gender=women&amp;category=&amp;attribute=sale-off">Sale-off</a>
-                                    <a class="blank">&nbsp;</a>
-                                    <a class="title1" href="#">Bộ sản phẩm</a>
-                                    <a
-                                        href="product-list/index95fd.html?gender=men&amp;category=&amp;attribute=day-slide">Day
-                                        Slide</a>
-                                    <a
-                                        href="product-list/index07f1.html?gender=&amp;category=&amp;attribute=living-journey">Pattas
-                                        Living Journey</a>
-                                    <a
-                                        href="product-list/indexce3d.html?gender=&amp;category=&amp;attribute=polka-dots">Pattas
-                                        Polka Dots</a>
-                                    <a
-                                        href="product-list/index01c1.html?gender=&amp;category=&amp;attribute=evergreen-pack">Basas
-                                        Evergreen</a>
-                                    <a href="product-list/indexdde7.html?gender=&amp;category=&amp;attribute=ruler">Urbas
-                                        Ruler</a>
-                                    <a
-                                        href="product-list/index602a.html?gender=women&amp;category=&amp;attribute=class-e">Track
-                                        6 Class E</a>
-                                    <a class="blank">&nbsp;</a>
-                                    <a class="title1" href="#">Collaboration</a>
-                                    <a class="blank">&nbsp;</a>
-                                </li>
-                                <li class="style2-divider"></li>
-                                <li>
-                                    <a href="#" class="title">GIÀY</a>
-
-                                    <a class="blank">&nbsp;</a>
-                                    <a class="title1" href="#">Dòng sản phẩm</a>
-                                    <a
-                                        href="product-list/index487c.html?gender=women&amp;category=&amp;attribute=basas">Basas</a>
-                                    <a
-                                        href="product-list/indexe86f.html?gender=women&amp;category=&amp;attribute=vintas">Vintas</a>
-                                    <a
-                                        href="product-list/index7097.html?gender=women&amp;category=&amp;attribute=urbas">Urbas</a>
-                                    <a
-                                        href="product-list/index5054.html?gender=women&amp;category=&amp;attribute=pattas">Pattas</a>
-                                    <a
-                                        href="product-list/indexe2e2.html?gender=women&amp;category=&amp;attribute=creas">Creas</a>
-                                    <a href="product-list/index4155.html?gender=&amp;category=&amp;attribute=class-e">Track
-                                        6</a>
-                                    <a class="blank">&nbsp;</a>
-                                    <a class="title1" href="#">Style</a>
-                                    <a
-                                        href="product-list/indexa55a.html?gender=women&amp;category=&amp;attribute=high-top">High
-                                        Top</a>
-                                    <a
-                                        href="product-list/index700c.html?gender=women&amp;category=&amp;attribute=low-top">Low
-                                        Top</a>
-                                    <a
-                                        href="product-list/indexc5cb.html?gender=women&amp;category=&amp;attribute=slip-on">Slip-on</a>
-                                    <a class="blank">&nbsp;</a>
-                                </li>
-                                <li>
-                                    <a href="product-list/indexef24.html?gender=women&amp;category=top,bottom,accessories&amp;attribute="
-                                        class="title">THỜI TRANG & PHỤ KIỆN</a>
-
-                                    <a class="blank">&nbsp;</a>
-                                    <a class="title1" href="#">Nửa trên</a>
-                                    <a
-                                        href="product-list/indexbb5e.html?gender=&amp;category=&amp;attribute=basic-tee">Basic
-                                        Tee</a>
-                                    <a
-                                        href="product-list/indexf251.html?gender=&amp;category=&amp;attribute=graphic-tee">Graphic
-                                        Tee</a>
-                                    <a
-                                        href="product-list/indexeaf8.html?gender=&amp;category=&amp;attribute=sweatshirt">Sweatshirt</a>
-                                    <a
-                                        href="product-list/indexeb23.html?gender=&amp;category=&amp;attribute=hoodie">Hoodie</a>
-                                    <a class="blank">&nbsp;</a>
-                                    <a class="title1" href="#">Phụ kiện</a>
-                                    <a
-                                        href="product-list/index71a4.html?gender=women&amp;category=&amp;attribute=hat">Nón</a>
-                                    <a
-                                        href="product-list/indexeb1a.html?gender=women&amp;category=&amp;attribute=shoelaces">Dây
-                                        giày</a>
-                                    <a
-                                        href="product-list/index4762.html?gender=men&amp;category=&amp;attribute=socks">Vớ</a>
-                                    <a
-                                        href="product-list/index8a94.html?gender=women&amp;category=&amp;attribute=tote-bag">Túi
-                                        Tote</a>
-                                    <a class="blank">&nbsp;</a>
-                                    <a class="title1"
-                                        href="product-list/indexef24.html?gender=women&amp;category=top,bottom,accessories&amp;attribute=">Xem
-                                        tất cả</a>
-                                    <a class="blank">&nbsp;</a>
-                                </li>
-                                <div class="style2-des"><a href="coming-soon/index.html">MỌI NGƯỜI THƯỜNG GỌI CHÚNG
-                                        TÔI LÀ <span class="highlight">DỨA</span> !</a></div>
-                            </ul>
+                            <a href="product-list/indexd5c6.html?gender=women" class="dropdown-toggle">NỮ </a>
                         </li>
 
                         <li class="line"></li>

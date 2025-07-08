@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Admin\Blog;
-use App\Models\Admin\Post;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 

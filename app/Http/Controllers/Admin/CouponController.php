@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Product;
-use App\Models\Coupon;
+use App\Models\Admin\User;
+use App\Models\Admin\Product;
+use App\Models\Admin\Coupon;
 
 class CouponController extends Controller
 {

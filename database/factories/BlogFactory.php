@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Blog;
+use App\Models\Admin\Blog;
 
 class BlogFactory extends Factory
 {

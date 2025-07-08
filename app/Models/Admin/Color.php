@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,14 +10,10 @@ class Color extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $table = 'colors';
+    protected $fillable = ['name', 'code'];
 
-    protected $fillable = [
-        'name', 'code'
-    ];
-
-    public function variations()
+    public function variants()
     {
-        return $this->hasMany(ProductVariation::class);
+        return $this->hasMany(ProductVariation::class, 'color_id');
     }
 }
