@@ -38,13 +38,17 @@ Route::get('/product-detail/{slug}/{id}', [ProductControllerr::class, 'show'])->
 Route::get('client/order-tracking', [OrderController::class, 'orderTracking'])->name('client.order-tracking');
 
 // Cart
+// routes/web.php
 Route::prefix('client/carts')->name('client.carts.')->group(function () {
     Route::get('/', [CartController::class, 'index'])->name('index');
-    Route::post('/add', [CartController::class, 'addToCart'])->name('add');
+    Route::post('/add', [CartController::class, 'add'])->name('add');
+
     Route::post('/update/{id}', [CartController::class, 'update'])->name('update');
+
     Route::delete('/remove/{id}', [CartController::class, 'remove'])->name('remove');
     Route::delete('/clear', [CartController::class, 'clear'])->name('clear');
 });
+// Route::get('checkout', [CheckoutController::class, 'index'])->name('client.checkout.index');
 
 // ========================= ADMIN =========================
 Route::prefix('admin')->name('admin.')->group(function () {

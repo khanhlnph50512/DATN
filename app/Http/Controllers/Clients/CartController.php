@@ -15,12 +15,18 @@ class CartController extends Controller
         $userId = Auth::id();
         $sessionId = $request->session()->getId();
 
-        $items = Cart::where(function ($q) use ($userId, $sessionId) {
+        $items = Cart::with('product')->where(function ($q) use ($userId, $sessionId) {
             $q->when($userId, fn($q) => $q->where('user_id', $userId))
                 ->orWhere('session_id', $sessionId);
         })->get();
 
-        return view('client.carts.index', compact('items'));
+        // Nếu có giá giảm thì dùng, không thì dùng giá gốc
+        $total = $items->sum(function ($item) {
+            $price = $item->product->price_sale ?: $item->product->price;
+            return $price * $item->quantity;
+        });
+
+        return view('client.carts.index', compact('items', 'total'));
     }
     public function add(Request $request)
     {
@@ -71,5 +77,23 @@ class CartController extends Controller
         }
 
         return redirect()->route('client.carts.index')->with('success', 'Đã thêm vào giỏ hàng!');
+    }
+    public function update(Request $request)
+    {
+        $userId = Auth::id();
+        $sessionId = $request->session()->getId();
+
+        $items = Cart::where(function ($q) use ($userId, $sessionId) {
+            $q->when($userId, fn($q) => $q->where('user_id', $userId))
+                ->orWhere('session_id', $sessionId);
+        })->with(['product', 'variation'])->get();
+
+        // ✅ Tính tổng tiền
+        $total = $items->sum(function ($item) {
+            $price = $item->variation->price_sale ?? $item->variation->price ?? 0;
+            return $price * $item->quantity;
+        });
+
+        return view('client.carts.index', compact('items', 'total'));
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Client\ProductVariation;
 use App\Models\Client\ProductImage;
+use App\Models\Client\Cart;
 
 class Product extends Model
 {
@@ -33,5 +34,9 @@ class Product extends Model
     public function images()
     {
         return $this->hasMany(ProductImage::class);
+    }
+    public function carts()
+    {
+        return $this->hasMany(Cart::class, 'product_id');
     }
 }
