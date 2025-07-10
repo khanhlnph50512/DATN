@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Clients\OrderController;
 use App\Http\Controllers\Clients\ProductControllerr;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +17,6 @@ use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CouponController;
-
 // Client Controllers
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Clients\CartController;
@@ -28,7 +28,21 @@ Route::get('/', function () {
 });
 
 // Auth
-Auth::routes();
+
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login.form');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register.form');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/forgot-password', [AuthController::class, 'showForgotForm'])->name('password.request');
+// Xử lý gửi mail/reset token
+Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('password.email');
+
+// Form đổi mật khẩu theo token
+Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
+// Xử lý cập nhật mật khẩu mới
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // ========================= CLIENT =========================
