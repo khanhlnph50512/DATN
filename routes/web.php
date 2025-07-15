@@ -56,9 +56,7 @@ Route::get('client/order-tracking', [OrderController::class, 'orderTracking'])->
 Route::prefix('client/carts')->name('client.carts.')->group(function () {
     Route::get('/', [CartController::class, 'index'])->name('index');
     Route::post('/add', [CartController::class, 'add'])->name('add');
-
-    Route::post('/update/{id}', [CartController::class, 'update'])->name('update');
-
+Route::post('/update/{id}', [CartController::class, 'updateQuantity'])->name('updateQuantity');
     Route::delete('/remove/{id}', [CartController::class, 'remove'])->name('remove');
     Route::delete('/clear', [CartController::class, 'clear'])->name('clear');
 });

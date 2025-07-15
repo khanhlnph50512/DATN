@@ -90,7 +90,7 @@
                 <div class="cart-title">GIỎ HÀNG</div>
 
                 @foreach ($items as $item)
-                    <div class="row cart-item align-items-center">
+                    <div class="row cart-item align-items-center mb-3">
                         <div class="col-md-3">
                             @if ($item->product->primaryImage)
                                 <img src="{{ asset('asset/img/' . $item->product->primaryImage->image_url) }}"
@@ -105,7 +105,7 @@
                             <p>Giá: {{ number_format($item->product->price, 0, ',', '.') }} VND</p>
                             <p>Size: {{ $item->variation->size->name ?? '---' }}</p>
                             <p>Màu sắc: {{ $item->variation->color->name ?? '---' }}</p>
-                            <form action="{{ route('client.carts.update', $item->id) }}" method="POST">
+                            <form action="{{ route('client.carts.updateQuantity', $item->id) }}" method="POST">
                                 @csrf
                                 <label>Số lượng:</label>
                                 <select name="quantity" onchange="this.form.submit()" class="form-control w-50">
@@ -120,18 +120,21 @@
                             <form action="{{ route('client.carts.remove', $item->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-outline-danger"> <i class="fas fa-trash"></i>
+                                <button type="submit" class="btn btn-outline-danger">
+                                    <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                             <div class="text-danger mt-2">Còn hàng</div>
                             <div class="font-weight-bold mt-2 text-orange">
-                                {{ number_format($item->product->price * $item->quantity, 0, ',', '.') }} VND</div>
+                                {{ number_format($item->product->price * $item->quantity, 0, ',', '.') }} VND
+                            </div>
                         </div>
                     </div>
                 @endforeach
 
                 <div class="d-flex align-items-center gap-2 mt-4">
-                    <form action="{{ route('client.carts.clear') }}" method="POST" class="m-0">
+                    <form action="{{ route('client.carts.clear') }}" method="POST" class="m-0"
+                        onsubmit="return confirm('Bạn có chắc chắn muốn xóa toàn bộ giỏ hàng không?')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-outline-secondary">XÓA HẾT</button>
@@ -146,8 +149,8 @@
                     <div class="summary-title">ĐƠN HÀNG</div>
 
                     <form class="promo-form mb-3">
-                        <input type="text" placeholder="Nhập mã khuyến mãi">
-                        <button type="button">ÁP DỤNG</button>
+                        <input type="text" placeholder="Nhập mã khuyến mãi" class="form-control mb-2">
+                        <button type="button" class="btn btn-outline-dark w-100">ÁP DỤNG</button>
                     </form>
 
                     <div>
@@ -155,11 +158,11 @@
                         <p>Giảm: 0 VND</p>
                     </div>
 
-                    <div class="summary-total">
+                    <div class="summary-total font-weight-bold">
                         Tạm tính: {{ number_format($total, 0, ',', '.') }} VND
                     </div>
 
-                    <button class="btn-checkout">TIẾP TỤC THANH TOÁN</button>
+                    <button class="btn-checkout btn btn-warning w-100 mt-3">TIẾP TỤC THANH TOÁN</button>
                 </div>
             </div>
         </div>

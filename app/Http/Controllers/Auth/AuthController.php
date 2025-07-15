@@ -32,7 +32,7 @@ public function login(Request $request)
             return redirect('/admin/dashboard');
         }
 
-        return redirect('/dashboard'); // người dùng thường
+        return redirect('/home'); // người dùng thường
     }
 
     return back()->withErrors([
