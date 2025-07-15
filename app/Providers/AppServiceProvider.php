@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Http\Middleware\CheckRole;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Route;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,8 +20,13 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot()
-    {
-        Paginator::useBootstrapFive();
-    }
+    public function boot(): void
+{
+    Route::middleware('web')
+        ->group(function () {
+            // ...
+        });
+
+    $this->app['router']->aliasMiddleware('role', CheckRole::class);
+}
 }

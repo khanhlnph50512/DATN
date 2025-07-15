@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin;
 
+use App\Models\Client\Comment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -59,4 +60,9 @@ class Product extends Model
     {
         return $this->belongsToMany(Coupon::class, 'product_coupons');
     }
+    public function comments()
+{
+    return $this->hasMany(Comment::class, 'product_id');
+}
+
 }

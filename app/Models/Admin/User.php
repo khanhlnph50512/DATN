@@ -3,6 +3,8 @@
 namespace App\Models\Admin;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Models\Admin\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -53,4 +55,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function roles()
+{
+    return $this->belongsToMany(Role::class, 'role_user');
+}
+
+// Kiểm tra người dùng có vai trò cụ thể không
+public function hasRole($roleName)
+{
+    return $this->roles->contains('name', $roleName);
+}
+
 }

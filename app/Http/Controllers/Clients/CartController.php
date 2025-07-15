@@ -14,8 +14,13 @@ class CartController extends Controller
     {
         $userId = Auth::id();
         $sessionId = $request->session()->getId();
-
-        $items = Cart::with('product')->where(function ($q) use ($userId, $sessionId) {
+        $items = Cart::with([
+            'product.category',
+            'product.brand',
+            'product.primaryImage',
+            'variation.size',
+            'variation.color'
+        ])->where(function ($q) use ($userId, $sessionId) {
             $q->when($userId, fn($q) => $q->where('user_id', $userId))
                 ->orWhere('session_id', $sessionId);
         })->get();
@@ -97,59 +102,58 @@ class CartController extends Controller
         return view('client.carts.index', compact('items', 'total'));
     }
     public function updateQuantity(Request $request, $id)
-{
-    $request->validate([
-        'quantity' => 'required|integer|min:1',
-    ]);
+    {
+        $request->validate([
+            'quantity' => 'required|integer|min:1',
+        ]);
 
-    $cartItem = Cart::find($id);
+        $cartItem = Cart::find($id);
 
-    if (!$cartItem) {
-        return back()->with('error', 'Không tìm thấy sản phẩm trong giỏ.');
+        if (!$cartItem) {
+            return back()->with('error', 'Không tìm thấy sản phẩm trong giỏ.');
+        }
+
+        $userId = Auth::id();
+        $sessionId = $request->session()->getId();
+
+        // Chỉ cho phép chỉnh sửa nếu đúng user hoặc session
+        if (($userId && $cartItem->user_id == $userId) || (!$userId && $cartItem->session_id == $sessionId)) {
+            $cartItem->quantity = $request->quantity;
+            $cartItem->save();
+
+            return back()->with('success', 'Cập nhật số lượng thành công.');
+        }
+
+        return back()->with('error', 'Không có quyền cập nhật mục này.');
     }
+    public function remove($id, Request $request)
+    {
+        $cartItem = Cart::find($id);
 
-    $userId = Auth::id();
-    $sessionId = $request->session()->getId();
+        if (!$cartItem) {
+            return back()->with('error', 'Không tìm thấy sản phẩm trong giỏ.');
+        }
 
-    // Chỉ cho phép chỉnh sửa nếu đúng user hoặc session
-    if (($userId && $cartItem->user_id == $userId) || (!$userId && $cartItem->session_id == $sessionId)) {
-        $cartItem->quantity = $request->quantity;
-        $cartItem->save();
+        $userId = Auth::id();
+        $sessionId = $request->session()->getId();
 
-        return back()->with('success', 'Cập nhật số lượng thành công.');
+        if (($userId && $cartItem->user_id == $userId) || (!$userId && $cartItem->session_id == $sessionId)) {
+            $cartItem->delete();
+            return back()->with('success', 'Xóa sản phẩm khỏi giỏ thành công.');
+        }
+
+        return back()->with('error', 'Không có quyền xóa mục này.');
     }
+    public function clear(Request $request)
+    {
+        $userId = Auth::id();
+        $sessionId = $request->session()->getId();
 
-    return back()->with('error', 'Không có quyền cập nhật mục này.');
-}
-public function remove($id, Request $request)
-{
-    $cartItem = Cart::find($id);
+        Cart::where(function ($q) use ($userId, $sessionId) {
+            $q->when($userId, fn($q) => $q->where('user_id', $userId))
+                ->orWhere('session_id', $sessionId);
+        })->delete();
 
-    if (!$cartItem) {
-        return back()->with('error', 'Không tìm thấy sản phẩm trong giỏ.');
+        return back()->with('success', 'Đã xóa toàn bộ giỏ hàng.');
     }
-
-    $userId = Auth::id();
-    $sessionId = $request->session()->getId();
-
-    if (($userId && $cartItem->user_id == $userId) || (!$userId && $cartItem->session_id == $sessionId)) {
-        $cartItem->delete();
-        return back()->with('success', 'Xóa sản phẩm khỏi giỏ thành công.');
-    }
-
-    return back()->with('error', 'Không có quyền xóa mục này.');
 }
-public function clear(Request $request)
-{
-    $userId = Auth::id();
-    $sessionId = $request->session()->getId();
-
-    Cart::where(function ($q) use ($userId, $sessionId) {
-        $q->when($userId, fn($q) => $q->where('user_id', $userId))
-            ->orWhere('session_id', $sessionId);
-    })->delete();
-
-    return back()->with('success', 'Đã xóa toàn bộ giỏ hàng.');
-}
-}
-

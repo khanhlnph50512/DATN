@@ -29,13 +29,17 @@ class ProductControllerr extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $slug,$id)
-    {
-           $product = Product::with([
+    public function show(string $slug, $id)
+{
+    $product = Product::with([
         'primaryImage',
         'images',
         'variations.color',
-        'variations.size'
+        'variations.size',
+        'comments' => function ($query) {
+            $query->where('status', 'approved')->latest();
+        },
+        'comments.user', // Load người bình luận
     ])->findOrFail($id);
 
     // Kiểm tra slug hợp lệ, nếu không thì redirect
@@ -46,8 +50,9 @@ class ProductControllerr extends Controller
             'id' => $product->id,
         ]);
     }
-        return view('client.products.detailProducts',compact("product"));
-    }
+
+    return view('client.products.detailProducts', compact('product'));
+}
 
     /**
      * Show the form for editing the specified resource.

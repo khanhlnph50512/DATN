@@ -3,7 +3,7 @@
 namespace App\Models\Client;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Client\Product;
+use App\Models\Admin\Product;
 use App\Models\Client\ProductVariation;
 
 class Cart extends Model

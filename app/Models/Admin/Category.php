@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models\Admin;
-
+use App\Models\Admin\Product;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Category extends Model
 {
     use HasFactory;
-   
+
     protected $table = 'categories'; // Tên bảng trong database
 
     protected $fillable = [
@@ -31,4 +31,8 @@ class Category extends Model
             $category->slug = Str::slug($category->name);
         });
     }
+    public function products()
+{
+    return $this->hasMany(Product::class);
+}
 }

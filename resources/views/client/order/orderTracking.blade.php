@@ -1,82 +1,110 @@
-@extends('.client.layouts.main')
+@extends('client.layouts.main')
+
+@section('title', 'Đơn hàng của tôi')
+
 @section('content')
-<div class="search-order container-fluid">
-    <div class="row ">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 title-1">TRA CỨU ĐƠN HÀNG</div>
+<style>
+    .order-card {
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 30px;
+        transition: all 0.3s ease;
+    }
 
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="display: none;" id="message-error-search-order">
-            <div class="item-notice">Xin lỗi! Hệ thống không tìm thấy đơn hàng bạn muốn tra cứu.<br> Vui lòng kiểm tra
-                lại các thông tin đã nhập.
-            </div>
-        </div>
+    .order-card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+        transform: scale(1.01);
+    }
 
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
-            <div class="has-feedback">
-                <input required type="text" class="form-control text-uppercase" placeholder="Mã đơn hàng" id="order-code">
-                <span></span>
-            </div>
-        </div>
+    .order-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #f0f0f0;
+        padding-bottom: 10px;
+    }
 
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group">
-            <div class="has-feedback">
-                <input required type="text" class="form-control" placeholder="Email / Số điện thoại" id="input">
-                <span></span>
-            </div>
+    .order-status {
+        font-weight: bold;
+        color: #f05a28;
+        background-color: #fff3e0;
+        padding: 4px 10px;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    .order-info p {
+        margin-bottom: 6px;
+        font-size: 15px;
+    }
+
+    .btn-detail {
+        border-radius: 5px;
+        padding: 8px 16px;
+        font-size: 14px;
+        background-color: #f05a28;
+        color: white;
+        border: none;
+        transition: background 0.3s ease;
+    }
+
+    .btn-detail:hover {
+        background-color: #d94e20;
+    }
+
+    .no-orders {
+        text-align: center;
+        padding: 60px 0;
+        color: #999;
+    }
+
+    .no-orders i {
+        font-size: 60px;
+        margin-bottom: 20px;
+        color: #ccc;
+    }
+
+</style>
+
+<div class="container mt-5 mb-5">
+    <h2 class="text-center mb-5">🧾 Danh sách đơn hàng của bạn</h2>
+
+    @if ($orders->isEmpty())
+        <div class="no-orders">
+            <i class="fas fa-box-open"></i>
+            <p>Chưa có đơn hàng nào.</p>
+            <a href="{{ route('product.index') }}" class="btn btn-outline-primary mt-3">Tiếp tục mua sắm</a>
         </div>
-        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 title-3">
-            <button class="btn btn-search-order" data-userSearchOrder data-action="user-search-order">TRA CỨU ĐƠN HÀNG</button>
-        </div>
-        <div class="col-xs-0 col-sm-4 col-md-4 col-lg-4"></div>
-        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 title-3">
+    @else
+        @foreach ($orders as $order)
+            <div class="order-card">
+                <div class="order-header">
+                    <div>
+                        <strong>Mã đơn:</strong> {{ $order->order_number }}<br>
+                        <small>Ngày đặt: {{ $order->created_at->format('d/m/Y H:i') }}</small>
                     </div>
-    </div>
-</div><div class="templates">
-    <div id="templatePopupYesNo">
-        <div class="row message">
-            BẠN CÓ CHẮC CHẮN MUỐN HUỶ ĐƠN HÀNG NÀY KHÔNG?
-        </div>
-        <div class="col-md-12">
-            <div class="col-md-12">
-<!--                Tôi muốn thêm/bớt danh sách sản phẩm cần mua.-->
-<!--                Tôi muốn thay đổi thông tin giao hàng.-->
-<!--                Tôi muốn thay đổi phương thức thanh toán.-->
-<!--                Tôi muốn huỷ vì phải chờ giao hàng quá lâu.-->
-<!--                Tôi muốn huỷ vì sản phẩm đến chậm hơn thời điểm tôi cần.-->
-<!--                Tôi muốn huỷ đơn để tham gia chương trình khuyến mãi.-->
-<!--                Tôi đổi ý không muốn mua nữa.-->
-<!--                Lí do khác (hiện ra bảng điền text khi chọn lí do này).-->
-<!--                <input id="message-cancel-order" type="text" class="form-control input-reason-cancel" required placeholder="Lý do hủy*" name="cancel-order">-->
-                <select required placeholder="Lý do hủy*" name="cancel-order" class="selectpicker form-control select-reason-cancel">
-                    <option selected disabled>Lý do huỷ</option>
-                    <option value="Tôi chọn nhầm sản phẩm.">Tôi chọn nhầm sản phẩm.</option>
-                    <option value="Tôi chọn nhầm size.">Tôi chọn nhầm size.</option>
-                    <option value="Tôi muốn thêm/bớt danh sách sản phẩm cần mua.">Tôi muốn thêm/bớt danh sách sản phẩm cần mua.</option>
-                    <option value="Tôi muốn thay đổi thông tin giao hàng.">Tôi muốn thay đổi thông tin giao hàng.</option>
-                    <option value="Tôi muốn thay đổi phương thức thanh toán.">Tôi muốn thay đổi phương thức thanh toán.</option>
-                    <option value="Tôi muốn huỷ vì phải chờ giao hàng quá lâu.">Tôi muốn huỷ vì phải chờ giao hàng quá lâu.</option>
-                    <option value="Tôi muốn huỷ vì sản phẩm đến chậm hơn thời điểm tôi cần.">Tôi muốn huỷ vì sản phẩm đến chậm hơn thời điểm tôi cần.</option>
-                    <option value="Tôi muốn huỷ đơn để tham gia chương trình khuyến mãi.">Tôi muốn huỷ đơn để tham gia chương trình khuyến mãi.</option>
-                    <option value="Tôi đổi ý không muốn mua nữa.">Tôi đổi ý không muốn mua nữa.</option>
-                    <option value="other-reason">Lí do khác</option>
-                </select>
-                <textarea class="form-control textarea-popup" placeholder="Viết lí do tại đây"></textarea>
-                <div class="error-popup-yes-no">*Vui lòng chọn chính xác lý do huỷ để chúng tôi hiểu và phục vụ bạn tốt hơn.</div>
+                    <div class="order-status">
+                        {{ ucfirst($order->status) }}
+                    </div>
+                </div>
+
+                <div class="row order-info">
+                    <div class="col-md-6">
+                        <p><strong>Người nhận:</strong> {{ $order->user->name ?? 'Khách hàng' }}</p>
+                        <p><strong>Điện thoại:</strong> {{ $order->phone_number }}</p>
+                        <p><strong>Địa chỉ:</strong> {{ $order->shipping_address }}</p>
+                        <p><strong>Ghi chú:</strong> {{ $order->note ?? 'Không có' }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Phương thức thanh toán:</strong> {{ strtoupper($order->payment_method) }}</p>
+                        <p><strong>Trạng thái thanh toán:</strong> {{ ucfirst($order->payment_status) }}</p>
+                        <p><strong>Tổng tiền:</strong> <span class="text-danger fw-bold">{{ number_format($order->total_amount, 0, ',', '.') }}đ</span></p>
+                        <a href="{{ route('client.order.detail', $order->id) }}" class="btn-detail mt-2">Xem chi tiết</a>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="clearfix"></div>
-        <div class="row button btn-group-popup">
-            <div class="col-xs-6 col-sm-6 col-md-6 align-left"><button class="btn btn-no form-control" type="button">TỪ CHỐI</button></div>
-            <div class="col-xs-6 col-sm-6 col-md-6 align-right"><button class="btn btn-yes form-control" type="button" disabled>ĐỒNG Ý</button></div>
-        </div>
-    </div>
-
-    <div id="templatePopupNotice">
-        <div class="row message">EMAIL ĐÃ ĐƯỢC ĐĂNG KÝ THÀNH CÔNG</div>
-        <div class="row button">
-            <button class="btn btn-ok btn-redirect" type="button">QUAY LẠI TRANG CHỦ</button>
-        </div>
-    </div>
-    <input type="hidden" id="home_url" value="../index.html">
+        @endforeach
+    @endif
 </div>
-
 @endsection

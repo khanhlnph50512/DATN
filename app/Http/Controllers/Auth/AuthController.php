@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Role;
 use App\Models\Admin\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,10 +30,10 @@ public function login(Request $request)
 
         // Ví dụ: điều hướng theo role
         if (Auth::user()->role === 'admin') {
-            return redirect('/admin/dashboard');
+            return redirect('/client/home');
         }
 
-        return redirect('/home'); // người dùng thường
+        return redirect('/client/home'); // người dùng thường
     }
 
     return back()->withErrors([
@@ -45,25 +46,30 @@ public function login(Request $request)
     }
 
     public function register(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6|confirmed',
-        ]);
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|min:6|confirmed',
+    ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'customers', // hoặc 'admin' tùy bạn
-            'seri_user' => Str::uuid(),
-        ]);
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'seri_user' => Str::uuid(),
+    ]);
 
-        Auth::login($user);
-
-        return redirect('/home'); // hoặc trang chủ
+    // Gán role mặc định là "user"
+    $role = Role::where('name', 'customer')->first(); // hoặc 'customer' nếu bạn đặt tên vậy
+    if ($role) {
+        $user->roles()->attach($role->id);
     }
+
+    Auth::login($user);
+
+    return redirect('/client/home');
+}
     public function showForgotForm()
 {
     return view('client.auth.forgot-password');

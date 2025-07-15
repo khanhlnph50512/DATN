@@ -101,6 +101,12 @@
             <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.coupons.index') }}"><i
                         class="fas fa-tags me-2"></i> Mã giảm giá</a></li>
             <li class="nav-item">
+                <a class="nav-link text-white" href="{{ route('admin.comments.index') }}">
+                    <i class="fas fa-comments me-2"></i> Bình luận
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link text-white" href="{{ route('admin.coupons.index') }}">
                     <i class="fas fa-ticket-alt me-2"></i> Mã giảm giá theo đơn hàng
                 </a>
@@ -110,50 +116,17 @@
         </ul>
 
         <!-- Nhóm: Quản lý người dùng -->
-        <h6
-            class="sidebar-heading d-flex justify-content-between align-items-center px-1 mb-2 text-uppercase highlighted">
-            <span>Người dùng & khách hàng</span>
-        </h6>
+
         <ul class="nav flex-column mb-3">
             <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.users.index') }}"><i
                         class="fas fa-user me-2"></i> Người dùng</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.customers.index') }}"><i
-                        class="fas fa-users me-2"></i> Khách hàng</a></li>
+
         </ul>
 
         <!-- Nhóm: Quản lý giao dịch -->
-        <h6
-            class="sidebar-heading d-flex justify-content-between align-items-center px-1 mb-2 text-uppercase highlighted">
-            <span>Giao dịch & đánh giá</span>
-        </h6>
-        <ul class="nav flex-column mb-3">
-            <li class="nav-item"><a class="nav-link text-white" href="#"><i class="fas fa-shopping-cart me-2"></i>
-                    Đơn hàng</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#"><i class="fas fa-star me-2"></i> Đánh
-                    giá</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#"><i class="fas fa-envelope me-2"></i> Liên
-                    hệ</a></li>
-        </ul>
+
 
         <!-- Nhóm: Quản trị hệ thống -->
-        <h6
-            class="sidebar-heading d-flex justify-content-between align-items-center px-1 mb-2 text-uppercase highlighted">
-            <span>Hệ thống</span>
-        </h6>
-        <ul class="nav flex-column mb-3">
-            <li class="nav-item"><a class="nav-link text-white" href="#"><i class="fas fa-chart-bar me-2"></i>
-                    Thống kê</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#"><i class="fas fa-cogs me-2"></i> Cài
-                    đặt</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#"><i class="fas fa-user-shield me-2"></i>
-                    Phân quyền</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#"><i class="fas fa-truck me-2"></i> Vận
-                    chuyển</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#"><i class="fas fa-receipt me-2"></i> Hóa
-                    đơn</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#"><i class="fas fa-history me-2"></i> Nhật
-                    ký hoạt động</a></li>
-        </ul>
 
     </div>
 </nav>

@@ -162,7 +162,9 @@
                         Tạm tính: {{ number_format($total, 0, ',', '.') }} VND
                     </div>
 
-                    <button class="btn-checkout btn btn-warning w-100 mt-3">TIẾP TỤC THANH TOÁN</button>
+                    <a href="{{ route('client.checkout') }}" class="btn-checkout btn btn-warning w-100 mt-3">
+                        TIẾP TỤC THANH TOÁN
+                    </a>
                 </div>
             </div>
         </div>
