@@ -16,6 +16,8 @@ class Cart extends Model
         'product_id',
         'variation_id',
         'quantity',
+                'price', // Thêm dòng này
+
     ];
 
     public function product()

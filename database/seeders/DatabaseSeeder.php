@@ -16,5 +16,8 @@ class DatabaseSeeder extends Seeder
         // Category::factory()->count(5)->create();
         // User::factory(10)->create();
         // Customer::factory(10)->create();
+         $this->call([
+        ShippingMethodSeeder::class,
+    ]);
     }
 }

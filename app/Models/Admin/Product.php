@@ -50,11 +50,10 @@ class Product extends Model
     }
 
     // Quan hệ với các biến thể (mỗi biến thể chứa color_id và size_id)
-    public function variations()
-    {
-        return $this->hasMany(ProductVariation::class);
-    }
-
+   public function variations()
+{
+    return $this->hasMany(ProductVariation::class, 'product_id');
+}
     // Quan hệ với mã giảm giá (qua bảng trung gian product_coupons)
     public function coupons()
     {

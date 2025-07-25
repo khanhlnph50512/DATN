@@ -8,9 +8,7 @@ class ProductVariation extends Model
 {
     protected $table = 'product_variations';
 
-    protected $fillable = [
-        'product_id', 'size_id', 'color_id', 'quantity'
-    ];
+   protected $fillable = ['product_id', 'color_id', 'size_id', 'price', 'price_sale', 'quantity'];
 
     public function product()
     {

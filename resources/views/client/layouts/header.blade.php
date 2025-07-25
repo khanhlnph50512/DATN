@@ -9,7 +9,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="https://gmpg.org/xfn/11">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-pVjWz8nMd9eYqlJfL0NVY+K6TVQ44+RP1Jm2bl3FnxZQybqFzAUHjW5F4BzvKzZDdJXKr7j1xGuqkYq+Nf3wGA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-pVjWz8nMd9eYqlJfL0NVY+K6TVQ44+RP1Jm2bl3FnxZQybqFzAUHjW5F4BzvKzZDdJXKr7j1xGuqkYq+Nf3wGA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="icon" href="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/favicon-7.ico') }}">
     <meta name="p:domain_verify" content="8f652fc34e7d6f018ebe12bea11a5a44" />
@@ -420,11 +422,11 @@
                                     src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/DiscoverYOU.svg') }}"></a>
                         </li>
                     </ul>
-                    <form action="https://ananas.vn/search-results/?" class="navbar-form navbar-right">
+                    <form action="{{ route('search') }}" method="GET" class="navbar-form navbar-right">
                         <div class="form-group">
                             <img class="icon-search"
                                 src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_tim_kiem.svg') }}">
-                            <input type="text" name="key" class="form-control" value=""
+                            <input type="text" name="key" class="form-control" value="{{ request('key') }}"
                                 placeholder="Tìm kiếm">
                         </div>
                     </form>

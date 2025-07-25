@@ -5,7 +5,6 @@ use App\Http\Controllers\Clients\CommentController;
 use App\Http\Controllers\Clients\OrderController;
 use App\Http\Controllers\Clients\ProductControllerr;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 
 // Admin Controllers
 use App\Http\Controllers\Admin\DashboardController;
@@ -19,7 +18,6 @@ use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CouponController;
 // Client Controllers
-use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Clients\CartController;
 use App\Http\Controllers\Clients\CheckoutController;
 use App\Http\Controllers\Clients\HomeController as ClientsHomeController;
@@ -53,6 +51,8 @@ Route::resource('client/product', ProductControllerr::class);
 Route::get('/product-detail/{slug}/{id}', [ProductControllerr::class, 'show'])->name('client.products.detailProducts');
 Route::get('client/order-tracking', [OrderController::class, 'orderTracking'])->name('client.order-tracking');
 Route::get('/order/{orderId}', [OrderController::class, 'showDetail'])->name('client.order.detail');
+ Route::get('/search', [ProductControllerr::class, 'search'])->name('search');
+
 /// comment
 Route::post('/comments', [CommentController::class, 'store'])
     ->name('client.comments.store')
@@ -69,6 +69,9 @@ Route::post('/update/{id}', [CartController::class, 'updateQuantity'])->name('up
  // Checkout
     Route::get('/checkout', [CheckoutController::class, 'showCheckoutPage'])->name('client.checkout');
 Route::post('/checkout', [CheckoutController::class, 'processOrder'])->name('client.checkout.process');
+
+
+
 Route::get('/checkout/success', function () {
     return view('client.checkout.success');
 })->name('client.checkout.success');
@@ -85,6 +88,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         Route::get('trash', [ProductController::class, 'trash'])->name('trash');
         Route::post('{id}/restore', [ProductController::class, 'restore'])->name('restore');
         Route::delete('{id}/force-delete', [ProductController::class, 'forceDelete'])->name('forceDelete');
+
     });
     Route::resource('products', ProductController::class);
 
@@ -129,5 +133,10 @@ Route::prefix('comments')->name('comments.')->group(function () {
         Route::post('{id}/reject', [\App\Http\Controllers\Admin\CommentController::class, 'reject'])->name('reject');
         Route::delete('{id}', [\App\Http\Controllers\Admin\CommentController::class, 'destroy'])->name('destroy');
     });
+    // order
+        Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class);
+Route::get('/admin/orders/{order}', [OrderController::class, 'show'])->name('admin.orders.show');
+////////////////////
+
 
 });

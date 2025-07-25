@@ -1,5 +1,6 @@
 @extends('.client.layouts.main')
 @section('content')
+
     <!-- CONTENT -->
     <div class="prd-detail container-fluid">
         <input type="hidden" id="is-page-product-detail" value="1">
@@ -10,9 +11,10 @@
                     {{-- Ảnh chính --}}
                     <div class="prd-detail-main-img">
                         <img class="main-img"
-                            src="{{ asset('asset/img/' . ($product->primaryImage->image_url ?? 'default.jpg')) }}"
+                            src="{{ asset('storage/' . ($product->primaryImage->image_url ?? 'default.jpg')) }}"
                             alt="Ảnh chính" style="width: 100%; max-height: 500px; object-fit: contain;">
                     </div>
+
 
                     {{-- Danh sách ảnh phụ (thumbnail) --}}
                     <div class="prd-detail-slide1" style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
@@ -20,9 +22,9 @@
                             <div class="thumbnail"
                                 style="width: 120px; height: 120px; overflow: hidden; border: 1px solid #ddd;">
                                 <div class="cont-item">
-                                    <img src="{{ asset('asset/img/' . $img->image_url) }}"
-                                        data-img-normal="{{ asset('asset/img/' . $img->image_url) }}"
-                                        data-img-large="{{ asset('asset/img/' . $img->image_url) }}" alt="Ảnh phụ"
+                                    <img src="{{ asset('storage/' . $img->image_url) }}"
+                                        data-img-normal="{{ asset('storage/' . $img->image_url) }}"
+                                        data-img-large="{{ asset('storage/' . $img->image_url) }}" alt="Ảnh phụ"
                                         style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;">
                                 </div>
                             </div>
@@ -182,7 +184,9 @@
     </div>
 
     {{-- Sản phẩm liên quan, ... có thể giữ nguyên phần này --}}
-
+    <script>
+        const variations = @json($product->variations);
+    </script>
     <script>
         document.getElementById('addProductToCart').addEventListener('click', function() {
             const form = document.getElementById('formAddToCart');
@@ -231,5 +235,28 @@
                 }
             });
         });
+        /////////////////////////
+        function updatePrice() {
+            const selectedColorId = document.querySelector('input[name="color_id"]:checked')?.value;
+            const selectedSizeId = document.getElementById('size_id')?.value;
+
+            if (!selectedColorId || !selectedSizeId) return;
+
+            const variation = variations.find(v => v.color_id == selectedColorId && v.size_id == selectedSizeId);
+
+            if (variation) {
+                const priceElem = document.querySelector('.saleprice');
+                if (variation.price_sale && variation.price_sale > 0) {
+                    priceElem.textContent = new Intl.NumberFormat('vi-VN').format(variation.price_sale) + ' VND';
+                } else {
+                    priceElem.textContent = new Intl.NumberFormat('vi-VN').format(variation.price) + ' VND';
+                }
+            }
+        }
+
+        // Gắn sự kiện khi chọn màu hoặc size
+        document.querySelectorAll('input[name="color_id"]').forEach(el => el.addEventListener('change', updatePrice));
+        document.getElementById('size_id').addEventListener('change', updatePrice);
     </script>
+
 @endsection

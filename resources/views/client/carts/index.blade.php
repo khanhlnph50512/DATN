@@ -71,7 +71,7 @@
             border: none;
         }
 
-        <style>.cart-actions {
+        .cart-actions {
             display: flex;
             align-items: center;
             gap: 10px;
@@ -89,22 +89,44 @@
             <div class="col-md-8">
                 <div class="cart-title">GIỎ HÀNG</div>
 
+                @php
+                    $total = 0;
+                @endphp
+
                 @foreach ($items as $item)
+                    @php
+                        $variation = $item->variation;
+                        $price = $variation->price_sale ?? $variation->price ?? $item->product->price;
+                        $subtotal = $price * $item->quantity;
+                        $total += $subtotal;
+                    @endphp
+
                     <div class="row cart-item align-items-center mb-3">
                         <div class="col-md-3">
                             @if ($item->product->primaryImage)
-                                <img src="{{ asset('asset/img/' . $item->product->primaryImage->image_url) }}"
-                                    alt="{{ $item->product->name }}" style="max-width: 100px;">
-                                <br>
+                                <img src="{{ asset('storage/' . $item->product->primaryImage->image_url) }}"
+     alt="{{ $item->product->name }}" style="max-width: 100px;">
+
                             @else
                                 <span>Chưa có ảnh</span>
                             @endif
                         </div>
+
                         <div class="col-md-6 cart-product-info">
                             <h4>{{ $item->product->name }}</h4>
-                            <p>Giá: {{ number_format($item->product->price, 0, ',', '.') }} VND</p>
-                            <p>Size: {{ $item->variation->size->name ?? '---' }}</p>
-                            <p>Màu sắc: {{ $item->variation->color->name ?? '---' }}</p>
+                            <p>
+                                Giá:
+                                @if ($variation->price_sale && $variation->price_sale < $variation->price)
+    <del class="text-muted">{{ number_format($variation->price, 0, ',', '.') }} VND</del>
+    <strong class="text-danger">
+        {{ number_format($variation->price_sale, 0, ',', '.') }} VND
+    </strong>
+@else
+    {{ number_format($variation->price, 0, ',', '.') }} VND
+@endif
+                            </p>
+                            <p>Size: {{ $variation->size->name ?? '---' }}</p>
+                            <p>Màu sắc: {{ $variation->color->name ?? '---' }}</p>
                             <form action="{{ route('client.carts.updateQuantity', $item->id) }}" method="POST">
                                 @csrf
                                 <label>Số lượng:</label>
@@ -116,6 +138,7 @@
                                 </select>
                             </form>
                         </div>
+
                         <div class="col-md-3 text-right">
                             <form action="{{ route('client.carts.remove', $item->id) }}" method="POST">
                                 @csrf
@@ -126,7 +149,7 @@
                             </form>
                             <div class="text-danger mt-2">Còn hàng</div>
                             <div class="font-weight-bold mt-2 text-orange">
-                                {{ number_format($item->product->price * $item->quantity, 0, ',', '.') }} VND
+                                {{ number_format($subtotal, 0, ',', '.') }} VND
                             </div>
                         </div>
                     </div>

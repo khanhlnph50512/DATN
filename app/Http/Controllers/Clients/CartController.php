@@ -14,6 +14,7 @@ class CartController extends Controller
     {
         $userId = Auth::id();
         $sessionId = $request->session()->getId();
+
         $items = Cart::with([
             'product.category',
             'product.brand',
@@ -25,14 +26,14 @@ class CartController extends Controller
                 ->orWhere('session_id', $sessionId);
         })->get();
 
-        // Nếu có giá giảm thì dùng, không thì dùng giá gốc
+        // Tính tổng tiền dựa theo giá đã lưu trong bảng carts
         $total = $items->sum(function ($item) {
-            $price = $item->product->price_sale ?: $item->product->price;
-            return $price * $item->quantity;
+            return $item->price * $item->quantity;
         });
 
         return view('client.carts.index', compact('items', 'total'));
     }
+
     public function add(Request $request)
     {
         $request->validate([
@@ -58,6 +59,9 @@ class CartController extends Controller
         $userId = Auth::check() ? Auth::id() : null;
         $sessionId = session()->getId();
 
+        // Ưu tiên dùng giá khuyến mãi nếu có
+        $price = $variation->price_sale ?? $variation->price;
+
         $cartItem = Cart::where('product_id', $request->product_id)
             ->where('variation_id', $variation->id)
             ->when($userId, fn($q) => $q->where('user_id', $userId))
@@ -65,13 +69,36 @@ class CartController extends Controller
             ->first();
 
         if ($cartItem) {
-            $cartItem->quantity += $request->quantity;
+            $newQuantity = $cartItem->quantity + $request->quantity;
+
+            if ($newQuantity > $variation->quantity) {
+                $maxAddable = max(0, $variation->quantity - $cartItem->quantity);
+                $message = $maxAddable > 0
+                    ? "Chỉ có thể thêm thêm {$maxAddable} sản phẩm nữa vào giỏ."
+                    : "Bạn đã thêm tối đa số lượng sản phẩm hiện có.";
+
+                if ($request->expectsJson()) {
+                    return response()->json(['error' => $message], 400);
+                }
+                return back()->with('error', $message);
+            }
+
+            $cartItem->quantity = $newQuantity;
             $cartItem->save();
         } else {
+            if ($request->quantity > $variation->quantity) {
+                $message = "Chỉ còn {$variation->quantity} sản phẩm trong kho.";
+                if ($request->expectsJson()) {
+                    return response()->json(['error' => $message], 400);
+                }
+                return back()->with('error', $message);
+            }
+
             Cart::create([
                 'product_id' => $request->product_id,
                 'variation_id' => $variation->id,
                 'quantity' => $request->quantity,
+                'price' => $price,
                 'user_id' => $userId,
                 'session_id' => $userId ? null : $sessionId,
             ]);
@@ -83,6 +110,7 @@ class CartController extends Controller
 
         return redirect()->route('client.carts.index')->with('success', 'Đã thêm vào giỏ hàng!');
     }
+
     public function update(Request $request)
     {
         $userId = Auth::id();
@@ -93,21 +121,21 @@ class CartController extends Controller
                 ->orWhere('session_id', $sessionId);
         })->with(['product', 'variation'])->get();
 
-        // ✅ Tính tổng tiền
+        // Tính tổng tiền dựa trên giá đã lưu
         $total = $items->sum(function ($item) {
-            $price = $item->variation->price_sale ?? $item->variation->price ?? 0;
-            return $price * $item->quantity;
+            return $item->price * $item->quantity;
         });
 
         return view('client.carts.index', compact('items', 'total'));
     }
+
     public function updateQuantity(Request $request, $id)
     {
         $request->validate([
             'quantity' => 'required|integer|min:1',
         ]);
 
-        $cartItem = Cart::find($id);
+        $cartItem = Cart::with('variation')->find($id);
 
         if (!$cartItem) {
             return back()->with('error', 'Không tìm thấy sản phẩm trong giỏ.');
@@ -116,20 +144,22 @@ class CartController extends Controller
         $userId = Auth::id();
         $sessionId = $request->session()->getId();
 
-        // Chỉ cho phép chỉnh sửa nếu đúng user hoặc session
         if (($userId && $cartItem->user_id == $userId) || (!$userId && $cartItem->session_id == $sessionId)) {
+            if ($request->quantity > $cartItem->variation->quantity) {
+                return back()->with('error', 'Số lượng yêu cầu vượt quá số lượng tồn kho.');
+            }
+
             $cartItem->quantity = $request->quantity;
             $cartItem->save();
-
             return back()->with('success', 'Cập nhật số lượng thành công.');
         }
 
         return back()->with('error', 'Không có quyền cập nhật mục này.');
     }
+
     public function remove($id, Request $request)
     {
         $cartItem = Cart::find($id);
-
         if (!$cartItem) {
             return back()->with('error', 'Không tìm thấy sản phẩm trong giỏ.');
         }
@@ -144,6 +174,7 @@ class CartController extends Controller
 
         return back()->with('error', 'Không có quyền xóa mục này.');
     }
+
     public function clear(Request $request)
     {
         $userId = Auth::id();

@@ -1,118 +1,99 @@
 @extends('admin.layouts.adminAnatats')
+
 @section('content')
-    @if (session('success'))
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Thành công!',
-                text: '{{ session('success') }}',
-                showConfirmButton: false,
-                timer: 2500,
-                timerProgressBar: true,
-                didClose: () => {
-                    window.location.href = "{{ route('admin.products.index') }}";
-                }
-            });
-        </script>
-    @endif
-    @if (session('success'))
-        <div style="color: green; margin-bottom: 15px;">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    <h1>Danh sách sản phẩm</h1>
-    <a href="{{ route('admin.products.trash') }}" class="btn btn-warning mb-3">
-        Thùng rác
-    </a>
-    <form action="{{ route('admin.products.index') }}" method="GET" style="margin-bottom: 20px;">
-        <input type="text" name="keyword" placeholder="Tìm theo tên sản phẩm..." value="{{ request('keyword') }}"
-            style="padding: 6px; width: 250px;">
-        <button type="submit" style="padding: 6px 12px;">Tìm kiếm</button>
-        <a href="{{ route('admin.products.index') }}" style="margin-left: 10px;">Xóa tìm kiếm</a>
-    </form>
-    <div class="px-4 pb-3 d-flex justify-content-end">
-        <a href="{{ route('admin.products.create') }}" class="btn btn-primary">
-            <i class="bx bx-plus me-1"></i> Add Product
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Danh sách sản phẩm</h1>
+        <a href="{{ route('admin.products.trash') }}" class="btn btn-warning mb-3">
+            🗑️ Xem sản phẩm đã xóa
         </a>
-    </div>
-    <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse;">
-        <thead style="background-color: #5a5757;">
-            <tr>
-                <th style="width: 50px;">ID</th>
-                <th style="width: 100px;">Ảnh</th>
-                <th>Tên sản phẩm</th>
-                <th>Thương hiệu</th>
-                <th style="width: 120px;">Giá</th>
-                <th style="width: 120px;">Giá khuyến mãi</th>
-                <th style="width: 100px;">Trạng thái</th>
-                <th style="width: 180px;">Hành động</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($products as $p)
-                <tr>
-                    <td style="text-align: center;">{{ $p->id }}</td>
-                    <td>
-                        @if ($p->primaryImage)
-                            <img src="{{ asset('asset/img/' . $p->primaryImage->image_url) }}" width="100">
-                            <br>
-                        @else
-                            <span>Chưa có ảnh</span>
-                        @endif
-                    </td>
 
-                    <td>{{ $p->name }}</td>
-                    <td>{{ $p->brand->name ?? 'Chưa cập nhật' }}</td>
-                    <td style="text-align: right;">{{ number_format($p->price, 0, ',', '.') }} đ</td>
-                    <td style="text-align: right;">
-                        @if ($p->price_sale && $p->price_sale < $p->price)
-                            {{ number_format($p->price_sale, 0, ',', '.') }} đ
-                        @else
-                            -
-                        @endif
-                    </td>
-                    <td style="text-align: center;">
-                        @if ($p->status)
-                            <span style="color: green; font-weight: bold;">Kích hoạt</span>
-                        @else
-                            <span style="color: red;">Ẩn</span>
-                        @endif
-                    </td>
-                    <td class="text-nowrap">
-                        <!-- nút Xem -->
-                        <a href="{{ route('admin.products.show', $p->id) }}" class="btn btn-sm btn-info" title="Xem">
-                            <i class="bx bx-show"></i> <!-- icon xem của Boxicons -->
-                        </a>
+        {{-- Thông báo thành công --}}
+        @if (session('success'))
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công!',
+                    text: '{{ session('success') }}',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            </script>
+        @endif
 
-                        <!-- nút Sửa -->
-                        <a href="{{ route('admin.products.edit', $p->id) }}" class="btn btn-sm btn-warning" title="Sửa">
-                            <i class="bx bx-edit"></i>
-                        </a>
+        {{-- Bảng danh sách --}}
+        <div class="card mb-4 mt-3">
+            <div class="card-header">
+                <a href="{{ route('admin.products.create') }}" class="btn btn-primary">+ Thêm sản phẩm</a>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover align-middle">
+                    <thead class="table-dark text-center">
+                        <tr>
+                            <th>#</th>
+                            <th>Ảnh</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Danh mục</th>
+                            <th>Thương hiệu</th>
+                            <th>Giá</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($products as $index => $product)
+                            <tr class="text-center">
+                                <td>{{ $index + 1 }}</td>
+                                <td>
+                                    @if ($product->primaryImage)
+                                        <img src="{{ asset('storage/' . $product->primaryImage->image_url) }}"
+                                            width="60" height="60" alt="Ảnh chính">
+                                    @else
+                                        <span class="text-muted">Không có ảnh</span>
+                                    @endif
+                                </td>
+                                <td class="text-start">{{ $product->name }}</td>
+                                <td>{{ $product->category->name ?? '---' }}</td>
+                                <td>{{ $product->brand->name ?? '---' }}</td>
+                                <td>
+                                    {{ number_format($product->price, 0, ',', '.') }} đ
+                                </td>
+                                <td>
+                                    @if ($product->status)
+                                        <span class="badge bg-success">Hiển thị</span>
+                                    @else
+                                        <span class="badge bg-secondary">Ẩn</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="{{ route('admin.products.show', $product->id) }}"
+                                        class="btn btn-sm btn-info">Chi tiết</a>
 
-                        <!-- nút Xóa -->
-                        <form action="{{ route('admin.products.destroy', $p->id) }}" method="POST"
-                            style="display: inline-block;" onsubmit="return confirm('Bạn có chắc muốn xóa?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger" title="Xóa">
-                                <i class="bx bx-trash"></i>
-                            </button>
-                        </form>
-                    </td>
+                                    <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-sm btn-warning">Sửa</a>
 
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="8" style="text-align: center; color: gray;">Không có sản phẩm nào.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
+                                    <a>
+                                        <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST"
+                                        onsubmit="return confirm('Bạn có chắc muốn xoá?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger btn-sm">Xoá</button>
+                                    </form>
+                                    </a>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="8" class="text-center text-muted">Không có sản phẩm nào.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
 
-    <!-- Phân trang -->
-    <div style="margin-top: 20px; text-align: left !important;">
-        {{ $products->appends(request()->all())->links('pagination::bootstrap-5') }}
+                {{-- Phân trang --}}
+                <div class="d-flex justify-content-center">
+                    {{ $products->links() }}
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

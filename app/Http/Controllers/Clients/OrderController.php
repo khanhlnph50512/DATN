@@ -24,7 +24,7 @@ class OrderController extends Controller
             $query->where('session_id', $sessionId);
         }
     })
-    ->with('orderItems') // nếu cần dùng chi tiết
+    ->with('orderItems','shippingMethod') // nếu cần dùng chi tiết
     ->orderBy('created_at', 'desc')
     ->get();
 
@@ -36,7 +36,7 @@ class OrderController extends Controller
      */
   public function showDetail($orderId)
     {
-        $order = Order::with('orderItems')->find($orderId);
+        $order = Order::with('orderItems','shippingMethod')->find($orderId);
 
         if (!$order) {
             return redirect()->route('client.order-tracking')->with('error', 'Không tìm thấy đơn hàng.');
