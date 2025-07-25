@@ -87,7 +87,7 @@
         }
     </style>
 
-    <form action="{{ route('client.checkout.process') }}" method="POST">
+<form id="checkoutForm" method="POST">
         @csrf
         <div class="checkout-container">
             {{-- BÊN TRÁI: THÔNG TIN NGƯỜI NHẬN --}}
@@ -132,8 +132,8 @@
                         (COD)</label>
                 </div>
                 <div class="form-group">
-                    <label><input type="radio" name="payment_method" value="online" disabled> Thanh toán online (chưa hỗ
-                        trợ)</label>
+                    <label><input type="radio" name="payment_method" value="vnpay">
+                    Thanh toán qua VNPAY</label>
                 </div>
             </div>
 
@@ -195,4 +195,22 @@
         // Gọi ngay khi trang load
         window.onload = updateTotal;
     </script>
+    <script>
+    const form = document.getElementById('checkoutForm');
+    const paymentRadios = document.querySelectorAll('input[name="payment_method"]');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // chặn submit mặc định
+
+        let selectedPayment = document.querySelector('input[name="payment_method"]:checked').value;
+
+        if (selectedPayment === 'cod') {
+            form.action = "{{ route('client.checkout.process') }}";
+        } else if (selectedPayment === 'vnpay') {
+            form.action = "{{ route('vnpay.payment') }}";
+        }
+
+        form.submit();
+    });
+</script>
 @endsection

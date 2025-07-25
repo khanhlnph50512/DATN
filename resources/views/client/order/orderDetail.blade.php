@@ -152,7 +152,7 @@
             <h5>Sản phẩm</h5>
             @foreach ($order->orderItems as $item)
                 <div class="item">
-                    <img src="{{ asset('asset/img/' . $item->image) }}" alt="{{ $item->product_name }}">
+                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->product_name }}">
                     <div class="item-info">
                         <strong>{{ $item->product_name }}</strong><br>
                         @if ($item->variation_name)

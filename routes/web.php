@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Clients\CartController;
 use App\Http\Controllers\Clients\CheckoutController;
 use App\Http\Controllers\Clients\HomeController as ClientsHomeController;
+use App\Http\Controllers\Clients\VnpayController;
 
 // Trang chủ
 Route::get('/', function () {
@@ -69,7 +70,8 @@ Route::post('/update/{id}', [CartController::class, 'updateQuantity'])->name('up
  // Checkout
     Route::get('/checkout', [CheckoutController::class, 'showCheckoutPage'])->name('client.checkout');
 Route::post('/checkout', [CheckoutController::class, 'processOrder'])->name('client.checkout.process');
-
+Route::post('/vnpay/payment', [VnpayController::class, 'vnpayPayment'])->name('vnpay.payment');
+Route::get('/vnpay/return', [VnpayController::class, 'vnpayReturn'])->name('vnpay.return');
 
 
 Route::get('/checkout/success', function () {
