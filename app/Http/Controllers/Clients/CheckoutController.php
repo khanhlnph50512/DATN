@@ -110,7 +110,8 @@ if (session()->has('applied_coupon')) {
         $coupon->decrement('usage_limit');
     }
 
-    session()->forget(['applied_coupon', 'coupon_discount']);
+   session()->forget('applied_coupon');
+session()->forget('coupon_discount');
 }
     return redirect()
         ->route('client.order-tracking')

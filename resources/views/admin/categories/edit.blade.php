@@ -39,10 +39,7 @@
                             <input type="text" class="form-control" name="name" value="{{ $category->name }}">
                         </div>
                         <div class="row mb-3">
-                            <div class="col">
-                                <label class="form-label">SKU</label>
-                                <input type="number" class="form-control" name="sku" value="{{ $category->sku }}">
-                            </div>
+                           
                             <div class="col">
                                 <label class="form-label">Image</label><br>
                                 @if ($category->image)

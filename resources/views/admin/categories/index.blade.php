@@ -50,7 +50,6 @@
                                 <th>Name</th>
                                 <th>Slug</th>
                                 <th>Image</th>
-                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -64,7 +63,7 @@
                                             <img src="{{ asset($category->image) }}" width="50">
                                         @endif
                                     </td>
-                                    <td></td>
+                                    
                                     <td class="text-nowrap">
                                         <a href="{{ route('admin.categories.edit', $category->id) }}"
                                             class="btn btn-sm btn-warning" title="Sửa">

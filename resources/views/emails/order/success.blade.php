@@ -3,7 +3,7 @@
 
 **Mã đơn hàng:** {{ $order->code }}
 
-**Tổng tiền:** {{ number_format($order->total_price) }} VNĐ
+**Tổng tiền:** {{ number_format($order->total_amount) }} VNĐ
 
 **Email nhận hàng:** {{ $order->email }}
 

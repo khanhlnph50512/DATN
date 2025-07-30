@@ -26,7 +26,10 @@ class CartController extends Controller
             $q->when($userId, fn($q) => $q->where('user_id', $userId))
                 ->orWhere('session_id', $sessionId);
         })->get();
-
+        if ($items->isEmpty()) {
+            session()->forget('applied_coupon');
+            session()->forget('coupon_discount');
+        }
         // Tính tổng tiền dựa theo giá đã lưu trong bảng carts
         $total = $items->sum(function ($item) {
             return $item->price * $item->quantity;
@@ -189,47 +192,47 @@ class CartController extends Controller
         return back()->with('success', 'Đã xóa toàn bộ giỏ hàng.');
     }
     public function applyCoupon(Request $request)
-{
-    $request->validate([
-        'coupon_code' => 'required|string'
-    ]);
+    {
+        $request->validate([
+            'coupon_code' => 'required|string'
+        ]);
 
-    $coupon = Coupon::where('code', $request->coupon_code)
-        ->where('active', true)
-        ->where('valid_from', '<=', now())
-        ->where('valid_until', '>=', now())
-        ->first();
+        $coupon = Coupon::where('code', $request->coupon_code)
+            ->where('active', true)
+            ->where('valid_from', '<=', now())
+            ->where('valid_until', '>=', now())
+            ->first();
 
-    if (!$coupon) {
-        return back()->with('coupon_error', 'Mã giảm giá không hợp lệ hoặc đã hết hạn.');
+        if (!$coupon) {
+            return back()->with('coupon_error', 'Mã giảm giá không hợp lệ hoặc đã hết hạn.');
+        }
+
+        // Kiểm tra số lần sử dụng nếu có
+        if ($coupon->usage_limit !== null && $coupon->usage_limit <= 0) {
+            return back()->with('coupon_error', 'Mã giảm giá đã đạt giới hạn sử dụng.');
+        }
+
+        // Kiểm tra đơn hàng có đủ điều kiện không
+        $userId = Auth::id();
+        $sessionId = $request->session()->getId();
+
+        $items = Cart::where(function ($q) use ($userId, $sessionId) {
+            $q->when($userId, fn($q) => $q->where('user_id', $userId))
+                ->orWhere('session_id', $sessionId);
+        })->get();
+
+        $total = $items->sum(fn($item) => $item->price * $item->quantity);
+
+        if ($coupon->minimum_order_amount && $total < $coupon->minimum_order_amount) {
+            return back()->with('coupon_error', 'Đơn hàng chưa đạt mức tối thiểu để sử dụng mã giảm giá.');
+        }
+
+        // Lưu mã vào session
+        session([
+            'applied_coupon' => $coupon->code,
+            'coupon_discount' => $coupon->discount_amount ?? ($coupon->discount_percent ? ($total * $coupon->discount_percent / 100) : 0),
+        ]);
+
+        return back()->with('coupon_success', 'Áp dụng mã giảm giá thành công!');
     }
-
-    // Kiểm tra số lần sử dụng nếu có
-    if ($coupon->usage_limit !== null && $coupon->usage_limit <= 0) {
-        return back()->with('coupon_error', 'Mã giảm giá đã đạt giới hạn sử dụng.');
-    }
-
-    // Kiểm tra đơn hàng có đủ điều kiện không
-    $userId = Auth::id();
-    $sessionId = $request->session()->getId();
-
-    $items = Cart::where(function ($q) use ($userId, $sessionId) {
-        $q->when($userId, fn($q) => $q->where('user_id', $userId))
-            ->orWhere('session_id', $sessionId);
-    })->get();
-
-    $total = $items->sum(fn($item) => $item->price * $item->quantity);
-
-    if ($coupon->minimum_order_amount && $total < $coupon->minimum_order_amount) {
-        return back()->with('coupon_error', 'Đơn hàng chưa đạt mức tối thiểu để sử dụng mã giảm giá.');
-    }
-
-    // Lưu mã vào session
-    session([
-        'applied_coupon' => $coupon->code,
-        'coupon_discount' => $coupon->discount_amount ?? ($coupon->discount_percent ? ($total * $coupon->discount_percent / 100) : 0),
-    ]);
-
-    return back()->with('coupon_success', 'Áp dụng mã giảm giá thành công!');
-}
 }

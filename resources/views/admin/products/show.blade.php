@@ -5,7 +5,6 @@
     <h2>Chi tiết sản phẩm</h2>
 
     <p><strong>Tên:</strong> {{ $product->name }}</p>
-    <p><strong>Slug:</strong> {{ $product->slug }}</p>
     <p><strong>Thương hiệu:</strong> {{ $product->brand->name ?? 'N/A' }}</p>
     <p><strong>Danh mục:</strong> {{ $product->category->name ?? 'N/A' }}</p>
     <p><strong>Giá gốc:</strong> {{ number_format($product->price) }}đ</p>

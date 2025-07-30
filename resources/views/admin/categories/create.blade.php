@@ -43,10 +43,7 @@
                                 placeholder="Category name" name="name" aria-label="Category name">
                         </div>
                         <div class="row mb-3">
-                            <div class="col"><label class="form-label" for="ecommerce-category-sku">SKU</label>
-                                <input type="number" class="form-control" id="ecommerce-category-sku" placeholder="SKU"
-                                    aria-label="category SKU">
-                            </div>
+                            
                             <div class="col"><label class="form-label" for="ecommerce-category-barcode">Image</label>
                                 <input type="file" class="form-control" id="ecommerce-category-barcode"
                                     placeholder="Image" name="image" aria-label="category image">
