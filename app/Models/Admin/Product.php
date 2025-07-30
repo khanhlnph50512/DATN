@@ -18,10 +18,12 @@ class Product extends Model
         'brand_id',
         'name',
         'description',
+        'gender',
         'price',
         'price_sale',
         'status',
         'quantity',
+
     ];
 
     protected $dates = ['deleted_at'];
@@ -50,18 +52,17 @@ class Product extends Model
     }
 
     // Quan hệ với các biến thể (mỗi biến thể chứa color_id và size_id)
-   public function variations()
-{
-    return $this->hasMany(ProductVariation::class, 'product_id');
-}
+    public function variations()
+    {
+        return $this->hasMany(ProductVariation::class, 'product_id');
+    }
     // Quan hệ với mã giảm giá (qua bảng trung gian product_coupons)
     public function coupons()
     {
         return $this->belongsToMany(Coupon::class, 'product_coupons');
     }
     public function comments()
-{
-    return $this->hasMany(Comment::class, 'product_id');
-}
-
+    {
+        return $this->hasMany(Comment::class, 'product_id');
+    }
 }

@@ -62,6 +62,16 @@
                 <label class="form-label">Mô tả</label>
                 <textarea name="description" class="form-control" rows="4"></textarea>
             </div>
+            {{-- Giới tính --}}
+            <div class="mb-3">
+                <label class="form-label">Giới tính</label>
+                <select name="gender" class="form-select" required>
+                    <option value="">-- Chọn giới tính --</option>
+                    <option value="nam">Nam</option>
+                    <option value="nu">Nữ</option>
+                    <option value="unisex">Unisex</option>
+                </select>
+            </div>
 
             {{-- Ảnh --}}
             <div class="mb-3">
@@ -84,7 +94,7 @@
             {{-- Giá giảm --}}
             <div class="mb-3">
                 <label class="form-label">Giá khuyến mãi (nếu có)</label>
-                <input type="number" name="discount_price" class="form-control">
+                <input type="number" name="price_sale" class="form-control">
             </div>
 
             {{-- Số lượng --}}

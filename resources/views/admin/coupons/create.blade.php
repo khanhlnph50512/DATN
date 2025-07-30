@@ -1,87 +1,110 @@
 @extends('admin.layouts.adminAnatats')
 
 @section('content')
+<style>
+    label.form-label {
+        color: black !important;
+    }
+</style>
+<div class="container mt-4">
+    <h2 class="mb-4">Thêm mã giảm giá</h2>
+
+    <!-- Thông báo -->
     @if (session('success'))
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Thành công!',
-                text: '{{ session('success') }}',
-                showConfirmButton: false,
-                timer: 2500,
-                timerProgressBar: true,
-                didClose: () => {
-                    window.location.href = "{{ route('admin.coupons.index') }}";
-                }
-            });
-        </script>
+        <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold">➕ Thêm mã giảm giá</h2>
-            <a href="{{ route('admin.coupons.index') }}" class="btn btn-outline-primary">⬅️ Quay lại</a>
+
+    @if (session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form action="{{ route('admin.coupons.store') }}" method="POST" class="card card-body">
+        @csrf
+
+        <div class="mb-3">
+            <label class="form-label">Mã code *</label>
+            <input type="text" name="code" class="form-control" value="{{ old('code') }}" required>
         </div>
 
-        <form action="{{ route('admin.coupons.store') }}" method="POST" class="shadow-sm bg-white p-4 rounded">
-            @csrf
+        <div class="mb-3">
+            <label class="form-label">Mô tả</label>
+            <textarea name="description" class="form-control">{{ old('description') }}</textarea>
+        </div>
 
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label class="form-label fw-bold">Mã giảm giá *</label>
-                    <input type="text" name="code" value="{{ old('code') }}" class="form-control" required>
-                </div>
+        <div class="mb-3">
+            <label class="form-label">Giảm giá cố định (VNĐ)</label>
+            <input type="number" name="discount_amount" id="discount_amount" step="0.01" class="form-control" value="{{ old('discount_amount') }}">
+        </div>
 
-                <div class="col-md-6 mb-3">
-                    <label class="form-label fw-bold">Trạng thái</label>
-                    <select name="active" class="form-select">
-                        <option value="1">✔ Hoạt động</option>
-                        <option value="0">❌ Tắt</option>
-                    </select>
-                </div>
+        <div class="mb-3">
+            <label class="form-label">Giảm theo phần trăm (%)</label>
+            <input type="number" name="discount_percent" id="discount_percent" step="0.01" class="form-control" value="{{ old('discount_percent') }}">
+        </div>
 
-                <div class="col-md-12 mb-3">
-                    <label class="form-label fw-bold">Mô tả</label>
-                    <textarea name="description" rows="2" class="form-control">{{ old('description') }}</textarea>
-                </div>
+        <div class="mb-3">
+            <label class="form-label">Đơn hàng tối thiểu (VNĐ)</label>
+            <input type="number" name="minimum_order_amount" step="0.01" class="form-control" value="{{ old('minimum_order_amount') }}">
+        </div>
 
-                <div class="col-md-6 mb-3">
-                    <label class="form-label fw-bold">Giảm theo số tiền (VNĐ)</label>
-                    <input type="number" name="discount_amount" class="form-control" value="{{ old('discount_amount') }}">
-                </div>
+        <div class="mb-3">
+            <label class="form-label">Ngày bắt đầu *</label>
+            <input type="date" name="valid_from" class="form-control" value="{{ old('valid_from') }}" required>
+        </div>
 
-                <div class="col-md-6 mb-3">
-                    <label class="form-label fw-bold">Giảm theo phần trăm (%)</label>
-                    <input type="number" name="discount_percent" class="form-control"
-                        value="{{ old('discount_percent') }}">
-                </div>
+        <div class="mb-3">
+            <label class="form-label">Ngày kết thúc *</label>
+            <input type="date" name="valid_until" class="form-control" value="{{ old('valid_until') }}" required>
+        </div>
 
-                <div class="col-md-6 mb-3">
-                    <label class="form-label fw-bold">Áp dụng cho đơn từ (VNĐ)</label>
-                    <input type="number" name="minimum_order_amount" class="form-control"
-                        value="{{ old('minimum_order_amount', $coupon->minimum_order_amount ?? 0) }}">
-                </div>
+        <div class="mb-3">
+            <label class="form-label">Giới hạn số lần sử dụng</label>
+            <input type="number" name="usage_limit" class="form-control" value="{{ old('usage_limit') }}">
+        </div>
 
-                <div class="col-md-6 mb-3">
-                    <label class="form-label fw-bold">Hiệu lực từ *</label>
-                    <input type="date" name="valid_from" class="form-control" value="{{ old('valid_from') }}" required>
-                </div>
+        <div class="mb-3">
+            <label class="form-label">Trạng thái *</label>
+            <select name="active" class="form-select" required>
+                <option value="1" {{ old('active') == 1 ? 'selected' : '' }}>Kích hoạt</option>
+                <option value="0" {{ old('active') == 0 ? 'selected' : '' }}>Tạm tắt</option>
+            </select>
+        </div>
 
-                <div class="col-md-6 mb-3">
-                    <label class="form-label fw-bold">Hiệu lực đến *</label>
-                    <input type="date" name="valid_until" class="form-control" value="{{ old('valid_until') }}"
-                        required>
-                </div>
+        <button type="submit" class="btn btn-primary">Thêm</button>
+    </form>
+</div>
 
-                <div class="col-md-6 mb-3">
-                    <label class="form-label fw-bold">Giới hạn lượt sử dụng</label>
-                    <input type="number" name="usage_limit" class="form-control" value="{{ old('usage_limit', 1) }}">
-                </div>
-            </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const percent = document.getElementById('discount_percent');
+        const amount = document.getElementById('discount_amount');
 
-            <div class="text-end mt-4">
-                <button type="submit" class="btn btn-success px-4">✅ Lưu mới</button>
-            </div>
-        </form>
-    </div>
+        function toggleInputs() {
+            if (percent.value) {
+                amount.disabled = true;
+            } else {
+                amount.disabled = false;
+            }
+
+            if (amount.value) {
+                percent.disabled = true;
+            } else {
+                percent.disabled = false;
+            }
+        }
+
+        percent.addEventListener('input', toggleInputs);
+        amount.addEventListener('input', toggleInputs);
+        toggleInputs();
+    });
+</script>
 @endsection

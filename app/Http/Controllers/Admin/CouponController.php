@@ -10,28 +10,21 @@ use App\Models\Admin\Coupon;
 
 class CouponController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+      public function index()
     {
         $coupons = Coupon::latest()->paginate(10);
         return view('admin.coupons.index', compact('coupons'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        $users = User::all();
-        $products = Product::all();
-        return view('admin.coupons.create', compact('users', 'products'));
+        return view('admin.coupons.create');
     }
+public function show($id)
+{
+    
 
-    /**
-     * Store a newly created resource in storage.
-     */
+}
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -42,88 +35,65 @@ class CouponController extends Controller
             'minimum_order_amount' => 'nullable|numeric',
             'valid_from' => 'required|date',
             'valid_until' => 'required|date|after_or_equal:valid_from',
-            'usage_limit' => 'required|integer',
+            'usage_limit' => 'nullable|integer|min:1',
             'active' => 'boolean',
-            'user_ids' => 'array',
-            'product_ids' => 'array',
         ]);
 
-        $coupon = Coupon::create($data);
-        $coupon->users()->sync($request->user_ids);
+        Coupon::create($data);
 
         return redirect()->route('admin.coupons.index')->with('success', 'Tạo mã giảm giá thành công');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(Coupon $coupon)
     {
-        $coupon = Coupon::withTrashed()->findOrFail($id);
-        return view('admin.coupons.show', compact('coupon'));
-    }
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        $coupon = Coupon::findOrFail($id);
         return view('admin.coupons.edit', compact('coupon'));
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    { {
-            $coupon = Coupon::findOrFail($id);
-
-            $request->validate([
-                'code' => 'required|string',
-                'description' => 'nullable|string',
-                'discount_amount' => 'nullable|numeric|min:0',
-                'discount_percent' => 'nullable|numeric|min:0|max:100',
-                'minimum_order_amount' => 'nullable|numeric|min:0',
-                'valid_from' => 'required|date',
-                'valid_until' => 'required|date|after_or_equal:valid_from',
-                'usage_limit' => 'nullable|integer|min:0',
-                'active' => 'required|boolean',
-            ]);
-
-            $coupon->update($request->all());
-
-            return redirect()->route('admin.coupons.index')->with('success', 'Cập nhật mã giảm giá thành công!');
-        }
-    }
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
+    public function update(Request $request, Coupon $coupon)
     {
-        $coupon = Coupon::findOrFail($id);
-        $coupon->delete();
+        $data = $request->validate([
+            'code' => 'required|unique:coupons,code,' . $coupon->id,
+            'description' => 'nullable|string',
+            'discount_amount' => 'nullable|numeric',
+            'discount_percent' => 'nullable|numeric',
+            'minimum_order_amount' => 'nullable|numeric',
+            'valid_from' => 'required|date',
+            'valid_until' => 'required|date|after_or_equal:valid_from',
+            'usage_limit' => 'nullable|integer|min:1',
+            'active' => 'boolean',
+        ]);
 
-        return redirect()->route('admin.coupons.index')->with('success', 'Đã xoá mã vào thùng rác.');
+        $coupon->update($data);
+
+        return redirect()->route('admin.coupons.index')->with('success', 'Cập nhật thành công');
+    }
+
+    public function destroy(Coupon $coupon)
+    {
+        $coupon->delete();
+        return redirect()->route('admin.coupons.index')->with('success', 'Xóa mềm thành công');
     }
     public function trash()
-    {
-        $coupons = Coupon::onlyTrashed()->latest()->paginate(10);
-        return view('admin.coupons.trash', compact('coupons'));
-    }
-    public function restore($id)
-    {
-        $coupon = Coupon::onlyTrashed()->findOrFail($id);
-        $coupon->restore();
+{
+    $coupons = Coupon::onlyTrashed()->latest()->paginate(10);
+    return view('admin.coupons.trash', compact('coupons'));
+}
 
-        return redirect()->route('admin.coupons.trash')->with('success', 'Đã khôi phục mã!');
-    }
+// Khôi phục
+public function restore($id)
+{
+    $coupon = Coupon::onlyTrashed()->findOrFail($id);
+    $coupon->restore();
 
-    public function forceDelete($id)
-    {
-        $coupon = Coupon::onlyTrashed()->findOrFail($id);
-        $coupon->forceDelete();
+    return redirect()->route('admin.coupons.trash')->with('success', 'Khôi phục mã giảm giá thành công');
+}
 
-        return redirect()->route('admin.coupons.trash')->with('success', 'Đã xoá vĩnh viễn!');
-    }
+// Xóa vĩnh viễn
+public function forceDelete($id)
+{
+    $coupon = Coupon::onlyTrashed()->findOrFail($id);
+    $coupon->forceDelete();
+
+    return redirect()->route('admin.coupons.trash')->with('success', 'Xóa vĩnh viễn mã giảm giá');
+}
 }

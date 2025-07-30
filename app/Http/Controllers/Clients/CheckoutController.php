@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Clients;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Coupon;
 use App\Models\Admin\Order;
 use App\Models\Admin\OrderItem;
 use App\Models\Admin\ShippingMethod;
@@ -102,7 +103,15 @@ class CheckoutController extends Controller
     }
 
     $cartItems->each->delete();
+if (session()->has('applied_coupon')) {
+    $coupon = Coupon::where('code', session('applied_coupon'))->first();
 
+    if ($coupon && $coupon->usage_limit !== null && $coupon->usage_limit > 0) {
+        $coupon->decrement('usage_limit');
+    }
+
+    session()->forget(['applied_coupon', 'coupon_discount']);
+}
     return redirect()
         ->route('client.order-tracking')
         ->with('success', 'Đặt hàng thành công! Mã đơn: ' . $order->order_number);

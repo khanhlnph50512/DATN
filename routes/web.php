@@ -21,7 +21,9 @@ use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Clients\CartController;
 use App\Http\Controllers\Clients\CheckoutController;
 use App\Http\Controllers\Clients\HomeController as ClientsHomeController;
+use App\Http\Controllers\Clients\PageController;
 use App\Http\Controllers\Clients\VnpayController;
+use App\Http\Controllers\Clients\WishlistController;
 
 // Trang chủ
 Route::get('/', function () {
@@ -53,6 +55,9 @@ Route::get('/product-detail/{slug}/{id}', [ProductControllerr::class, 'show'])->
 Route::get('client/order-tracking', [OrderController::class, 'orderTracking'])->name('client.order-tracking');
 Route::get('/order/{orderId}', [OrderController::class, 'showDetail'])->name('client.order.detail');
  Route::get('/search', [ProductControllerr::class, 'search'])->name('search');
+Route::get('/discover-you', [PageController::class, 'discoverYou'])->name('discover.you');
+// / yeu thich
+
 
 /// comment
 Route::post('/comments', [CommentController::class, 'store'])
@@ -60,7 +65,11 @@ Route::post('/comments', [CommentController::class, 'store'])
     ->middleware('auth');
 // Cart
 // routes/web.php
+//add coupon
+Route::post('/cart/apply-coupon', [CartController::class, 'applyCoupon'])->name('client.cart.applyCoupon');
+
 Route::prefix('client/carts')->name('client.carts.')->group(function () {
+
     Route::get('/', [CartController::class, 'index'])->name('index');
     Route::post('/add', [CartController::class, 'add'])->name('add');
 Route::post('/update/{id}', [CartController::class, 'updateQuantity'])->name('updateQuantity');
@@ -95,11 +104,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('products', ProductController::class);
 
 
-    Route::resource('customers', CustomerController::class)->except(['show']);
-    Route::get('customers/{id}/show', [CustomerController::class, 'show'])->name('customers.show');
-    Route::get('customers/trash', [CustomerController::class, 'trash'])->name('customers.trash');
-    Route::get('customers/restore/{id}', [CustomerController::class, 'restore'])->name('customers.restore');
-    Route::delete('customers/force-delete/{id}', [CustomerController::class, 'forceDelete'])->name('customers.forceDelete');
+
 
     // Users
     Route::prefix('users')->name('users.')->group(function () {
@@ -123,12 +128,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('blogs', BlogController::class);
 
     // Coupon
-    Route::prefix('coupons')->name('coupons.')->group(function () {
-        Route::get('trash', [CouponController::class, 'trash'])->name('trash');
-        Route::post('{id}/restore', [CouponController::class, 'restore'])->name('restore');
-        Route::delete('{id}/force-delete', [CouponController::class, 'forceDelete'])->name('forceDelete');
-    });
-    Route::resource('coupons', CouponController::class);
+   Route::resource('coupons', CouponController::class);
+    Route::get('/coupons/trash', [CouponController::class, 'trash'])->name('coupons.trash');
+Route::post('coupons/{id}/restore', [CouponController::class, 'restore'])->name('coupons.restore');
+Route::delete('coupons/{id}/force-delete', [CouponController::class, 'forceDelete'])->name('coupons.forceDelete');
+
+   //binh luận
 Route::prefix('comments')->name('comments.')->group(function () {
         Route::get('/', [\App\Http\Controllers\Admin\CommentController::class, 'index'])->name('index');
         Route::post('{id}/approve', [\App\Http\Controllers\Admin\CommentController::class, 'approve'])->name('approve');

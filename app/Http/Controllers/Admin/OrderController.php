@@ -19,39 +19,44 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = Order::with('orderItems')->findOrFail($id);
+        $order = Order::with([
+            'orderItems.product.primaryImage',
+            'orderItems.variation.color',
+            'orderItems.variation.size'
+        ])->findOrFail($id);
+
         return view('admin.orders.show', compact('order'));
     }
 
     /**
      * Cập nhật trạng thái đơn hàng.
      */
-   public function update(Request $request, $id)
-{
-    $order = Order::findOrFail($id);
+    public function update(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
 
-    $currentStatus = $order->status;
-    $newStatus = $request->input('status');
+        $currentStatus = $order->status;
+        $newStatus = $request->input('status');
 
-    // Danh sách các trạng thái có thể chuyển tới từ trạng thái hiện tại
-    $allowedTransitions = [
-        'pending' => ['processing', 'cancelled'],
-        'processing' => ['shipping', 'cancelled'],
-        'shipping' => ['delivered', 'returned'],
-        'delivered' => [],
-        'cancelled' => [],
-        'returned' => [],
-    ];
+        // Danh sách các trạng thái có thể chuyển tới từ trạng thái hiện tại
+        $allowedTransitions = [
+            'pending' => ['processing', 'cancelled'],
+            'processing' => ['shipping', 'cancelled'],
+            'shipping' => ['delivered', 'returned'],
+            'delivered' => [],
+            'cancelled' => [],
+            'returned' => [],
+        ];
 
-    if (!in_array($newStatus, $allowedTransitions[$currentStatus])) {
-        return redirect()->back()->with('error', 'Không thể chuyển từ trạng thái hiện tại sang trạng thái đã chọn.');
+        if (!in_array($newStatus, $allowedTransitions[$currentStatus])) {
+            return redirect()->back()->with('error', 'Không thể chuyển từ trạng thái hiện tại sang trạng thái đã chọn.');
+        }
+
+        $order->status = $newStatus;
+        $order->save();
+
+        return redirect()->back()->with('success', 'Cập nhật trạng thái thành công!');
     }
-
-    $order->status = $newStatus;
-    $order->save();
-
-    return redirect()->back()->with('success', 'Cập nhật trạng thái thành công!');
-}
     /**
      * Xóa đơn hàng (soft delete nếu cần).
      */

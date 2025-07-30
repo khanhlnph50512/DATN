@@ -107,8 +107,8 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link text-white" href="{{ route('admin.coupons.index') }}">
-                    <i class="fas fa-ticket-alt me-2"></i> Mã giảm giá theo đơn hàng
+                <a class="nav-link text-white" href="{{ route('admin.orders.index') }}">
+                    <i class="fas fa-ticket-alt me-2"></i> Quản lý đơn hàng
                 </a>
             </li>
             <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.blogs.index') }}"><i

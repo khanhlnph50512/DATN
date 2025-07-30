@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Clients;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderSuccessMail;
 use App\Models\Admin\Order;
 use App\Models\Admin\OrderItem;
 use App\Models\Admin\ShippingMethod;
 use App\Models\Client\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class VnpayController extends Controller
@@ -48,7 +50,7 @@ class VnpayController extends Controller
         $vnp_OrderInfo = 'Thanh toan don hang';
         $vnp_OrderType = 'billpayment';
         $vnp_Locale = 'vn';
-        $vnp_BankCode = 'NCB';
+        $vnp_BankCode = '';
         $vnp_IpAddr = $request->ip();
 
         $inputData = array(
@@ -169,7 +171,9 @@ class VnpayController extends Controller
             'email',
             'note',
         ]);
-
+if ($order && $order->email) {
+    Mail::to($order->email)->send(new OrderSuccessMail($order));
+}
         return redirect()->route('client.order-tracking')->with('success', 'Thanh toán thành công! Mã đơn: ' . $order->order_number);
     }
 }

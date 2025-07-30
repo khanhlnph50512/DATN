@@ -96,7 +96,7 @@
                 @foreach ($items as $item)
                     @php
                         $variation = $item->variation;
-                        $price = $variation->price_sale ?? $variation->price ?? $item->product->price;
+                        $price = $variation->price_sale ?? ($variation->price ?? $item->product->price);
                         $subtotal = $price * $item->quantity;
                         $total += $subtotal;
                     @endphp
@@ -105,8 +105,7 @@
                         <div class="col-md-3">
                             @if ($item->product->primaryImage)
                                 <img src="{{ asset('storage/' . $item->product->primaryImage->image_url) }}"
-     alt="{{ $item->product->name }}" style="max-width: 100px;">
-
+                                    alt="{{ $item->product->name }}" style="max-width: 100px;">
                             @else
                                 <span>Chưa có ảnh</span>
                             @endif
@@ -117,13 +116,13 @@
                             <p>
                                 Giá:
                                 @if ($variation->price_sale && $variation->price_sale < $variation->price)
-    <del class="text-muted">{{ number_format($variation->price, 0, ',', '.') }} VND</del>
-    <strong class="text-danger">
-        {{ number_format($variation->price_sale, 0, ',', '.') }} VND
-    </strong>
-@else
-    {{ number_format($variation->price, 0, ',', '.') }} VND
-@endif
+                                    <del class="text-muted">{{ number_format($variation->price, 0, ',', '.') }} VND</del>
+                                    <strong class="text-danger">
+                                        {{ number_format($variation->price_sale, 0, ',', '.') }} VND
+                                    </strong>
+                                @else
+                                    {{ number_format($variation->price, 0, ',', '.') }} VND
+                                @endif
                             </p>
                             <p>Size: {{ $variation->size->name ?? '---' }}</p>
                             <p>Màu sắc: {{ $variation->color->name ?? '---' }}</p>
@@ -171,23 +170,47 @@
                 <div class="cart-summary">
                     <div class="summary-title">ĐƠN HÀNG</div>
 
-                    <form class="promo-form mb-3">
-                        <input type="text" placeholder="Nhập mã khuyến mãi" class="form-control mb-2">
-                        <button type="button" class="btn btn-outline-dark w-100">ÁP DỤNG</button>
+                    <form action="{{ route('client.cart.applyCoupon') }}" method="POST" class="mt-4">
+                        @csrf
+                        <div class="input-group">
+                            <input type="text" name="coupon_code" class="form-control" placeholder="Nhập mã giảm giá"
+                                required>
+                            <button class="btn btn-primary" type="submit">Áp dụng</button>
+                        </div>
                     </form>
+
+                    @if (session('coupon_error'))
+                        <div class="text-danger mt-2">{{ session('coupon_error') }}</div>
+                    @endif
+
+                    @if (session('coupon_success'))
+                        <div class="text-success mt-2">{{ session('coupon_success') }}</div>
+                    @endif
+                    @php
+                        $discount = session('coupon_discount') ?? 0;
+                        $finalTotal = $total - $discount;
+                    @endphp
 
                     <div>
                         <p>Đơn hàng: {{ number_format($total, 0, ',', '.') }} VND</p>
-                        <p>Giảm: 0 VND</p>
+                        @if ($discount > 0)
+                            <p>Giảm: -{{ number_format($discount, 0, ',', '.') }} VND</p>
+                        @endif
                     </div>
 
                     <div class="summary-total font-weight-bold">
-                        Tạm tính: {{ number_format($total, 0, ',', '.') }} VND
+                        Tạm tính: {{ number_format($finalTotal, 0, ',', '.') }} VND
                     </div>
 
-                    <a href="{{ route('client.checkout') }}" class="btn-checkout btn btn-warning w-100 mt-3">
-                        TIẾP TỤC THANH TOÁN
-                    </a>
+                    @auth
+                        <a href="{{ route('client.checkout') }}" class="btn-checkout btn btn-warning w-100 mt-3">
+                            TIẾP TỤC THANH TOÁN
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}" class="btn btn-outline-dark w-100 mt-3">
+                            ĐĂNG NHẬP ĐỂ THANH TOÁN
+                        </a>
+                    @endauth
                 </div>
             </div>
         </div>

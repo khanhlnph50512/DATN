@@ -325,10 +325,7 @@
                 <li><a href="{{ route('client.order-tracking') }}"><img
                             src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_tra_cuu_don_hang.svg') }}">
                         Tra cứu đơn hàng</a></li>
-                <li><a href="stores/index.html"><img
-                            src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_tim_cua_hang.svg') }}">
-                        Tìm cửa hàng</a>
-                </li>
+               
                 <li><a href="your-wishlist/index.html"><img
                             src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_heart_header.svg') }}">
                         Yêu thích</a>
@@ -380,46 +377,34 @@
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
                             <a href="{{ route('product.index') }}" class="dropdown-toggle">SẢN PHẨM </a>
-                            <ul class="dropdown-menu style1">
-                                <li><a href="product-list/index07a0.html?gender=men"><img
-                                            src="{{ asset('assetsClients/wp-content/uploads/Dropmenu_nam.jpg') }}"></a><a
-                                        class="style1-title" href="product-list/index07a0.html?gender=men">CHO NAM</a>
-                                </li>
-                                <li><a href="product-list/indexd5c6.html?gender=women"><img
-                                            src="{{ asset('assetsClients/wp-content/uploads/Desktop_Dropdown_Women_1-2.jpg') }}"></a><a
-                                        class="style1-title" href="product-list/indexd5c6.html?gender=women">CHO
-                                        NỮ</a></li>
-                                <li><a href="promotion/clearance-sale/index.html"><img
-                                            src="{{ asset('assetsClients/wp-content/uploads/Dropmenu-Promotion.jpg') }}"></a><a
-                                        class="style1-title" href="promotion/clearance-sale/index.html">OUTLET
-                                        SALE</a></li>
-                                <li><a
-                                        href="product-list/indexd8a8.html?gender=men,women&amp;category=top,bottom,accessories&amp;attribute="><img
-                                            src="{{ asset('assetsClients/wp-content/uploads/Dropmenu-ThoitrangPhukien.jpg') }}"></a><a
-                                        class="style1-title"
-                                        href="product-list/indexd8a8.html?gender=men,women&amp;category=top,bottom,accessories&amp;attribute=">THỜI
-                                        TRANG & PHỤ KIỆN</a></li>
-                                <div class="style1-des"><a href="coming-soon/index.html">MỌI NGƯỜI THƯỜNG GỌI CHÚNG
-                                        TÔI LÀ <span class="highlight">DỨA</span> !</a></div>
-                            </ul>
-
                         </li>
 
                         <li class="line"></li>
+
                         <li class="dropdown">
-                            <a href="product-list/index07a0.html?gender=men" class="dropdown-toggle">NAM </a>
+                            <a href="{{ route('product.index', ['gender' => 'nam']) }}" class="dropdown-toggle">NAM
+                            </a>
                         </li>
 
                         <li class="line"></li>
+
                         <li class="dropdown">
-                            <a href="product-list/indexd5c6.html?gender=women" class="dropdown-toggle">NỮ </a>
+                            <a href="{{ route('product.index', ['gender' => 'nu']) }}" class="dropdown-toggle">NỮ
+                            </a>
                         </li>
 
                         <li class="line"></li>
-                        <li><a href="promotion/clearance-sale/index.html">SALE OFF</a></li>
+
+                        <li>
+                            <a href="{{ route('product.index', ['sale' => 1]) }}">SALE OFF</a>
+                        </li>
+
                         <li class="line"></li>
-                        <li><a href="discoveryou/index.html"><img
-                                    src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/DiscoverYOU.svg') }}"></a>
+                        <li>
+                            <a href="{{ route('discover.you') }}">
+                                <img
+                                    src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/DiscoverYOU.svg') }}">
+                            </a>
                         </li>
                     </ul>
                     <form action="{{ route('search') }}" method="GET" class="navbar-form navbar-right">
@@ -956,12 +941,7 @@
                             Yêu
                             thích</a>
                     </li>
-                    <li class="settingmenu">
-                        <a href="stores/index.html"><img
-                                src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_tim_cua_hang.svg') }}">
-                            Tìm cửa
-                            hàng</a>
-                    </li>
+
                     <li class="settingmenu">
                         <a href="{{ route('client.order-tracking') }}"><img
                                 src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_tra_cuu_don_hang.svg') }}">

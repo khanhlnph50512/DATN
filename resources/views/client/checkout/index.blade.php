@@ -87,7 +87,7 @@
         }
     </style>
 
-<form id="checkoutForm" method="POST">
+    <form id="checkoutForm" method="POST">
         @csrf
         <div class="checkout-container">
             {{-- BÊN TRÁI: THÔNG TIN NGƯỜI NHẬN --}}
@@ -133,7 +133,7 @@
                 </div>
                 <div class="form-group">
                     <label><input type="radio" name="payment_method" value="vnpay">
-                    Thanh toán qua VNPAY</label>
+                        Thanh toán qua VNPAY</label>
                 </div>
             </div>
 
@@ -144,9 +144,16 @@
 
                     @foreach ($cartItems as $item)
                         @php
-                            $price =
-                                $item->variation->price_sale ??
-                                ($item->variation->price ?? ($item->product->price ?? 0));
+                            $total = 0;
+                            foreach ($cartItems as $item) {
+                                $price =
+                                    $item->variation->price_sale ??
+                                    ($item->variation->price ?? ($item->product->price ?? 0));
+                                $total += $price * $item->quantity;
+                            }
+
+                            $discount = session('coupon_discount') ?? 0;
+                            $finalTotal = $total - $discount;
                         @endphp
 
                         <div class="order-item">
@@ -165,10 +172,17 @@
                     <div class="total-breakdown">
                         <span><strong>Tạm tính:</strong> <span
                                 id="subtotal">{{ number_format($total, 0, ',', '.') }}đ</span></span>
+
+                        @if ($discount > 0)
+                            <span><strong>Giảm giá:</strong> <span
+                                    class="text-danger">-{{ number_format($discount, 0, ',', '.') }}đ</span></span>
+                        @endif
+
                         <span><strong>Phí vận chuyển:</strong> <span id="shippingFee">0đ</span></span>
+
                         <div class="order-total">
                             <span><strong>Tổng cộng:</strong></span>
-                            <span id="grandTotal">{{ number_format($total, 0, ',', '.') }}đ</span>
+                            <span id="grandTotal">{{ number_format($finalTotal, 0, ',', '.') }}đ</span>
                         </div>
                     </div>
 
@@ -180,6 +194,7 @@
 
     <script>
         const subtotal = {{ $total }};
+        const discount = {{ $discount }};
         const shippingSelect = document.getElementById('shipping_method_id');
         const feeDisplay = document.getElementById('shippingFee');
         const totalDisplay = document.getElementById('grandTotal');
@@ -189,28 +204,28 @@
             const fee = parseInt(selectedOption.dataset.fee) || 0;
 
             feeDisplay.innerText = fee.toLocaleString('vi-VN') + 'đ';
-            totalDisplay.innerText = (subtotal + fee).toLocaleString('vi-VN') + 'đ';
+            totalDisplay.innerText = (subtotal - discount + fee).toLocaleString('vi-VN') + 'đ';
         }
 
         // Gọi ngay khi trang load
         window.onload = updateTotal;
     </script>
     <script>
-    const form = document.getElementById('checkoutForm');
-    const paymentRadios = document.querySelectorAll('input[name="payment_method"]');
+        const form = document.getElementById('checkoutForm');
+        const paymentRadios = document.querySelectorAll('input[name="payment_method"]');
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault(); // chặn submit mặc định
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // chặn submit mặc định
 
-        let selectedPayment = document.querySelector('input[name="payment_method"]:checked').value;
+            let selectedPayment = document.querySelector('input[name="payment_method"]:checked').value;
 
-        if (selectedPayment === 'cod') {
-            form.action = "{{ route('client.checkout.process') }}";
-        } else if (selectedPayment === 'vnpay') {
-            form.action = "{{ route('vnpay.payment') }}";
-        }
+            if (selectedPayment === 'cod') {
+                form.action = "{{ route('client.checkout.process') }}";
+            } else if (selectedPayment === 'vnpay') {
+                form.action = "{{ route('vnpay.payment') }}";
+            }
 
-        form.submit();
-    });
-</script>
+            form.submit();
+        });
+    </script>
 @endsection
