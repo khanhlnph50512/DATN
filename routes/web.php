@@ -57,8 +57,10 @@ Route::get('/order/{orderId}', [OrderController::class, 'showDetail'])->name('cl
  Route::get('/search', [ProductControllerr::class, 'search'])->name('search');
 Route::get('/discover-you', [PageController::class, 'discoverYou'])->name('discover.you');
 // / yeu thich
-
-
+// huy don hang
+Route::post('/orders/{id}/cancel', [App\Http\Controllers\Clients\OrderController::class, 'cancel'])
+    ->name('client.orders.cancel')
+    ->middleware('auth');
 /// comment
 Route::post('/comments', [CommentController::class, 'store'])
     ->name('client.comments.store')

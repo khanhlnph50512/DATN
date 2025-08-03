@@ -24,6 +24,15 @@
                                 {{ ucfirst($order->status) }}
                             </span>
                         </p>
+                        <p><strong>Trạng thái Thanh toán:</strong>
+
+                            @if ($order->payment_status === 'paid')
+                                <span class="badge bg-success">Đã thanh toán</span>
+                            @else
+                                <span class="badge bg-warning text-dark">Chưa thanh toán</span>
+                            @endif
+
+                        </p>
                     </div>
                     <div class="col-md-6">
                         <p><strong>Ngày đặt hàng:</strong> {{ $order->created_at->format('d/m/Y H:i') }}</p>

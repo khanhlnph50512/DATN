@@ -14,7 +14,6 @@
 
         <div class="my-3">
             <a href="{{ route('admin.users.create') }}" class="btn btn-primary">+ Thêm người dùng</a>
-            <a href="{{ route('admin.users.trash') }}" class="btn btn-secondary">🗑️ Thùng rác</a>
         </div>
 
         <table class="table table-bordered table-striped">
@@ -52,15 +51,7 @@
                             <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-warning">
                                 <i class="fa fa-edit"></i>
                             </a>
-                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
-                                style="display:inline-block;"
-                                onsubmit="return confirm('Bạn có chắc muốn xoá người dùng này?')">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-sm btn-danger">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            </form>
+
                         </td>
 
                     </tr>

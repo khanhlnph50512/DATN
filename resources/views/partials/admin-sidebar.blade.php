@@ -88,6 +88,11 @@
             <span>Quản lý nội dung</span>
         </h6>
         <ul class="nav flex-column mb-3">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{{ route('admin.orders.index') }}">
+                    <i class="fas fa-ticket-alt me-2"></i> Quản lý đơn hàng
+                </a>
+            </li>
             <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.products.index') }}"><i
                         class="fas fa-box me-2"></i> Sản phẩm</a></li>
             <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.categories.index') }}"><i
@@ -106,11 +111,7 @@
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link text-white" href="{{ route('admin.orders.index') }}">
-                    <i class="fas fa-ticket-alt me-2"></i> Quản lý đơn hàng
-                </a>
-            </li>
+
             <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.blogs.index') }}"><i
                         class="fas fa-newspaper me-2"></i> Bài viết</a></li>
         </ul>

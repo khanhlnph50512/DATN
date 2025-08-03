@@ -53,6 +53,13 @@ class OrderController extends Controller
         }
 
         $order->status = $newStatus;
+        if (
+            $order->payment_method === 'cod' &&
+            $newStatus === 'delivered' &&
+            $order->payment_status !== 'paid'
+        ) {
+            $order->payment_status = 'paid'; // hoặc 'đã thanh toán' nếu bạn dùng tiếng Việt
+        }
         $order->save();
 
         return redirect()->back()->with('success', 'Cập nhật trạng thái thành công!');

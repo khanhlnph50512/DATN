@@ -44,6 +44,29 @@ class OrderController extends Controller
 
         return view('client.order.orderDetail', compact('order'));
     }
+public function cancel($id)
+{
+    $order = Order::findOrFail($id);
+
+    // Chỉ cho phép người sở hữu đơn hàng hoặc theo session
+    $user = Auth::user();
+    $sessionId = session()->getId();
+
+    if (($user && $order->user_id !== $user->id) || (!$user && $order->session_id !== $sessionId)) {
+        return redirect()->route('client.order-tracking')->with('error', 'Bạn không có quyền hủy đơn hàng này.');
+    }
+
+    // Chỉ cho hủy nếu đơn đang chờ xác nhận
+    if ($order->status !== 'pending') {
+        return redirect()->route('client.order-tracking')->with('error', 'Chỉ có thể hủy đơn hàng khi đang chờ xác nhận.');
+    }
+
+    // Cập nhật trạng thái
+    $order->status = 'cancelled';
+    $order->save();
+
+    return redirect()->route('client.order-tracking')->with('success', 'Đơn hàng đã được hủy thành công.');
+}
 
 
 }

@@ -23,6 +23,7 @@
                         <th>Email</th>
                         <th>Tổng tiền</th>
                         <th>Trạng thái</th>
+                        <th>Trạng thái thanh toán</th>
                         <th>Ngày tạo</th>
                         <th class="text-center">Hành động</th>
                     </tr>
@@ -31,20 +32,18 @@
                     @php
                         $statuses = [
                             'pending' => 'Chờ xác nhận',
-                            'processing' => 'Đang xử lý',
+                            'processing' => 'Xác nhận',
                             'shipping' => 'Đang giao hàng',
                             'delivered' => 'Đã giao',
-                            'cancelled' => 'Đã hủy',
-                            'returned' => 'Đã hoàn',
+                            'cancelled' => 'Hủy',
                         ];
 
                         $nextStatusOptions = [
                             'pending' => ['processing', 'cancelled'],
                             'processing' => ['shipping', 'cancelled'],
-                            'shipping' => ['delivered', 'returned'],
+                            'shipping' => ['delivered'],
                             'delivered' => [],
                             'cancelled' => [],
-                            'returned' => [],
                         ];
                     @endphp
 
@@ -74,20 +73,19 @@
                                     <span class="badge bg-secondary">{{ $statuses[$order->status] }}</span>
                                 @endif
                             </td>
+                            <td>
+                                @if ($order->payment_status === 'paid')
+                                    <span class="badge bg-success">Đã thanh toán</span>
+                                @else
+                                    <span class="badge bg-warning text-dark">Chưa thanh toán</span>
+                                @endif
+                            </td>
+                            
                             <td>{{ $order->created_at->format('d/m/Y H:i') }}</td>
                             <td class="text-center">
                                 <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-sm btn-info">
                                     <i class="bi bi-eye"></i> Xem
                                 </a>
-                                <form action="{{ route('admin.orders.destroy', $order->id) }}" method="POST"
-                                    style="display:inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button onclick="return confirm('Xác nhận xóa đơn hàng này?')"
-                                        class="btn btn-sm btn-danger">
-                                        <i class="bi bi-trash"></i> Xóa
-                                    </button>
-                                </form>
                             </td>
                         </tr>
                     @endforeach

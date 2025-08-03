@@ -62,10 +62,7 @@
             background: #fdecea;
         }
 
-        .status-returned {
-            color: #7f8c8d;
-            background: #f2f4f4;
-        }
+
 
         .order-info p {
             margin-bottom: 8px;
@@ -102,11 +99,10 @@
     @php
         $statusMap = [
             'pending' => ['label' => 'Chờ xác nhận', 'class' => 'status-pending', 'icon' => 'fas fa-hourglass-start'],
-            'processing' => ['label' => 'Đang xử lý', 'class' => 'status-processing', 'icon' => 'fas fa-cogs'],
+            'processing' => ['label' => 'Xác nhận', 'class' => 'status-processing', 'icon' => 'fas fa-cogs'],
             'shipping' => ['label' => 'Đang giao hàng', 'class' => 'status-shipping', 'icon' => 'fas fa-truck'],
             'delivered' => ['label' => 'Đã giao', 'class' => 'status-delivered', 'icon' => 'fas fa-check-circle'],
             'cancelled' => ['label' => 'Đã hủy', 'class' => 'status-cancelled', 'icon' => 'fas fa-times-circle'],
-            'returned' => ['label' => 'Đã hoàn', 'class' => 'status-returned', 'icon' => 'fas fa-undo'],
         ];
     @endphp
 
@@ -147,9 +143,13 @@
                             <p><strong>📞 Điện thoại:</strong> {{ $order->phone_number }}</p>
                             <p><strong>📍 Địa chỉ:</strong> {{ $order->shipping_address }}</p>
                             <p><strong>📝 Ghi chú:</strong> {{ $order->note ?? 'Không có' }}</p>
+                            <p>
+                                <strong>💰 Trạng thái thanh toán:</strong>
+                                {{ $order->payment_status === 'paid' ? 'Đã thanh toán' : 'Chưa thanh toán' }}
+                            </p>
                         </div>
                         <div class="col-md-6">
-                            <p><strong>💳 Thanh toán:</strong> {{ strtoupper($order->payment_method) }}</p>
+                            <p><strong>💳 Phương Thức Thanh toán:</strong> {{ strtoupper($order->payment_method) }}</p>
                             @php
                                 $shippingFee = $order->shippingMethod->price ?? 0;
                                 $subtotal = $order->total_amount - $shippingFee;
@@ -163,6 +163,7 @@
                                     class="text-danger fw-bold">{{ number_format($order->total_amount, 0, ',', '.') }}đ</span>
                             </p> <a href="{{ route('client.order.detail', $order->id) }}" class="btn-detail mt-2">Xem chi
                                 tiết</a>
+                            
                         </div>
                     </div>
                 </div>
