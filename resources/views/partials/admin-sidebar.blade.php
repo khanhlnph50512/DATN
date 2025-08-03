@@ -106,14 +106,13 @@
             <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.coupons.index') }}"><i
                         class="fas fa-tags me-2"></i> Mã giảm giá</a></li>
             <li class="nav-item">
-                <a class="nav-link text-white" href="{{ route('admin.comments.index') }}">
-                    <i class="fas fa-comments me-2"></i> Bình luận
+                <a class="nav-link text-white" href="{{ route('admin.reviews.index') }}">
+                    <i class="fas fa-comments me-2"></i> Đánh Giá
                 </a>
             </li>
 
 
-            <li class="nav-item"><a class="nav-link text-white" href="{{ route('admin.blogs.index') }}"><i
-                        class="fas fa-newspaper me-2"></i> Bài viết</a></li>
+           
         </ul>
 
         <!-- Nhóm: Quản lý người dùng -->

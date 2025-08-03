@@ -146,48 +146,36 @@
         </div>
         {{-- BÌNH LUẬN SẢN PHẨM --}}
         <div class="container mt-5">
-            <h4>Đánh giá & Bình luận</h4>
 
-            {{-- Nếu đã đăng nhập --}}
-            @auth
-                <form action="{{ route('client.comments.store') }}" method="POST" class="mb-4">
-                    @csrf
-                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-
-                    <div class="form-group">
-                        <label for="content">Bình luận của bạn</label>
-                        <textarea name="content" class="form-control" rows="4" required placeholder="Viết bình luận..."></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary mt-2">Gửi bình luận</button>
-                </form>
-            @else
-                <p class="text-danger">Bạn cần <a href="{{ route('login') }}">đăng nhập</a> để bình luận.</p>
-            @endauth
 
             {{-- Danh sách bình luận đã duyệt --}}
-            <h4 class="mt-5 mb-3">Bình luận sản phẩm</h4>
+            <h4 class="mt-5 mb-3">Đánh giá sản phẩm</h4>
 
-            @if ($product->comments && $product->comments->where('status', 'approved')->count())
+            @if ($product->reviews && $product->reviews->count())
                 <ul class="list-group">
-                    @foreach ($product->comments->where('status', 'approved')->sortByDesc('created_at') as $comment)
+                    @foreach ($product->reviews as $review)
                         <li class="list-group-item">
                             <div class="d-flex justify-content-between align-items-center mb-1">
                                 <div>
-                                    <i class="fas fa-user-circle text-primary"></i>
-                                    <strong>{{ $comment->user->name ?? 'Người dùng' }}</strong>
+                                    <i class="fas fa-user text-success"></i>
+                                    <strong>{{ $review->user->name ?? 'Người dùng' }}</strong>
+                                    <span>
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            {{ $i <= $review->rating ? '⭐' : '☆' }}
+                                        @endfor
+                                    </span>
                                 </div>
                                 <small class="text-muted">
-                                    <i class="far fa-clock"></i> {{ $comment->created_at->diffForHumans() }}
+                                    <i class="far fa-clock"></i> {{ $review->created_at->diffForHumans() }}
                                 </small>
                             </div>
-                            <p class="mb-1">{{ $comment->content }}</p>
+                            <p class="mb-1">{{ $review->review }}</p>
                         </li>
                     @endforeach
                 </ul>
             @else
-                <div class="alert alert-info mt-3">
-                    <i class="fas fa-info-circle"></i> Chưa có bình luận nào cho sản phẩm này.
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i> Chưa có đánh giá nào cho sản phẩm này.
                 </div>
             @endif
 

@@ -147,6 +147,7 @@
                                 <strong>💰 Trạng thái thanh toán:</strong>
                                 {{ $order->payment_status === 'paid' ? 'Đã thanh toán' : 'Chưa thanh toán' }}
                             </p>
+
                         </div>
                         <div class="col-md-6">
                             <p><strong>💳 Phương Thức Thanh toán:</strong> {{ strtoupper($order->payment_method) }}</p>
@@ -163,11 +164,13 @@
                                     class="text-danger fw-bold">{{ number_format($order->total_amount, 0, ',', '.') }}đ</span>
                             </p> <a href="{{ route('client.order.detail', $order->id) }}" class="btn-detail mt-2">Xem chi
                                 tiết</a>
-                            
+
                         </div>
                     </div>
                 </div>
             @endforeach
         @endif
+
+        
     </div>
 @endsection

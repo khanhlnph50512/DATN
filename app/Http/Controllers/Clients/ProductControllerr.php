@@ -50,10 +50,10 @@ class ProductControllerr extends Controller
             'images',
             'variations.color',
             'variations.size',
-            'comments' => function ($query) {
-                $query->where('status', 'approved')->latest();
+            'reviews' => function ($q) {
+                $q->where('status', 'approved')->latest();
             },
-            'comments.user', // Load người bình luận
+            'reviews.user'
         ])->findOrFail($id);
 
         // Kiểm tra slug hợp lệ, nếu không thì redirect

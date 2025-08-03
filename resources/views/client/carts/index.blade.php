@@ -139,14 +139,14 @@
                         </div>
 
                         <div class="col-md-3 text-right">
-                            <form action="{{ route('client.carts.remove', $item->id) }}" method="POST">
+                            <form action="{{ route('client.carts.remove', $item->id) }}" method="POST"
+                                onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-outline-danger">
-                                    <i class="fas fa-trash"></i>
+                                    <i class="fas fa-trash me-1"></i> Xóa
                                 </button>
                             </form>
-                            <div class="text-danger mt-2">Còn hàng</div>
                             <div class="font-weight-bold mt-2 text-orange">
                                 {{ number_format($subtotal, 0, ',', '.') }} VND
                             </div>

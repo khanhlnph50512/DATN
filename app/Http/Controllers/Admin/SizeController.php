@@ -46,9 +46,14 @@ class SizeController extends Controller
         return redirect()->back()->with('success', 'Cập nhật sizes thành công!');
     }
 
+   
     public function destroy(Size $size)
-    {
-        $size->delete();
-        return redirect()->back()->with('success', 'Xoá size thành công');
+{
+    if ($size->productVariations()->count() > 0) {
+        return redirect()->back()->withErrors(['error' => 'Không thể xóa size vì vẫn còn sản phẩm sử dụng size này.']);
     }
+
+    $size->delete();
+    return redirect()->back()->with('success', 'Xóa size thành công!');
+}
 }

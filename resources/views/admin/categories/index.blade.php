@@ -1,5 +1,11 @@
 @extends('admin.layouts.adminAnatats')
 @section('content')
+@if ($errors->any())
+    <div class="alert alert-danger">
+        {{ $errors->first() }}
+    </div>
+@endif
+
     @if (session('success'))
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
@@ -63,7 +69,7 @@
                                             <img src="{{ asset($category->image) }}" width="50">
                                         @endif
                                     </td>
-                                    
+
                                     <td class="text-nowrap">
                                         <a href="{{ route('admin.categories.edit', $category->id) }}"
                                             class="btn btn-sm btn-warning" title="Sửa">

@@ -10,6 +10,7 @@ use App\Models\Admin\Product;
 use App\Models\Admin\ProductImage;
 use App\Models\Admin\ProductVariation;
 use App\Models\Admin\Size;
+use App\Models\Client\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -199,13 +200,21 @@ class ProductController extends Controller
             return back()->withErrors(['error' => 'Đã có lỗi xảy ra: ' . $e->getMessage()]);
         }
     }
-    public function destroy($id)
-    {
-        $product = Product::findOrFail($id);
-        $product->delete();
+   public function destroy($id)
+{
+    $product = Product::findOrFail($id);
 
-        return redirect()->route('admin.products.index')->with('success', 'Đã xoá tạm sản phẩm!');
+    // Kiểm tra sản phẩm có đang tồn tại trong giỏ hàng không
+    $isInCart = Cart::where('product_id', $id)->exists();
+
+    if ($isInCart) {
+        return redirect()->route('admin.products.index')->withErrors(['error' => 'Không thể xoá sản phẩm vì đang có trong giỏ hàng của khách hàng.']);
     }
+
+    $product->delete();
+
+    return redirect()->route('admin.products.index')->with('success', 'Đã xoá tạm sản phẩm!');
+}
     public function trash()
     {
         $products = Product::onlyTrashed()->with(['brand', 'category', 'primaryImage'])->paginate(10);

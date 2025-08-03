@@ -61,8 +61,9 @@ class Product extends Model
     {
         return $this->belongsToMany(Coupon::class, 'product_coupons');
     }
-    public function comments()
-    {
-        return $this->hasMany(Comment::class, 'product_id');
-    }
+    public function reviews()
+{
+    return $this->hasMany(\App\Models\Client\Review::class, 'product_id', 'id');
+}
+
 }

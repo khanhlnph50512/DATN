@@ -1,6 +1,11 @@
 @extends('admin.layouts.adminAnatats')
 
 @section('content')
+@if ($errors->any())
+    <div class="alert alert-danger">
+        {{ $errors->first() }}
+    </div>
+@endif
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Danh sách mã giảm giá</h2>

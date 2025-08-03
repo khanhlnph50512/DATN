@@ -20,7 +20,17 @@
                 });
             </script>
         @endif
-
+        @if ($errors->any())
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi!',
+                    text: '{{ $errors->first() }}',
+                    showConfirmButton: true
+                });
+            </script>
+        @endif
         {{-- Bảng danh sách --}}
         <div class="card mb-4 mt-3">
             <div class="card-header">
@@ -66,19 +76,24 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('admin.products.show', $product->id) }}"
-                                        class="btn btn-sm btn-info">Chi tiết</a>
+                                    <div class="d-flex justify-content-center gap-2 flex-wrap">
+                                        <a href="{{ route('admin.products.show', $product->id) }}"
+                                            class="btn btn-sm btn-info">
+                                            Chi tiết
+                                        </a>
 
-                                    <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-sm btn-warning">Sửa</a>
+                                        <a href="{{ route('admin.products.edit', $product->id) }}"
+                                            class="btn btn-sm btn-warning">
+                                            Sửa
+                                        </a>
 
-                                    <a>
                                         <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST"
-                                        onsubmit="return confirm('Bạn có chắc muốn xoá?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-danger btn-sm">Xoá</button>
-                                    </form>
-                                    </a>
+                                            onsubmit="return confirm('Bạn có chắc muốn xoá?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-danger">Xoá</button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @empty

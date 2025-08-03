@@ -2,7 +2,15 @@
 
 @section('title', 'Chi tiết đơn hàng')
 
+
 @section('content')
+@if(session('success'))
+    <div class="alert alert-success">{{ session('success') }}</div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger">{{ session('error') }}</div>
+@endif
     <style>
         .detail-container {
             max-width: 960px;
@@ -121,7 +129,7 @@
 
     <div class="detail-container">
         <div class="detail-header">
-             @if ($order->status === 'pending')
+            @if ($order->status === 'pending')
                 <form action="{{ route('client.orders.cancel', $order->id) }}" method="POST"
                     onsubmit="return confirm('Bạn có chắc muốn hủy đơn hàng này?');">
                     @csrf
@@ -208,5 +216,40 @@
             </div>
 
         </div>
+        @foreach ($order->orderItems as $item)
+            <div class="product-item mb-4 p-3 border rounded">
+                <p><strong>{{ $item->product->name }}</strong></p>
+                <p>Số lượng: {{ $item->quantity }}</p>
+                <p>Giá: {{ number_format($item->price, 0, ',', '.') }}đ</p>
+
+                {{-- Nếu chưa đánh giá và đơn đã giao --}}
+                @if ($order->status === 'delivered' && !in_array($item->product_id, $reviewedProductIds))
+                    <form action="{{ route('reviews.store') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{ $item->product_id }}">
+                        <input type="hidden" name="order_id" value="{{ $order->id }}"> {{-- 🔥 THÊM DÒNG NÀY --}}
+
+                        <div class="form-group mt-2">
+                            <label>Đánh giá (sao):</label>
+                            <select name="rating" class="form-control w-25" required>
+                                <option value="">Chọn sao</option>
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <option value="{{ $i }}">{{ $i }} ⭐</option>
+                                @endfor
+                            </select>
+                        </div>
+
+                        <div class="form-group mt-2">
+                            <label>Nhận xét:</label>
+                            <textarea name="review" class="form-control" rows="3" placeholder="Nội dung nhận xét (tùy chọn)"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-2">Gửi đánh giá</button>
+                    </form>
+                @else
+                    <p class="text-success mt-2">✅ Đã đánh giá</p>
+                @endif
+            </div>
+        @endforeach
     </div>
 @endsection

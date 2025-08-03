@@ -48,9 +48,13 @@ class BrandController extends Controller
         return redirect()->back()->with('success', 'Cập nhật thương hiệu thành công!');
     }
 
-    public function destroy(Brand $brand)
-    {
-        $brand->delete();
-        return redirect()->back()->with('success', 'Xóa thương hiệu thành công!');
+   public function destroy(Brand $brand)
+{
+    if ($brand->products()->count() > 0) {
+        return redirect()->back()->withErrors(['error' => 'Không thể xóa thương hiệu vì vẫn còn sản phẩm thuộc thương hiệu này.']);
     }
+
+    $brand->delete();
+    return redirect()->back()->with('success', 'Xóa thương hiệu thành công!');
+}
 }

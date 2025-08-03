@@ -1,70 +1,75 @@
 @extends('admin.layouts.adminAnatats')
+
 @section('content')
-    @if (session('success'))
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Thành công!',
-                text: '{{ session('success') }}',
-                showConfirmButton: false,
-                timer: 2500,
-                timerProgressBar: true,
-                customClass: {
-                    popup: 'swal2-red-bg'
-                }
-            });
-        </script>
-    @endif
+    <div class="container-fluid px-0 mt-4">
+        <div class="bg-white p-4 rounded shadow-sm">
 
-    <h1>Danh sách size giày</h1>
-    <a href="" class="btn btn-warning mb-3">
-        Thùng rác
-    </a>
-    <form action="" method="GET" style="margin-bottom: 20px;">
-        <input type="text" name="keyword" placeholder="Tìm theo size..." value="{{ request('keyword') }}"
-            style="padding: 6px; width: 250px;">
-        <button type="submit" style="padding: 6px 12px;">Tìm kiếm</button>
-        <a href="{{ route('admin.sizes.index') }}" style="margin-left: 10px;">Xóa tìm kiếm</a>
-    </form>
-    <div class="px-4 pb-3 d-flex justify-content-end">
-        <a href="{{ route('admin.sizes.create') }}" class="btn btn-primary">
-            <i class="bx bx-plus me-1"></i> Add Size
-        </a>
+            {{-- Hiển thị lỗi --}}
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    {{ $errors->first() }}
+                </div>
+            @endif
+
+            {{-- Thông báo thành công --}}
+            @if (session('success'))
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Thành công!',
+                        text: '{{ session('success') }}',
+                        showConfirmButton: false,
+                        timer: 2500,
+                        timerProgressBar: true
+                    });
+                </script>
+            @endif
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="mb-0">Danh sách size giày</h2>
+                <a href="{{ route('admin.sizes.create') }}" class="btn btn-primary">
+                    <i class="bx bx-plus me-1"></i> Thêm size
+                </a>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle">
+                    <thead class="table-light text-center">
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên size</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($sizes as $size)
+                            <tr class="text-center">
+                                <td>{{ $size->id }}</td>
+                                <td>{{ $size->name }}</td>
+                                <td>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="{{ route('admin.sizes.edit', $size->id) }}"
+                                            class="btn btn-sm btn-warning" title="Sửa">
+                                            <i class="bx bx-edit"></i>
+                                        </a>
+                                        <form action="{{ route('admin.sizes.destroy', $size->id) }}" method="POST"
+                                            onsubmit="return confirm('Bạn có chắc chắn muốn xoá?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger" title="Xoá">
+                                                <i class="bx bx-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+           
+        </div>
     </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Tên Size</th>
-                <th>Thao tác</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($sizes as $size)
-                <tr>
-                    <td>{{ $size->id }}</td>
-                    <td>{{ $size->name }}</td>
-                    <td>
-                        <a href="{{ route('admin.sizes.edit', $size->id) }}" class="btn btn-sm btn-warning" title="Sửa">
-                            <i class="bx bx-edit"></i>
-                        </a>
-                        <form action="{{ route('admin.sizes.destroy', $size->id) }}" method="POST" style="display:inline;"
-                            onsubmit="return confirm('Xoá?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger" title="Xoá">
-                                <i class="bx bx-trash"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-
-    <!-- Phân trang -->
-    {{-- <div style="margin-top: 20px;">
-        {{ $products->appends(request()->all())->links() }}
-    </div> --}}
 @endsection

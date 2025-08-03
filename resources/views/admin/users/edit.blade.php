@@ -6,15 +6,7 @@
     <div class="container-fluid px-4">
         <h1 class="mt-4">Cập nhật người dùng</h1>
 
-        @if ($errors->any())
-            <div class="alert alert-danger mt-3">
-                <ul class="mb-0">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+
 
         <form action="{{ route('admin.users.update', $user->id) }}" method="POST" enctype="multipart/form-data" class="mt-4">
             @csrf
@@ -26,9 +18,10 @@
                 <label for="role" class="form-label">Vai trò</label>
                 <select name="role" id="role" class="form-select" required>
                     <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
-                    <option value="customers" {{ old('role', $user->role) == 'customers' ? 'selected' : '' }}>Customer
+                    <option value="customers" {{ old('role', $user->role) == 'customers' ? 'selected' : '' }}>Customers
                     </option>
                 </select>
+
             </div>
 
             <div class="d-flex gap-2">

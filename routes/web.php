@@ -22,6 +22,7 @@ use App\Http\Controllers\Clients\CartController;
 use App\Http\Controllers\Clients\CheckoutController;
 use App\Http\Controllers\Clients\HomeController as ClientsHomeController;
 use App\Http\Controllers\Clients\PageController;
+use App\Http\Controllers\Clients\ReviewController;
 use App\Http\Controllers\Clients\VnpayController;
 use App\Http\Controllers\Clients\WishlistController;
 
@@ -62,9 +63,9 @@ Route::post('/orders/{id}/cancel', [App\Http\Controllers\Clients\OrderController
     ->name('client.orders.cancel')
     ->middleware('auth');
 /// comment
-Route::post('/comments', [CommentController::class, 'store'])
-    ->name('client.comments.store')
-    ->middleware('auth');
+Route::middleware('auth')->group(function () {
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+});
 // Cart
 // routes/web.php
 //add coupon
@@ -136,16 +137,14 @@ Route::post('coupons/{id}/restore', [CouponController::class, 'restore'])->name(
 Route::delete('coupons/{id}/force-delete', [CouponController::class, 'forceDelete'])->name('coupons.forceDelete');
 
    //binh luận
-Route::prefix('comments')->name('comments.')->group(function () {
-        Route::get('/', [\App\Http\Controllers\Admin\CommentController::class, 'index'])->name('index');
-        Route::post('{id}/approve', [\App\Http\Controllers\Admin\CommentController::class, 'approve'])->name('approve');
-        Route::post('{id}/reject', [\App\Http\Controllers\Admin\CommentController::class, 'reject'])->name('reject');
-        Route::delete('{id}', [\App\Http\Controllers\Admin\CommentController::class, 'destroy'])->name('destroy');
+Route::prefix('reviews')->name('reviews.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Admin\ReviewController::class, 'index'])->name('index');
+        Route::post('{id}/update', [\App\Http\Controllers\Admin\ReviewController::class, 'update'])->name('update');
+        Route::delete('{id}', [\App\Http\Controllers\Admin\ReviewController::class, 'destroy'])->name('destroy');
     });
     // order
         Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class);
 Route::get('/admin/orders/{order}', [OrderController::class, 'show'])->name('admin.orders.show');
 ////////////////////
-
 
 });

@@ -24,13 +24,5 @@ class Coupon extends Model
         'active' => 'boolean',
     ];
 
-    public function users()
-    {
-        return $this->belongsToMany(User::class, 'user_coupons')->withPivot('used_at')->withTimestamps();
-    }
-
-    public function products()
-    {
-        return $this->belongsToMany(Product::class, 'product_coupons')->withTimestamps();
-    }
+    
 }

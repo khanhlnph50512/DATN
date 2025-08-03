@@ -49,9 +49,13 @@ class ColorController extends Controller
         return redirect()->back()->with('success', 'Cập nhật màu thành công!');
     }
 
-    public function destroy(Color $color)
-    {
-        $color->delete();
-        return redirect()->back()->with('success', 'Xoá màu thành công');
+   public function destroy(Color $color)
+{
+    if ($color->productVariations()->count() > 0) {
+        return redirect()->back()->withErrors(['error' => 'Không thể xóa màu vì vẫn còn sản phẩm sử dụng màu này.']);
     }
+
+    $color->delete();
+    return redirect()->back()->with('success', 'Xóa màu thành công!');
+}
 }

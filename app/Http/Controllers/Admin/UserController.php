@@ -61,23 +61,24 @@ class UserController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        //
-        $user = User::findOrFail($id);
+{
+    $user = User::findOrFail($id);
 
-        $request->validate([
+    $request->validate([
+        'role' => 'required|in:admin,customers',
+    ]);
 
-            'role' => 'required|in:admin,customers',
-
-        ]);
-
-        $user->role = $request->role;
-
-
-
-        $user->save();
-        return redirect()->route('admin.users.index')->with('success', 'Cạp nhật người dùng thành công');
+    // Nếu người dùng hiện tại là admin, không cho phép chuyển thành customer
+    if ($user->role === 'admin' && $request->role === 'customers') {
+        return redirect()->route('admin.users.index')->with('error', 'Không thể chuyển quyền admin thành khách hàng');
     }
+
+    // Nếu người dùng hiện tại là customer và muốn chuyển thành admin => cho phép
+    $user->role = $request->role;
+    $user->save();
+
+    return redirect()->route('admin.users.index')->with('success', 'Cập nhật vai trò người dùng thành công');
+}
 
     /**
      * Remove the specified resource from storage.

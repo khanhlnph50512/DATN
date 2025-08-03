@@ -12,7 +12,7 @@ class Color extends Model
     use SoftDeletes;
     protected $fillable = ['name', 'code'];
 
-    public function variations()
+    public function productVariations()
     {
         return $this->hasMany(ProductVariation::class, 'color_id');
     }

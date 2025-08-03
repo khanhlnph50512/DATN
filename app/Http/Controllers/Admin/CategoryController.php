@@ -73,8 +73,13 @@ class CategoryController extends Controller
         return redirect()->back()->with('success', 'Danh mục đã được cập nhật!');
     }
     public function destroy(Category $category)
-    {
-        $category->delete();
-        return redirect()->route('admin.categories.index')->with('success', 'Danh mục đã được xóa!');
+{
+    // Kiểm tra xem danh mục có sản phẩm nào không
+    if ($category->products()->count() > 0) {
+        return redirect()->route('admin.categories.index')->withErrors(['error' => 'Không thể xoá danh mục vì vẫn còn sản phẩm liên quan.']);
     }
+
+    $category->delete();
+    return redirect()->route('admin.categories.index')->with('success', 'Danh mục đã được xóa!');
+}
 }

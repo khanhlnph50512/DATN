@@ -11,10 +11,12 @@
                 {{ session('success') }}
             </div>
         @endif
+ @if (session('error'))
+            <div class="alert alert-warning mt-2">
+                {{ session('error') }}
+            </div>
+        @endif
 
-        <div class="my-3">
-            <a href="{{ route('admin.users.create') }}" class="btn btn-primary">+ Thêm người dùng</a>
-        </div>
 
         <table class="table table-bordered table-striped">
             <thead class="table-dark">
