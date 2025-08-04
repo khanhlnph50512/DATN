@@ -15,5 +15,8 @@ class User extends Model
     protected $table = 'users'; // dùng chung bảng users
     protected $fillable = ['seri_user', 'name', 'email', 'password'];
 
-    
+    public function wishlist()
+{
+    return $this->belongsToMany(\App\Models\Client\Product::class, 'wishlists', 'user_id', 'product_id')->withTimestamps();
+}
 }

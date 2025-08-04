@@ -43,4 +43,8 @@ class Product extends Model
 {
     return $this->hasMany(\App\Models\Client\Review::class, 'product_id', 'id');
 }
+public function likedUsers()
+{
+    return $this->belongsToMany(\App\Models\Client\User::class, 'wishlists', 'product_id', 'user_id')->withTimestamps();
+}
 }

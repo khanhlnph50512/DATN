@@ -326,7 +326,7 @@
                             src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_tra_cuu_don_hang.svg') }}">
                         Tra cứu đơn hàng</a></li>
 
-                <li><a href="your-wishlist/index.html"><img
+                <li><a href="{{ route('client.wishlist.index') }}"><img
                             src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_heart_header.svg') }}">
                         Yêu thích</a>
                 </li>

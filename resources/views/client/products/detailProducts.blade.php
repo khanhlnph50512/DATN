@@ -119,19 +119,19 @@
                             <button type="button" class="btn btn-warning w-50 py-2 text-white" id="buyNow">
                                 <strong>MUA NGAY</strong>
                             </button>
-                            {{-- <a href="javascript:void(0)" data-product-id="{{ $product->id }}"
+                            <a href="javascript:void(0)" data-product-id="{{ $product->id }}"
                                 class="btn btn-light border addToWishList"
-                                data-liked="{{ $isFavorite ? 'true' : 'false' }}"
+                                data-liked="{{ auth()->check() && optional(auth()->user()->wishlist)->contains($product->id) ? 'true' : 'false' }}"
                                 style="width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center;">
-                                <svg id="wishlist-icon-{{ $product->id }}" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 24 24" width="24" height="24"
-                                    fill="{{ $isFavorite ? 'red' : 'none' }}" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
+                                    fill="{{ auth()->check() && optional(auth()->user()->wishlist)->contains($product->id) ? 'deeppink' : 'none' }}"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5
-                     5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78
-                     1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78
+                 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                                 </svg>
-                            </a> --}}
+                            </a>
+
                         </div>
                     </div>
             </div>
@@ -291,5 +291,36 @@
     </script>
     @push('scripts')
     @endpush
+    <script>
+        document.querySelectorAll('.addToWishList').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const productId = this.dataset.productId;
+                const svg = this.querySelector('svg');
+                const liked = this.dataset.liked === 'true';
 
+                fetch('{{ route('client.wishlist.toggle') }}', {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            product_id: productId
+                        })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.added) {
+                            svg.setAttribute('fill', 'deeppink');
+                            btn.dataset.liked = 'true';
+                        } else if (data.removed) {
+                            svg.setAttribute('fill', 'none');
+                            btn.dataset.liked = 'false';
+                        }
+                    })
+                    .catch(() => alert('Lỗi khi thêm vào danh sách yêu thích.'));
+            });
+        });
+    </script>
 @endsection

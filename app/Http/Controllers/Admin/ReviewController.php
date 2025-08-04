@@ -26,20 +26,23 @@ class ReviewController extends Controller
     public function update(Request $request, $id)
     {
         $review = Review::findOrFail($id);
+        $newStatus = $request->input('status');
 
-        // Không cho cập nhật nếu đã bị từ chối
+        // Nếu đã từng được duyệt hiển thị thì không được chuyển sang từ chối
+        if ($review->status === 'approved' && $newStatus === 'rejected') {
+            return redirect()->route('admin.reviews.index')
+                ->with('error', 'Đánh giá đã hiển thị thì không thể chuyển sang từ chối.');
+        }
+
+        // Nếu trạng thái hiện tại là rejected thì không cho thay đổi nữa
         if ($review->status === 'rejected') {
             return redirect()->route('admin.reviews.index')
                 ->with('error', 'Đánh giá đã bị từ chối và không thể thay đổi trạng thái.');
         }
 
-        $newStatus = $request->input('status');
-
-        // Nếu chuyển sang rejected thì cho phép
-        if ($newStatus === 'rejected' || $review->status !== 'rejected') {
-            $review->status = $newStatus;
-            $review->save();
-        }
+        // Ngược lại thì cập nhật bình thường
+        $review->status = $newStatus;
+        $review->save();
 
         return redirect()->route('admin.reviews.index')->with('success', 'Cập nhật trạng thái đánh giá thành công');
     }

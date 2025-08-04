@@ -71,6 +71,7 @@ Route::middleware('auth')->group(function () {
 // routes/web.php
 //add coupon
 Route::post('/cart/apply-coupon', [CartController::class, 'applyCoupon'])->name('client.cart.applyCoupon');
+Route::post('/cart/remove-coupon', [CartController::class, 'removeCoupon'])->name('client.cart.removeCoupon');
 
 Route::prefix('client/carts')->name('client.carts.')->group(function () {
 
@@ -90,6 +91,13 @@ Route::get('/vnpay/return', [VnpayController::class, 'vnpayReturn'])->name('vnpa
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
+//yeu thích
+Route::middleware('auth')->group(function () {
+    Route::post('/wishlist/toggle', [WishlistController::class, 'toggle'])->name('client.wishlist.toggle');
+    Route::get('/wishlist', [WishlistController::class, 'index'])->name('client.wishlist.index');
+    Route::delete('/wishlist/remove/{productId}', [WishlistController::class, 'remove'])->name('client.wishlist.remove');
+
 });
 Route::get('/checkout/success', function () {
     return view('client.checkout.success');

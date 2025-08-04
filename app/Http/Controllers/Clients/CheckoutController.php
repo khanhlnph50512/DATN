@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Clients;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderSuccessMail;
 use App\Models\Admin\Coupon;
 use App\Models\Admin\Order;
 use App\Models\Admin\OrderItem;
@@ -10,6 +11,7 @@ use App\Models\Admin\ShippingMethod;
 use App\Models\Client\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class CheckoutController extends Controller
@@ -34,7 +36,7 @@ class CheckoutController extends Controller
         $shippingMethods = ShippingMethod::all();
         $shippingFee = 0;
 
-        return view('client.checkout.index', compact('cartItems', 'total', 'shippingMethods', 'shippingFee','user'));
+        return view('client.checkout.index', compact('cartItems', 'total', 'shippingMethods', 'shippingFee', 'user'));
     }
     public function processOrder(Request $request)
     {
@@ -102,7 +104,9 @@ class CheckoutController extends Controller
                 'image' => $item->product->primaryImage->image_url ?? null,
             ]);
         }
-
+        if ($order && $order->email) {
+            Mail::to($order->email)->send(new OrderSuccessMail($order));
+        }
         $cartItems->each->delete();
         if (session()->has('applied_coupon')) {
             $coupon = Coupon::where('code', session('applied_coupon'))->first();
@@ -114,6 +118,7 @@ class CheckoutController extends Controller
             session()->forget('applied_coupon');
             session()->forget('coupon_discount');
         }
+
         return redirect()
             ->route('client.order-tracking')
             ->with('success', 'Đặt hàng thành công! Mã đơn: ' . $order->order_number);

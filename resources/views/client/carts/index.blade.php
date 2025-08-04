@@ -170,14 +170,31 @@
                 <div class="cart-summary">
                     <div class="summary-title">ĐƠN HÀNG</div>
 
-                    <form action="{{ route('client.cart.applyCoupon') }}" method="POST" class="mt-4">
-                        @csrf
-                        <div class="input-group">
-                            <input type="text" name="coupon_code" class="form-control" placeholder="Nhập mã giảm giá"
-                                required>
-                            <button class="btn btn-primary" type="submit">Áp dụng</button>
+                    @if (session('applied_coupon'))
+                        <div class="mt-3">
+                            <p class="mb-2">
+                                Đã áp dụng mã:
+                                <strong>{{ session('applied_coupon') }}</strong>
+                            </p>
+
+                            <form action="{{ route('client.cart.removeCoupon') }}" method="POST" class="d-inline">
+                                @csrf
+                                <button class="btn btn-danger btn-sm" type="submit"
+                                    onclick="return confirm('Bạn có chắc chắn muốn xóa mã giảm giá này?')">
+                                    Xóa mã
+                                </button>
+                            </form>
                         </div>
-                    </form>
+                    @else
+                        <form action="{{ route('client.cart.applyCoupon') }}" method="POST" class="mt-4">
+                            @csrf
+                            <div class="input-group">
+                                <input type="text" name="coupon_code" class="form-control" placeholder="Nhập mã giảm giá"
+                                    required>
+                                <button class="btn btn-primary" type="submit">Áp dụng</button>
+                            </div>
+                        </form>
+                    @endif
 
                     @if (session('coupon_error'))
                         <div class="text-danger mt-2">{{ session('coupon_error') }}</div>
@@ -186,6 +203,8 @@
                     @if (session('coupon_success'))
                         <div class="text-success mt-2">{{ session('coupon_success') }}</div>
                     @endif
+
+
                     @php
                         $discount = session('coupon_discount') ?? 0;
                         $finalTotal = $total - $discount;

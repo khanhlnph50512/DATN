@@ -39,12 +39,18 @@
                                     @csrf
                                     @method('POST')
                                     <select name="status" onchange="this.form.submit()" class="form-select">
-                                        <option value="pending" {{ $review->status == 'pending' ? 'selected' : '' }}>Ẩn
-                                            </option>
-                                        <option value="approved" {{ $review->status == 'approved' ? 'selected' : '' }}>Hiển
-                                            thị</option>
-                                        <option value="rejected">Từ chối</option>
+                                        @if ($review->status === 'rejected')
+                                            <option value="rejected" selected>Từ chối</option>
+                                        @elseif ($review->status === 'approved')
+                                            <option value="approved" selected>Hiển thị</option>
+                                            <option value="pending">Ẩn</option>
+                                        @elseif ($review->status === 'pending')
+                                            <option value="pending" selected>Ẩn</option>
+                                            <option value="approved">Hiển thị</option>
+                                            <option value="rejected">Từ chối</option>
+                                        @endif
                                     </select>
+
                                 </form>
                             @endif
                         </td>
