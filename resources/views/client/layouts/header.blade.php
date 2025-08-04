@@ -325,7 +325,7 @@
                 <li><a href="{{ route('client.order-tracking') }}"><img
                             src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_tra_cuu_don_hang.svg') }}">
                         Tra cứu đơn hàng</a></li>
-               
+
                 <li><a href="your-wishlist/index.html"><img
                             src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_heart_header.svg') }}">
                         Yêu thích</a>
@@ -360,6 +360,11 @@
                 <li><a href="{{ route('client.carts.index') }}"><img
                             src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon-cart-8.svg') }}">
                         Giỏ hàng (<span class="countProduct">0</span>)</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('profile.edit') }}">
+                        <i class="bi bi-person-circle"></i> Hồ sơ cá nhân
+                    </a>
+                </li>
             </ul>
         </div>
         <div class="row">

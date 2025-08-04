@@ -18,12 +18,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('avatar')->nullable(); // Ảnh đại diện
             $table->string('phone')->nullable(); // Số điện thoại
             $table->string('address')->nullable(); // Địa chỉ
             $table->enum('gender', ['male', 'female', 'other'])->nullable();
             $table->enum('role', ['admin', 'customers'])->default('customers'); // Vai trò người dùng
-            $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -93,23 +93,25 @@
             {{-- BÊN TRÁI: THÔNG TIN NGƯỜI NHẬN --}}
             <div class="checkout-left">
                 <h3>Thông tin giao hàng</h3>
-
                 <div class="form-group">
-                    <input type="text" name="name" class="form-control" placeholder="Họ và tên" required>
-                </div>
 
+                    <input type="text" name="name" class="form-control" placeholder="Họ và tên"
+                        value="{{ old('name', $user->name ?? '') }}" required>
+                </div>
                 <div class="form-group">
-                    <input type="text" name="phone_number" class="form-control" placeholder="Số điện thoại" required>
-                </div>
 
+                    <input type="text" name="phone_number" class="form-control" placeholder="Số điện thoại"
+                        value="{{ old('phone_number', $user->phone ?? '') }}" required>
+                </div>
                 <div class="form-group">
-                    <input type="email" name="email" class="form-control" placeholder="Email (không bắt buộc)">
-                </div>
 
+                    <input type="email" name="email" class="form-control" placeholder="Email (không bắt buộc)"
+                        value="{{ old('email', $user->email ?? '') }}">
+                </div>
                 <div class="form-group">
-                    <textarea name="shipping_address" rows="3" class="form-control" placeholder="Địa chỉ giao hàng cụ thể" required></textarea>
-                </div>
 
+                    <textarea name="shipping_address" rows="3" class="form-control" placeholder="Địa chỉ giao hàng cụ thể" required>{{ old('shipping_address', $user->address ?? '') }}</textarea>
+                </div>
                 <div class="form-group">
                     <textarea name="note" rows="3" class="form-control" placeholder="Ghi chú cho người giao hàng (nếu có)"></textarea>
                 </div>

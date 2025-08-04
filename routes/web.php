@@ -22,6 +22,7 @@ use App\Http\Controllers\Clients\CartController;
 use App\Http\Controllers\Clients\CheckoutController;
 use App\Http\Controllers\Clients\HomeController as ClientsHomeController;
 use App\Http\Controllers\Clients\PageController;
+use App\Http\Controllers\Clients\ProfileController;
 use App\Http\Controllers\Clients\ReviewController;
 use App\Http\Controllers\Clients\VnpayController;
 use App\Http\Controllers\Clients\WishlistController;
@@ -85,7 +86,11 @@ Route::post('/checkout', [CheckoutController::class, 'processOrder'])->name('cli
 Route::post('/vnpay/payment', [VnpayController::class, 'vnpayPayment'])->name('vnpay.payment');
 Route::get('/vnpay/return', [VnpayController::class, 'vnpayReturn'])->name('vnpay.return');
 
-
+// profile
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
 Route::get('/checkout/success', function () {
     return view('client.checkout.success');
 })->name('client.checkout.success');
