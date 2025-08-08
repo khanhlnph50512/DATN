@@ -20,6 +20,7 @@ class ReviewController extends Controller
     public function show($id)
     {
         $review = Review::with('user', 'product')->findOrFail($id);
+        
         return view('admin.reviews.show', compact('review'));
     }
 

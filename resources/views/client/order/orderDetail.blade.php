@@ -4,13 +4,13 @@
 
 
 @section('content')
-@if(session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
-@endif
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
 
-@if(session('error'))
-    <div class="alert alert-danger">{{ session('error') }}</div>
-@endif
+    @if (session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
     <style>
         .detail-container {
             max-width: 960px;
@@ -118,6 +118,7 @@
             'processing' => ['label' => 'Xác nhận', 'class' => 'status-processing', 'icon' => 'fas fa-cogs'],
             'shipping' => ['label' => 'Đang giao hàng', 'class' => 'status-shipping', 'icon' => 'fas fa-truck'],
             'delivered' => ['label' => 'Đã giao', 'class' => 'status-delivered', 'icon' => 'fas fa-check-circle'],
+            'completed' => ['label' => 'Hoàn thành', 'class' => 'status-completed', 'icon' => 'fas fa-flag-checkered'],
             'cancelled' => ['label' => 'Đã hủy', 'class' => 'status-cancelled', 'icon' => 'fas fa-times-circle'],
         ];
         $status = $statusMap[$order->status] ?? [
@@ -222,8 +223,15 @@
                 <p>Số lượng: {{ $item->quantity }}</p>
                 <p>Giá: {{ number_format($item->price, 0, ',', '.') }}đ</p>
 
-                {{-- Nếu chưa đánh giá và đơn đã giao --}}
-                @if ($order->status === 'delivered' && !in_array($item->product_id, $reviewedProductIds))
+                    {{-- đánh giá --}}
+                @php
+                    $existingReview = \App\Models\Client\Review::where('user_id', auth()->id())
+                        ->where('product_id', $item->product_id)
+                        ->where('order_id', $order->id)
+                        ->first();
+                @endphp
+
+                @if ($order->status === 'completed' && !$existingReview)
                     <form action="{{ route('reviews.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="product_id" value="{{ $item->product_id }}">
@@ -246,8 +254,11 @@
 
                         <button type="submit" class="btn btn-primary mt-2">Gửi đánh giá</button>
                     </form>
-                @else
-                    <p class="text-success mt-2">✅ Đã đánh giá</p>
+                @elseif ($existingReview)
+                    <p class="text-success mt-2">✅ Đã đánh giá: {{ $existingReview->rating }} ⭐</p>
+                    @if ($existingReview->review)
+                        <p><em>{{ $existingReview->review }}</em></p>
+                    @endif
                 @endif
             </div>
         @endforeach

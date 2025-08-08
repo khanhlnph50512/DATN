@@ -101,9 +101,13 @@
                             @endforeach
                         </select>
                     </div>
-
                     {{-- SỐ LƯỢNG --}}
                     <div class="form-group" style="margin-top: 15px;">
+                        <label>Số Lượng sản phẩm còn lại: {{ $product->quantity }}</label>
+                    </div>
+                    {{-- SỐ LƯỢNG --}}
+                    <div class="form-group" style="margin-top: 15px;">
+
                         <label for="quantity"><strong>Chọn số lượng:</strong></label>
                         <input type="number" name="quantity" id="quantity" class="form-control" min="1"
                             max="{{ $product->quantity }}" value="1">
@@ -127,8 +131,8 @@
                                     fill="{{ auth()->check() && optional(auth()->user()->wishlist)->contains($product->id) ? 'deeppink' : 'none' }}"
                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5
-                 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78
-                 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                             5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78
+                             1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                                 </svg>
                             </a>
 
@@ -155,21 +159,26 @@
                 <ul class="list-group">
                     @foreach ($product->reviews as $review)
                         <li class="list-group-item">
-                            <div class="d-flex justify-content-between align-items-center mb-1">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
                                 <div>
-                                    <i class="fas fa-user text-success"></i>
-                                    <strong>{{ $review->user->name ?? 'Người dùng' }}</strong>
-                                    <span>
+                                    <i class="fas fa-user text-primary"></i>
+                                    <strong>{{ optional($review->user)->name ?? 'Người dùng ẩn danh' }}</strong>
+                                    <span class="ml-2 text-warning">
                                         @for ($i = 1; $i <= 5; $i++)
-                                            {{ $i <= $review->rating ? '⭐' : '☆' }}
+                                            {!! $i <= $review->rating ? '⭐' : '☆' !!}
                                         @endfor
                                     </span>
                                 </div>
                                 <small class="text-muted">
-                                    <i class="far fa-clock"></i> {{ $review->created_at->diffForHumans() }}
+                                    <i class="far fa-clock"></i>
+                                    {{ $review->created_at->diffForHumans() }}
                                 </small>
                             </div>
-                            <p class="mb-1">{{ $review->review }}</p>
+                            @if ($review->review)
+                                <p class="mb-0">{{ $review->review }}</p>
+                            @else
+                                <p class="text-muted fst-italic mb-0">Không có nội dung đánh giá.</p>
+                            @endif
                         </li>
                     @endforeach
                 </ul>

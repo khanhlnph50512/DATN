@@ -43,7 +43,8 @@ class OrderController extends Controller
             'pending' => ['processing', 'cancelled'],
             'processing' => ['shipping', 'cancelled'],
             'shipping' => ['delivered', 'returned'],
-            'delivered' => [],
+            'delivered' => ['completed'],
+            'completed' => [],
             'cancelled' => [],
             'returned' => [],
         ];
@@ -51,7 +52,13 @@ class OrderController extends Controller
         if (!in_array($newStatus, $allowedTransitions[$currentStatus])) {
             return redirect()->back()->with('error', 'Không thể chuyển từ trạng thái hiện tại sang trạng thái đã chọn.');
         }
-
+        if (in_array($newStatus, ['cancelled', 'returned']) && !in_array($currentStatus, ['cancelled', 'returned'])) {
+            foreach ($order->orderItems as $item) {
+                if ($item->variation) {
+                    $item->variation->increment('quantity', $item->quantity);
+                }
+            }
+        }
         $order->status = $newStatus;
         if (
             $order->payment_method === 'cod' &&

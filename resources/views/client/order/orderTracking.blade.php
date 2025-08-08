@@ -102,6 +102,7 @@
             'processing' => ['label' => 'Xác nhận', 'class' => 'status-processing', 'icon' => 'fas fa-cogs'],
             'shipping' => ['label' => 'Đang giao hàng', 'class' => 'status-shipping', 'icon' => 'fas fa-truck'],
             'delivered' => ['label' => 'Đã giao', 'class' => 'status-delivered', 'icon' => 'fas fa-check-circle'],
+            'completed' => ['label' => 'Hoàn thành', 'class' => 'status-completed', 'icon' => 'fas fa-flag-checkered'],
             'cancelled' => ['label' => 'Đã hủy', 'class' => 'status-cancelled', 'icon' => 'fas fa-times-circle'],
         ];
     @endphp
@@ -171,6 +172,6 @@
             @endforeach
         @endif
 
-        
+
     </div>
 @endsection

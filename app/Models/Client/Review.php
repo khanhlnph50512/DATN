@@ -2,13 +2,15 @@
 
 namespace App\Models\Client;
 
+use App\Models\Admin\Order;
 use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
-     protected $fillable = [
+    protected $fillable = [
         'user_id',
         'product_id',
+        'order_id',
         'rating',
         'review',
         'status',
@@ -24,4 +26,8 @@ class Review extends Model
     {
         return $this->belongsTo(Product::class);
     }
+    public function order()
+{
+    return $this->belongsTo(Order::class);
+}
 }

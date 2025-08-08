@@ -161,6 +161,19 @@ class VnpayController extends Controller
                 'brand_name' => $item->product->brand->name ?? '---',
                 'image' => $item->product->primaryImage->image_url ?? null,
             ]);
+            $variation = $item->variation;
+            if ($variation->quantity >= $item->quantity) {
+                $variation->decrement('quantity', $item->quantity);
+            } else {
+                return redirect()->route('client.checkout')->with('error', 'Sản phẩm "' . $item->product->name . '" không đủ số lượng.');
+            }
+
+            $product = $item->product;
+            if ($product->quantity >= $item->quantity) {
+                $product->decrement('quantity', $item->quantity);
+            } else {
+                return redirect()->route('client.checkout')->with('error', 'Sản phẩm "' . $product->name . '" không còn đủ tồn kho.');
+            }
         }
 
         $cartItems->each->delete();
@@ -171,9 +184,9 @@ class VnpayController extends Controller
             'email',
             'note',
         ]);
-if ($order && $order->email) {
-    Mail::to($order->email)->send(new OrderSuccessMail($order));
-}
+        if ($order && $order->email) {
+            Mail::to($order->email)->send(new OrderSuccessMail($order));
+        }
         return redirect()->route('client.order-tracking')->with('success', 'Thanh toán thành công! Mã đơn: ' . $order->order_number);
     }
 }

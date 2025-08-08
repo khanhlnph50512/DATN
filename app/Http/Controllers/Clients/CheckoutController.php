@@ -7,6 +7,7 @@ use App\Mail\OrderSuccessMail;
 use App\Models\Admin\Coupon;
 use App\Models\Admin\Order;
 use App\Models\Admin\OrderItem;
+use App\Models\Admin\Product;
 use App\Models\Admin\ShippingMethod;
 use App\Models\Client\Cart;
 use Illuminate\Http\Request;
@@ -103,7 +104,22 @@ class CheckoutController extends Controller
                 'brand_name' => $item->product->brand->name ?? '---',
                 'image' => $item->product->primaryImage->image_url ?? null,
             ]);
+            $variation = $item->variation;
+            if ($variation->quantity >= $item->quantity) {
+                $variation->decrement('quantity', $item->quantity);
+            } else {
+                // Có thể xử lý rollback nếu muốn
+                return redirect()->route('client.checkout')->with('error', 'Sản phẩm "' . $item->product->name . '" không đủ số lượng.');
+            }
+            $product = $item->product;
+            if ($product->quantity >= $item->quantity) {
+                $product->decrement('quantity', $item->quantity);
+            } else {
+                // Có thể xử lý rollback nếu muốn
+                return redirect()->route('client.checkout')->with('error', 'Sản phẩm "' . $item->product->name . '" không đủ số lượng.');
+            }
         }
+
         if ($order && $order->email) {
             Mail::to($order->email)->send(new OrderSuccessMail($order));
         }

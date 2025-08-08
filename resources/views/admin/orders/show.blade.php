@@ -3,6 +3,17 @@
 @section('title', 'Chi tiết đơn hàng #' . $order->id)
 
 @section('content')
+    @php
+        $statuses = [
+            'pending' => 'Chờ xác nhận',
+            'processing' => 'Xác nhận',
+            'shipping' => 'Đang giao hàng',
+            'delivered' => 'Đã giao',
+            'completed' => 'Hoàn thành',
+            'cancelled' => 'Hủy',
+            'returned' => 'Hoàn trả',
+        ];
+    @endphp
     <div class="container mt-5">
         <div class="card shadow-sm border-0">
             <div class="card-header bg-primary text-white">
@@ -16,12 +27,15 @@
                         <p><strong>Trạng thái:</strong>
                             <span
                                 class="badge
-                            @if ($order->status === 'pending') bg-warning
-                            @elseif($order->status === 'processing') bg-info
-                            @elseif($order->status === 'completed') bg-success
-                            @elseif($order->status === 'canceled') bg-danger
-                            @else bg-secondary @endif">
-                                {{ ucfirst($order->status) }}
+                        @if ($order->status === 'pending') bg-warning
+                        @elseif($order->status === 'processing') bg-info
+                        @elseif($order->status === 'shipping') bg-primary
+                        @elseif($order->status === 'delivered') bg-secondary
+                        @elseif($order->status === 'completed') bg-success
+                        @elseif($order->status === 'cancelled') bg-danger
+                        @elseif($order->status === 'returned') bg-dark
+                        @else bg-light text-dark @endif">
+                                {{ $statuses[$order->status] ?? ucfirst($order->status) }}
                             </span>
                         </p>
                         <p><strong>Trạng thái Thanh toán:</strong>

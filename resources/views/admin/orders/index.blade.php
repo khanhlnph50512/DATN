@@ -38,13 +38,15 @@
                             'shipping' => 'Đang giao hàng',
                             'delivered' => 'Đã giao',
                             'cancelled' => 'Hủy',
+                            'completed' => 'Hoàn Thành',
                         ];
 
                         $nextStatusOptions = [
                             'pending' => ['processing', 'cancelled'],
                             'processing' => ['shipping', 'cancelled'],
                             'shipping' => ['delivered'],
-                            'delivered' => [],
+                            'delivered' => ['completed'],
+                            'completed' =>[],
                             'cancelled' => [],
                         ];
                     @endphp

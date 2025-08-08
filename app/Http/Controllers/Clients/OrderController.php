@@ -52,7 +52,7 @@ class OrderController extends Controller
                 ->pluck('product_id')
                 ->toArray();
         }
-        return view('client.order.orderDetail', compact('order','reviewedProductIds'));
+        return view('client.order.orderDetail', compact('order', 'reviewedProductIds'));
     }
     public function cancel($id)
     {
@@ -70,7 +70,12 @@ class OrderController extends Controller
         if ($order->status !== 'pending') {
             return redirect()->route('client.order-tracking')->with('error', 'Chỉ có thể hủy đơn hàng khi đang chờ xác nhận.');
         }
-
+        foreach ($order->orderItems as $item) {
+            $variation = $item->variation;
+            if ($variation) {
+                $variation->increment('quantity', $item->quantity);
+            }
+        }
         // Cập nhật trạng thái
         $order->status = 'cancelled';
         $order->save();
