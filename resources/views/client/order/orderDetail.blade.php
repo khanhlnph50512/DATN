@@ -221,6 +221,7 @@
             <div class="product-item mb-4 p-3 border rounded">
                 <p><strong>{{ $item->product->name }}</strong></p>
                 <p>Số lượng: {{ $item->quantity }}</p>
+                
                 <p>Giá: {{ number_format($item->price, 0, ',', '.') }}đ</p>
 
                     {{-- đánh giá --}}

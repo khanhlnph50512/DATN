@@ -25,21 +25,35 @@ public function login(Request $request)
         'password' => 'required',
     ]);
 
+    // Lấy thông tin user
+    $user = User::where('email', $credentials['email'])->first();
+
+    if (!$user) {
+        return back()->withErrors(['email' => 'Email hoặc mật khẩu không đúng.']);
+    }
+
+    // Chặn nếu bị vô hiệu hóa
+    if ($user->status === 'disabled') {
+        return back()->withErrors(['email' => 'Tài khoản của bạn đã bị vô hiệu hóa, vui lòng liên hệ hỗ trợ.']);
+    }
+
+    // Thực hiện login
     if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
 
-        // Ví dụ: điều hướng theo role
-        if (Auth::user()->role === 'admin') {
-            return redirect('/client/home');
+        // Điều hướng theo role
+        if ($user->role === 'admin') {
+            return redirect('/client/home'); // hoặc /admin tùy ý
         }
 
-        return redirect('/client/home'); // người dùng thường
+        return redirect('/client/home');
     }
 
     return back()->withErrors([
         'email' => 'Email hoặc mật khẩu không đúng.',
     ]);
 }
+
     public function showRegister()
     {
         return view('client.auth.register');

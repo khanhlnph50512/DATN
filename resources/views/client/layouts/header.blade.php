@@ -325,13 +325,32 @@
                 <li><a href="{{ route('client.order-tracking') }}"><img
                             src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_tra_cuu_don_hang.svg') }}">
                         Tra cứu đơn hàng</a></li>
+                @php
+                    use App\Models\Client\Cart;
+                    use App\Models\Client\User;
 
-                <li><a href="{{ route('client.wishlist.index') }}"><img
+                    $userId = Auth::id();
+                    $sessionId = session()->getId();
+
+                    $cartCount = Cart::when($userId, fn($q) => $q->where('user_id', $userId))
+                        ->when(!$userId, fn($q) => $q->where('session_id', $sessionId))
+                        ->distinct('product_id')
+                        ->count('product_id');
+
+                    $wishlistCount = 0;
+                    if ($userId) {
+                        $user = User::find($userId);
+                        $wishlistCount = $user->wishlist()->distinct('product_id')->count('product_id');
+                    }
+                @endphp
+                <li>
+                    <a href="{{ route('client.wishlist.index') }}">
+                        <img
                             src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_heart_header.svg') }}">
-                        Yêu thích</a>
+                        Yêu thích (<span class="countWishlist">{{ $wishlistCount }}</span>)
+                    </a>
                 </li>
-                <!--                <li><a href="--><!--"><img-->
-                <!--                                src="--><!--/icon_login.png"> Đăng nhập</a></li>-->
+
                 @auth
                     <li class="nav-item d-flex align-items-center gap-2">
                         <img src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon_dang_nhap.svg') }}"
@@ -357,9 +376,13 @@
                     </li>
                 @endauth
 
-                <li><a href="{{ route('client.carts.index') }}"><img
+                <li>
+                    <a href="{{ route('client.carts.index') }}">
+                        <img
                             src="{{ asset('assetsClients/wp-content/themes/ananas/fe-assets/images/svg/icon-cart-8.svg') }}">
-                        Giỏ hàng (<span class="countProduct">0</span>)</a></li>
+                        Giỏ hàng (<span class="countProduct">{{ $cartCount }}</span>)
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('profile.edit') }}">
                         <i class="bi bi-person-circle"></i> Hồ sơ cá nhân
@@ -974,3 +997,14 @@
             </div>
         </div>
     </div>
+<script>
+function updateCounts() {
+    fetch('/counts')
+        .then(res => res.json())
+        .then(data => {
+            document.querySelector('.countProduct').textContent = data.cartCount;
+            document.querySelector('.countWishlist').textContent = data.wishlistCount;
+        });
+}
+
+</script>

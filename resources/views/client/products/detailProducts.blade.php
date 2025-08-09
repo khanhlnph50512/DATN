@@ -131,8 +131,8 @@
                                     fill="{{ auth()->check() && optional(auth()->user()->wishlist)->contains($product->id) ? 'deeppink' : 'none' }}"
                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5
-                             5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78
-                             1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                                     5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78
+                                     1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                                 </svg>
                             </a>
 
@@ -290,6 +290,8 @@
                 .then(data => {
                     if (data.success) {
                         // Sau khi thêm giỏ hàng thành công, chuyển hướng tới trang giỏ hàng
+                        updateCounts(); // <--- Gọi update ở đây để cập nhật số giỏ hàng
+
                         window.location.href = '{{ route('client.carts.index') }}';
                     } else {
                         alert(data.error || 'Đã có lỗi xảy ra');
@@ -327,9 +329,23 @@
                             svg.setAttribute('fill', 'none');
                             btn.dataset.liked = 'false';
                         }
+                        updateCounts(); // 
+
                     })
                     .catch(() => alert('Lỗi khi thêm vào danh sách yêu thích.'));
             });
         });
+
+        ///////////////#
+        function updateCounts() {
+            fetch('/counts')
+                .then(res => res.json())
+                .then(data => {
+                    const cartCountElem = document.querySelector('.countProduct');
+                    const wishCountElem = document.querySelector('.countWishlist');
+                    if (cartCountElem) cartCountElem.textContent = data.cartCount;
+                    if (wishCountElem) wishCountElem.textContent = data.wishlistCount;
+                });
+        }
     </script>
 @endsection

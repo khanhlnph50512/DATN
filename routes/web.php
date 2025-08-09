@@ -26,6 +26,9 @@ use App\Http\Controllers\Clients\ProfileController;
 use App\Http\Controllers\Clients\ReviewController;
 use App\Http\Controllers\Clients\VnpayController;
 use App\Http\Controllers\Clients\WishlistController;
+use App\Models\Client\Cart;
+use App\Models\Client\User;
+use Illuminate\Support\Facades\Auth;
 
 // Trang chủ
 Route::get('/', function () {
@@ -102,6 +105,27 @@ Route::middleware('auth')->group(function () {
 Route::get('/checkout/success', function () {
     return view('client.checkout.success');
 })->name('client.checkout.success');
+////////////////
+Route::get('/counts', function () {
+    $userId = Auth::id();
+    $sessionId = session()->getId();
+
+    $cartCount = Cart::when($userId, fn($q) => $q->where('user_id', $userId))
+        ->when(!$userId, fn($q) => $q->where('session_id', $sessionId))
+        ->distinct('product_id')
+        ->count('product_id');
+
+    $wishlistCount = 0;
+    if ($userId) {
+        $user = User::find($userId);
+        $wishlistCount = $user->wishlist()->distinct('product_id')->count('product_id');
+    }
+
+    return response()->json([
+        'cartCount' => $cartCount,
+        'wishlistCount' => $wishlistCount
+    ]);
+});
 // ========================= ADMIN =========================
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');

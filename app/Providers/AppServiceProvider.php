@@ -28,5 +28,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
     $this->app['router']->aliasMiddleware('role', CheckRole::class);
+    //////////////////
+    
 }
 }

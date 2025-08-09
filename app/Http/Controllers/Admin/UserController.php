@@ -60,24 +60,25 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+ public function update(Request $request, string $id)
 {
     $user = User::findOrFail($id);
 
     $request->validate([
-        'role' => 'required|in:admin,customers',
+        'status' => 'required|in:active,disabled',
     ]);
 
-    // Nếu người dùng hiện tại là admin, không cho phép chuyển thành customer
-    if ($user->role === 'admin' && $request->role === 'customers') {
-        return redirect()->route('admin.users.index')->with('error', 'Không thể chuyển quyền admin thành khách hàng');
+    // Không cho phép vô hiệu hóa tài khoản admin
+    if ($user->role === 'admin' && $request->status === 'disabled') {
+        return redirect()->route('admin.users.index')
+            ->with('error', 'Không thể vô hiệu hóa tài khoản admin.');
     }
 
-    // Nếu người dùng hiện tại là customer và muốn chuyển thành admin => cho phép
-    $user->role = $request->role;
+    $user->status = $request->status;
     $user->save();
 
-    return redirect()->route('admin.users.index')->with('success', 'Cập nhật vai trò người dùng thành công');
+    return redirect()->route('admin.users.index')
+        ->with('success', 'Cập nhật trạng thái tài khoản thành công.');
 }
 
     /**

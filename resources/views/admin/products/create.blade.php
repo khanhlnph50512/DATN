@@ -99,105 +99,136 @@
 
             {{-- Số lượng --}}
             <div class="mb-3">
-                <label class="form-label">Số lượng</label>
-                <input type="number" name="quantity" class="form-control" required>
+                <p><strong>Tổng số lượng:</strong> <span id="totalQuantity">0</span></p>
             </div>
 
             {{-- Biến thể sản phẩm --}}
             <hr>
-            <h5>Biến thể sản phẩm</h5>
-            <div id="variant-container">
-                <div class="row variant-item mb-3">
-                    {{-- Màu sắc --}}
-                    <div class="col-md-3">
-                        <label>Màu sắc</label>
-                        <select name="variations[0][color_id]" class="form-select">
-                            @foreach ($colors as $color)
-                                <option value="{{ $color->id }}">
-                                    {{ $color->name }} ({{ $color->code }})
-                                </option>
-                            @endforeach
-                        </select>
+            <div class="mb-3">
+                <label class="form-label">Biến thể</label>
 
-                    </div>
-
-                    {{-- Kích cỡ --}}
-                    <div class="col-md-3">
-                        <label>Kích cỡ</label>
-                        <select name="variations[0][size_id]" class="form-select">
-                            @foreach ($sizes as $size)
-                                <option value="{{ $size->id }}">{{ $size->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    {{-- Giá --}}
-                    <div class="col-md-2">
-                        <label>Giá</label>
-                        <input type="number" name="variations[0][price]" class="form-control">
-                    </div>
-
-                    {{-- Giá giảm --}}
-                    <div class="col-md-2">
-                        <label>Giá khuyến mãi</label>
-                        <input type="number" name="variations[0][price_sale]" class="form-control">
-                    </div>
-
-                    {{-- Số lượng --}}
-                    <div class="col-md-2">
-                        <label>Số lượng</label>
-                        <input type="number" name="variations[0][quantity]" class="form-control">
+                <div id="variant-container">
+                    <div class="row variant-item mb-3">
+                        <div class="col-md-3">
+                            <select name="variations[0][color_id]" class="form-select">
+                                @foreach ($colors as $color)
+                                    <option value="{{ $color->id }}">{{ $color->name }} ({{ $color->code }})</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select name="variations[0][size_id]" class="form-select">
+                                @foreach ($sizes as $size)
+                                    <option value="{{ $size->id }}">{{ $size->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" name="variations[0][price]" class="form-control" placeholder="Giá">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" name="variations[0][price_sale]" class="form-control"
+                                placeholder="Giá KM">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" name="variations[0][quantity]" class="form-control" placeholder="SL">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-danger btn-sm remove-variant">X</button>
+                        </div>
                     </div>
                 </div>
+
+                <button type="button" id="add-variant" class="btn btn-secondary mt-2">+ Thêm biến thể</button>
             </div>
 
-            <button type="button" class="btn btn-secondary mb-3" onclick="addVariant()">+ Thêm biến thể</button>
+            <script>
+                let variantIndex = 1;
 
-            <div class="mt-4">
-                <button type="submit" class="btn btn-primary">Lưu sản phẩm</button>
-                <a href="{{ route('admin.products.index') }}" class="btn btn-danger">Hủy</a>
-            </div>
-        </form>
-    </div>
-
-    <script>
-        let variantIndex = 1;
-
-        function addVariant() {
-            const container = document.getElementById('variant-container');
-
-            const variantHTML = `
+                function createVariantHTML(index) {
+                    return `
         <div class="row variant-item mb-3">
             <div class="col-md-3">
-                <select name="variations[${variantIndex}][color_id]" class="form-select">
+                <select name="variations[${index}][color_id]" class="form-select">
                     @foreach ($colors as $color)
-                        <option value="{{ $color->id }}" style="background-color: {{ $color->code }}; color: #fff;">
-                            ● {{ $color->name }}
-                        </option>
+                        <option value="{{ $color->id }}">{{ $color->name }} ({{ $color->code }})</option>
                     @endforeach
                 </select>
             </div>
             <div class="col-md-3">
-                <select name="variations[${variantIndex}][size_id]" class="form-select">
+                <select name="variations[${index}][size_id]" class="form-select">
                     @foreach ($sizes as $size)
                         <option value="{{ $size->id }}">{{ $size->name }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="col-md-2">
-                <input type="number" name="variations[${variantIndex}][price]" class="form-control">
+                <input type="number" name="variations[${index}][price]" class="form-control" placeholder="Giá">
             </div>
             <div class="col-md-2">
-                <input type="number" name="variations[${variantIndex}][price_sale]" class="form-control">
+                <input type="number" name="variations[${index}][price_sale]" class="form-control" placeholder="Giá KM">
             </div>
             <div class="col-md-2">
-                <input type="number" name="variations[${variantIndex}][quantity]" class="form-control">
+                <input type="number" name="variations[${index}][quantity]" class="form-control" placeholder="SL">
             </div>
-        </div>
-        `;
+            <div class="col-md-2">
+                <button type="button" class="btn btn-danger btn-sm remove-variant">X</button>
+            </div>
+        </div>`;
+                }
 
-            container.insertAdjacentHTML('beforeend', variantHTML);
-            variantIndex++;
-        }
-    </script>
-@endsection
+                function updateRemoveButtons() {
+                    const variants = document.querySelectorAll('.variant-item');
+                    variants.forEach(variant => {
+                        const btn = variant.querySelector('.remove-variant');
+                        btn.style.display = (variants.length === 1) ? 'none' : 'inline-block';
+                    });
+                }
+
+                // Thêm biến thể
+                document.getElementById('add-variant').addEventListener('click', function() {
+                    document.getElementById('variant-container').insertAdjacentHTML('beforeend', createVariantHTML(
+                        variantIndex));
+                    variantIndex++;
+                    updateRemoveButtons();
+                });
+
+                // Xóa biến thể
+                document.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('remove-variant')) {
+                        e.target.closest('.variant-item').remove();
+                        updateRemoveButtons();
+                    }
+                });
+
+                // Khởi tạo
+                updateRemoveButtons();
+                /////////////////
+                function updateTotalQuantity() {
+                    let total = 0;
+                    document.querySelectorAll('input[name$="[quantity]"]').forEach(input => {
+                        total += parseInt(input.value) || 0;
+                    });
+                    document.getElementById('totalQuantity').textContent = total;
+                }
+
+                document.addEventListener('input', function(e) {
+                    if (e.target.name.endsWith('[quantity]')) {
+                        updateTotalQuantity();
+                    }
+                });
+                //////////////
+                function updateRemoveButtons() {
+                    const variants = document.querySelectorAll('.variant-item');
+                    variants.forEach((variant, index) => {
+                        const btn = variant.querySelector('.remove-variant');
+                        if (variants.length === 1) {
+                            btn.style.display = 'none'; // Ẩn nút
+                        } else {
+                            btn.style.display = 'inline-block'; // Hiện nút
+                        }
+                    });
+                }
+            </script>
+
+        @endsection

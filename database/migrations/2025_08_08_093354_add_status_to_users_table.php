@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('reviews', function (Blueprint $table) {
-           $table->unsignedBigInteger('order_id')->after('product_id');
-        $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+        Schema::table('users', function (Blueprint $table) {
+            $table->enum('status', ['active', 'disabled'])
+              ->default('active')
+              ->after('password');
         });
     }
 
@@ -22,8 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('reviews', function (Blueprint $table) {
-            //
+        Schema::table('users', function (Blueprint $table) {
+             $table->dropColumn('status');
         });
     }
 };

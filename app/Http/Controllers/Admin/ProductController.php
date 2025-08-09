@@ -44,7 +44,6 @@ class ProductController extends Controller
             'category_id'   => 'required|exists:categories,id',
             'price'         => 'nullable|numeric',
             'price_sale'    => 'nullable|numeric',
-            'quantity'      => 'nullable|integer',
             'status'        => 'required|boolean',
             'images.*'      => 'image|mimes:jpg,jpeg,png',
             'primary_image' => 'required|integer',
@@ -66,7 +65,6 @@ class ProductController extends Controller
                 'category_id' => $request->category_id,
                 'price'       => $request->price,
                 'price_sale'  => $request->price_sale,
-                'quantity'    => $request->quantity,
                 'status'      => $request->status,
                 'gender' => $request->gender,
                 'description' => $request->description,
@@ -98,6 +96,8 @@ class ProductController extends Controller
                         'quantity'    => $variation['quantity'],
                     ]);
                 }
+                $product->quantity = $product->variations()->sum('quantity');
+                $product->save();
             }
             DB::commit();
             return redirect()->route('admin.products.index')->with('success', 'Thêm sản phẩm thành công!');
@@ -132,7 +132,6 @@ class ProductController extends Controller
             'category_id'   => 'required|exists:categories,id',
             'price'         => 'nullable|numeric',
             'price_sale'    => 'nullable|numeric',
-            'quantity'      => 'nullable|integer',
             'status'        => 'required|boolean',
             'images.*'      => 'image|mimes:jpg,jpeg,png',
             'primary_image' => 'nullable|integer',
@@ -154,7 +153,6 @@ class ProductController extends Controller
                 'category_id' => $request->category_id,
                 'price'       => $request->price,
                 'price_sale'  => $request->price_sale,
-                'quantity'    => $request->quantity,
                 'status'      => $request->status,
                 'gender' => $request->gender,
                 'description' => $request->description,
@@ -192,6 +190,8 @@ class ProductController extends Controller
                     'quantity'    => $variation['quantity'],
                 ]);
             }
+            $product->quantity = $product->variations()->sum('quantity');
+            $product->save();
 
             DB::commit();
             return redirect()->route('admin.products.index')->with('success', 'Cập nhật sản phẩm thành công!');
@@ -200,21 +200,21 @@ class ProductController extends Controller
             return back()->withErrors(['error' => 'Đã có lỗi xảy ra: ' . $e->getMessage()]);
         }
     }
-   public function destroy($id)
-{
-    $product = Product::findOrFail($id);
+    public function destroy($id)
+    {
+        $product = Product::findOrFail($id);
 
-    // Kiểm tra sản phẩm có đang tồn tại trong giỏ hàng không
-    $isInCart = Cart::where('product_id', $id)->exists();
+        // Kiểm tra sản phẩm có đang tồn tại trong giỏ hàng không
+        $isInCart = Cart::where('product_id', $id)->exists();
 
-    if ($isInCart) {
-        return redirect()->route('admin.products.index')->withErrors(['error' => 'Không thể xoá sản phẩm vì đang có trong giỏ hàng của khách hàng.']);
+        if ($isInCart) {
+            return redirect()->route('admin.products.index')->withErrors(['error' => 'Không thể xoá sản phẩm vì đang có trong giỏ hàng của khách hàng.']);
+        }
+
+        $product->delete();
+
+        return redirect()->route('admin.products.index')->with('success', 'Đã xoá tạm sản phẩm!');
     }
-
-    $product->delete();
-
-    return redirect()->route('admin.products.index')->with('success', 'Đã xoá tạm sản phẩm!');
-}
     public function trash()
     {
         $products = Product::onlyTrashed()->with(['brand', 'category', 'primaryImage'])->paginate(10);
