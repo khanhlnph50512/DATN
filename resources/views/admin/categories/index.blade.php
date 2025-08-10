@@ -1,10 +1,10 @@
 @extends('admin.layouts.adminAnatats')
 @section('content')
-@if ($errors->any())
-    <div class="alert alert-danger">
-        {{ $errors->first() }}
-    </div>
-@endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            {{ $errors->first() }}
+        </div>
+    @endif
 
     @if (session('success'))
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -31,17 +31,19 @@
 
 
 
-            <h4 class="py-3 breadcrumb-wrapper mb-4">
-                <span class="text-muted fw-light">eCommerce /</span> Category List
-            </h4>
+
 
             <!-- Product List Widget -->
 
             <!-- Product List Table -->
             <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title">Filter</h5>
+                <!-- Tiêu đề chính -->
+                <div class="px-4 pt-3">
+                    <h4 class="breadcrumb-wrapper mb-4">
+                        <span class="text-muted fw-light"></span> Danh sách danh mục
+                    </h4>
                 </div>
+
                 <!-- Nút Thêm Danh Mục -->
                 <div class="px-4 pb-3 d-flex justify-content-end">
                     <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">

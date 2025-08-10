@@ -76,7 +76,7 @@
         </h6>
         <ul class="nav flex-column mb-3">
             <li class="nav-item">
-                <a class="nav-link text-white active" href="#">
+                <a class="nav-link text-white active" href="{{ route('admin.dashboard') }}">
                     <i class="fas fa-tachometer-alt me-2"></i> Tổng quan hệ thống
                 </a>
             </li>
@@ -112,7 +112,7 @@
             </li>
 
 
-           
+
         </ul>
 
         <!-- Nhóm: Quản lý người dùng -->

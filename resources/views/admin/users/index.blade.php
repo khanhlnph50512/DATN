@@ -3,23 +3,23 @@
 @section('title', 'Danh sách người dùng')
 
 @section('content')
-    <div class="container-fluid px-4">
-        <h1 class="mt-4">Danh sách người dùng</h1>
+    <div class="px-4" style="width: 100%; background-color: white;">
+        <h1 class="mt-4 text-dark">Danh sách người dùng</h1>
 
         @if (session('success'))
             <div class="alert alert-success mt-2">
                 {{ session('success') }}
             </div>
         @endif
- @if (session('error'))
+
+        @if (session('error'))
             <div class="alert alert-warning mt-2">
                 {{ session('error') }}
             </div>
         @endif
 
-
-        <table class="table table-bordered table-striped">
-            <thead class="table-dark">
+        <table class="table table-bordered table-striped w-100">
+            <thead style="background-color: #f8f9fa; color: black;">
                 <tr>
                     <th>ID</th>
                     <th>Mã khách hàng</th>
@@ -27,7 +27,7 @@
                     <th>Email</th>
                     <th>Avatar</th>
                     <th>Phone</th>
-                    <th>address</th>
+                    <th>Address</th>
                     <th>Vai trò</th>
                     <th>Ngày tạo</th>
                     <th>Hành động</th>
@@ -53,13 +53,11 @@
                             <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-warning">
                                 <i class="fa fa-edit"></i>
                             </a>
-
                         </td>
-
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="text-center">Không có người dùng nào.</td>
+                        <td colspan="10" class="text-center">Không có người dùng nào.</td>
                     </tr>
                 @endforelse
             </tbody>

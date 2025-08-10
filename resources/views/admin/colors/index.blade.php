@@ -27,7 +27,7 @@
             @endif
 
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="mb-0">Danh sách màu</h2>
+                <h2 class="mb-0" style="color:black">Danh sách màu</h2>
                 <a href="{{ route('admin.colors.create') }}" class="btn btn-primary">
                     <i class="bx bx-plus me-1"></i> Thêm màu
                 </a>

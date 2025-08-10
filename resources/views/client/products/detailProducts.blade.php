@@ -1,6 +1,28 @@
 @extends('.client.layouts.main')
 @section('content')
+    <style>
+        .color-circle {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
 
+        .color-option:hover .color-circle {
+            transform: scale(1.1);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Khi radio được chọn */
+        .color-option input[type="radio"]:checked+.color-circle {
+            border-color: #000;
+            /* viền đen khi chọn */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+            transform: scale(1.1);
+        }
+    </style>
     <!-- CONTENT -->
     <div class="prd-detail container-fluid">
         <input type="hidden" id="is-page-product-detail" value="1">
@@ -72,17 +94,9 @@
                                 $colors = $product->variations->pluck('color')->unique('id');
                             @endphp
                             @foreach ($colors as $color)
-                                <label style="cursor: pointer;">
+                                <label class="color-option" style="cursor: pointer;">
                                     <input type="radio" name="color_id" value="{{ $color->id }}" hidden>
-                                    <span
-                                        style="
-                                        display: inline-block;
-                                        width: 30px;
-                                        height: 30px;
-                                        border-radius: 50%;
-                                        background-color: {{ $color->code }};
-                                        border: 1px solid #ccc;
-                                    "></span>
+                                    <span class="color-circle" style="background-color: {{ $color->code }};"></span>
                                 </label>
                             @endforeach
                         </div>
@@ -131,8 +145,8 @@
                                     fill="{{ auth()->check() && optional(auth()->user()->wishlist)->contains($product->id) ? 'deeppink' : 'none' }}"
                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5
-                                     5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78
-                                     1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                                             5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78
+                                             1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                                 </svg>
                             </a>
 
@@ -329,7 +343,7 @@
                             svg.setAttribute('fill', 'none');
                             btn.dataset.liked = 'false';
                         }
-                        updateCounts(); // 
+                        updateCounts(); //
 
                     })
                     .catch(() => alert('Lỗi khi thêm vào danh sách yêu thích.'));

@@ -27,7 +27,7 @@
             @endif
 
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="mb-0">Danh sách size giày</h2>
+                <h2 class="mb-0" style="color:black">Danh sách size </h2>
                 <a href="{{ route('admin.sizes.create') }}" class="btn btn-primary">
                     <i class="bx bx-plus me-1"></i> Thêm size
                 </a>
@@ -69,7 +69,7 @@
                 </table>
             </div>
 
-           
+
         </div>
     </div>
 @endsection
