@@ -25,8 +25,8 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'  => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required|string|max:255|unique:categories,name',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $imagePath = null;
@@ -52,8 +52,8 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $request->validate([
-            'name'  => 'required|string|max:255',
-            'image' => 'nullable|image|max:2048',
+            'name' => 'required|string|max:255|unique:categories,name',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $data = [
@@ -73,13 +73,13 @@ class CategoryController extends Controller
         return redirect()->back()->with('success', 'Danh mục đã được cập nhật!');
     }
     public function destroy(Category $category)
-{
-    // Kiểm tra xem danh mục có sản phẩm nào không
-    if ($category->products()->count() > 0) {
-        return redirect()->route('admin.categories.index')->withErrors(['error' => 'Không thể xoá danh mục vì vẫn còn sản phẩm liên quan.']);
-    }
+    {
+        // Kiểm tra xem danh mục có sản phẩm nào không
+        if ($category->products()->count() > 0) {
+            return redirect()->route('admin.categories.index')->withErrors(['error' => 'Không thể xoá danh mục vì vẫn còn sản phẩm liên quan.']);
+        }
 
-    $category->delete();
-    return redirect()->route('admin.categories.index')->with('success', 'Danh mục đã được xóa!');
-}
+        $category->delete();
+        return redirect()->route('admin.categories.index')->with('success', 'Danh mục đã được xóa!');
+    }
 }

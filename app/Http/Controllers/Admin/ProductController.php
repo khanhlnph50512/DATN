@@ -42,7 +42,7 @@ class ProductController extends Controller
             'name'          => 'required|string|max:255',
             'brand_id'      => 'required|exists:brands,id',
             'category_id'   => 'required|exists:categories,id',
-            'price'         => 'nullable|numeric',
+            'price'         => 'required|numeric',
             'price_sale'    => 'nullable|numeric',
             'status'        => 'required|boolean',
             'images.*'      => 'image|mimes:jpg,jpeg,png',
@@ -68,7 +68,7 @@ class ProductController extends Controller
                 'status'      => $request->status,
                 'gender' => $request->gender,
                 'description' => $request->description,
-
+                'quantity'    => 0,
             ]);
 
             // Xử lý ảnh
@@ -130,7 +130,7 @@ class ProductController extends Controller
             'name'          => 'required|string|max:255',
             'brand_id'      => 'required|exists:brands,id',
             'category_id'   => 'required|exists:categories,id',
-            'price'         => 'nullable|numeric',
+            'price'         => 'required|numeric',
             'price_sale'    => 'nullable|numeric',
             'status'        => 'required|boolean',
             'images.*'      => 'image|mimes:jpg,jpeg,png',
@@ -156,7 +156,7 @@ class ProductController extends Controller
                 'status'      => $request->status,
                 'gender' => $request->gender,
                 'description' => $request->description,
-
+                'quantity'    => 0,
             ]);
 
             // Cập nhật ảnh (nếu có)
@@ -173,6 +173,12 @@ class ProductController extends Controller
                     ProductImage::create([
                         'product_id' => $product->id,
                         'image_url'  => $path,
+                        'is_primary' => ($index == $request->primary_image) ? 1 : 0,
+                    ]);
+                }
+            } elseif ($request->filled('primary_image')) {
+                foreach ($product->images as $index => $img) {
+                    $img->update([
                         'is_primary' => ($index == $request->primary_image) ? 1 : 0,
                     ]);
                 }

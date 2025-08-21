@@ -175,10 +175,10 @@
     </div>
 
     <script>
-    let variantIndex = {{ count($product->variations) }};
+        let variantIndex = {{ count($product->variations) }};
 
-    function createVariantHTML(index) {
-        return `
+        function createVariantHTML(index) {
+            return `
             <div class="row variant-item mb-3">
                 <div class="col-md-3">
                     <label>Màu sắc</label>
@@ -213,50 +213,51 @@
                 </div>
             </div>
         `;
-    }
+        }
 
-    function updateTotalQuantity() {
-        let total = 0;
-        document.querySelectorAll('input[name$="[quantity]"]').forEach(input => {
-            total += parseInt(input.value) || 0;
-        });
-        document.getElementById('totalQuantity').textContent = total;
-    }
+        function updateTotalQuantity() {
+            let total = 0;
+            document.querySelectorAll('input[name$="[quantity]"]').forEach(input => {
+                total += parseInt(input.value) || 0;
+            });
+            document.getElementById('totalQuantity').textContent = total;
+        }
 
-    function updateRemoveButtons() {
-        const variants = document.querySelectorAll('.variant-item');
-        variants.forEach(variant => {
-            const btn = variant.querySelector('.remove-variant');
-            btn.style.display = (variants.length === 1) ? 'none' : 'inline-block';
-        });
-    }
+        function updateRemoveButtons() {
+            const variants = document.querySelectorAll('.variant-item');
+            variants.forEach(variant => {
+                const btn = variant.querySelector('.remove-variant');
+                btn.style.display = (variants.length === 1) ? 'none' : 'inline-block';
+            });
+        }
 
-    // Thêm biến thể mới
-    document.getElementById('add-variant').addEventListener('click', function() {
-        document.getElementById('variant-container').insertAdjacentHTML('beforeend', createVariantHTML(variantIndex));
-        variantIndex++;
-        updateRemoveButtons();
-    });
-
-    // Xóa biến thể
-    document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('remove-variant')) {
-            e.target.closest('.variant-item').remove();
+        // Thêm biến thể mới
+        document.getElementById('add-variant').addEventListener('click', function() {
+            document.getElementById('variant-container').insertAdjacentHTML('beforeend', createVariantHTML(
+                variantIndex));
+            variantIndex++;
             updateRemoveButtons();
-            updateTotalQuantity();
-        }
-    });
+        });
 
-    // Cập nhật tổng số lượng khi nhập
-    document.addEventListener('input', function(e) {
-        if (e.target.name.endsWith('[quantity]')) {
-            updateTotalQuantity();
-        }
-    });
+        // Xóa biến thể
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-variant')) {
+                e.target.closest('.variant-item').remove();
+                updateRemoveButtons();
+                updateTotalQuantity();
+            }
+        });
 
-    // Khởi tạo ban đầu
-    updateTotalQuantity();
-    updateRemoveButtons();
-</script>
+        // Cập nhật tổng số lượng khi nhập
+        document.addEventListener('input', function(e) {
+            if (e.target.name.endsWith('[quantity]')) {
+                updateTotalQuantity();
+            }
+        });
+
+        // Khởi tạo ban đầu
+        updateTotalQuantity();
+        updateRemoveButtons();
+    </script>
 
 @endsection

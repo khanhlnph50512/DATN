@@ -16,16 +16,14 @@
             });
         </script>
     @endif
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3">
 
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3">
         <div class="d-flex flex-column justify-content-center">
             <h4 class="mb-1 mt-3">Add a new Category</h4>
         </div>
-
     </div>
 
     <div class="row">
-
         <!-- First column-->
         <div class="col-12 col-lg-8">
             <!-- category Information -->
@@ -37,16 +35,26 @@
                     method="post">
                     @csrf
                     <div class="card-body">
+                        <!-- Name -->
                         <div class="mb-3">
                             <label class="form-label" for="ecommerce-category-name">Name</label>
-                            <input type="text" class="form-control" id="ecommerce-category-name"
-                                placeholder="Category name" name="name" aria-label="Category name">
+                            <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                id="ecommerce-category-name" placeholder="Category name" name="name"
+                                value="{{ old('name') }}" aria-label="Category name">
+                            @error('name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
+
+                        <!-- Image -->
                         <div class="row mb-3">
-                            
-                            <div class="col"><label class="form-label" for="ecommerce-category-barcode">Image</label>
-                                <input type="file" class="form-control" id="ecommerce-category-barcode"
-                                    placeholder="Image" name="image" aria-label="category image">
+                            <div class="col">
+                                <label class="form-label" for="ecommerce-category-barcode">Image</label>
+                                <input type="file" class="form-control @error('image') is-invalid @enderror"
+                                    id="ecommerce-category-barcode" name="image" aria-label="category image">
+                                @error('image')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -61,10 +69,7 @@
                         <i class="bx bx-plus me-1"></i> Add Category
                     </button>
                 </div>
-
             </div>
         </div>
-        <!-- /Second column -->
     </div>
-    <!-- / Content -->
 @endsection

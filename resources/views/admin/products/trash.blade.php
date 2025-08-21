@@ -30,11 +30,11 @@
                             @csrf
                             <button class="btn btn-success btn-sm">Khôi phục</button>
                         </form>
-                        <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST"
-                            onsubmit="return confirm('Bạn có chắc muốn xoá?');">
+                        <form action="{{ route('admin.products.forceDelete', $product->id) }}" method="POST"
+                            onsubmit="return confirm('Bạn có chắc muốn xoá vĩnh viễn?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Xoá</button>
+                            <button type="submit" class="btn btn-danger btn-sm">Xoá vĩnh viễn</button>
                         </form>
                     </td>
                 </tr>

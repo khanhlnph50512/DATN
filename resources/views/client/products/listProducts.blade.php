@@ -7,12 +7,12 @@
 
             <!-- END FILTER ON PC VERSION (will be hidden on mobile)-->
 
-            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 prd1-right">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 prd1-right">
 
                 <div class="row prd1-right-items">
                     @if ($products->count())
                         @foreach ($products as $product)
-                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 item">
+                            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 item">
                                 <div class="thumbnail">
                                     <div class="cont-item">
                                         <a
@@ -32,9 +32,7 @@
                                             href="{{ route('client.products.detailProducts', ['slug' => Str::slug($product->name), 'id' => $product->id]) }}">
                                             MUA NGAY
                                         </a>
-                                        <a class="btn btn-prd1-heart addToWishList" href="javascript:void(0)"
-                                            data-liked="false" data-action="transferCartToWishList"
-                                            data-idProduct="{{ $product->id }}"></a>
+                                       
                                     </div>
                                     <div class="caption">
                                         <h3 class="type">New Arrival</h3>
